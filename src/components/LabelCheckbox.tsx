@@ -28,7 +28,7 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
     const { checked, data, children, pointer, onClick } = this.props;
 
     return <div className="form-group">
-      <Label className="form-checkbox is-error" pointer={pointer}>
+      <Label className="form-checkbox" pointer={pointer}>
         <Checkbox 
           data={data}
           checked={checked}
