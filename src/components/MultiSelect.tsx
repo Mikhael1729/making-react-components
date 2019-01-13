@@ -22,6 +22,7 @@ export default class MultiSelect<T> extends React.Component<
   MultiSelectProps<T>,
   MultiSelectState
   > {
+  //#region Properties
   state: MultiSelectState = {
     expanded: false,
     selectedText: [],
@@ -30,16 +31,10 @@ export default class MultiSelect<T> extends React.Component<
 
   private titleRef: any = React.createRef();
   private checkboxesRef: any = React.createRef();
-  private lettersDivRef: any = React.createRef();
+  private parentDivRef: any = React.createRef();
+  //#endregion
 
-  componentDidMount() {
-    window.addEventListener("resize", this.changeSize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.changeSize);
-  }
-
+  //#region Lifecycle Methods
   componentWillMount() {
     this.setState(prevState => {
       const selectedText = [...prevState.selectedText];
@@ -53,50 +48,78 @@ export default class MultiSelect<T> extends React.Component<
       return { selectedText }
     })
   }
+  componentDidMount() {
+    const parent = this.parentDivRef.current;
 
-  async componentWillReceiveProps(nextProps: MultiSelectProps<T>) {
-    if (this.props.disabled === true && nextProps.disabled === false) {
+    // Puting the same width of the label parent to checkboxs div.
+    window.addEventListener("resize", this.changeSize);
+
+    // Subscribing of focus in of parent div
+    parent.addEventListener('focusin', this.focusIn);
+
+    // Subscribing of focus out of parent div.
+    parent.addEventListener('focusout', this.focusOut);
+
+
+    // Adding the same size of the label parent to checkboxs div
+    this.changeSize();
+  }
+
+  componentWillReceiveProps(nextProps: MultiSelectProps<T>) {
+    // Reset selected options.
+    if (this.props.disabled && !nextProps.disabled)
       this.setState({ selectedText: [] })
-    }
+  }
+
+  componentWillUnmount() {
+    const parent = this.parentDivRef.current;
+    window.removeEventListener("resize", this.changeSize)
+    parent.removeEventListener("focusin", this.focusIn)
+    parent.removeEventListener("focusout", this.focusOut)
+  }
+  //#endregion
+
+  //#region Private Methods
+  private focusIn = (e: any) => {
+    const parent = this.parentDivRef.current
+    const enteringParent = !parent.contains(e.relatedTarget)
+
+    if (enteringParent && !this.state.expanded)
+      this.showCheckboxes()
+  }
+
+  private focusOut = (e: any) => {
+    const parent = this.parentDivRef.current
+    const leavingParent = !parent.contains(e.relatedTarget)
+
+    if (leavingParent && this.state.expanded)
+      this.hideCheckboxes()
   }
 
   private changeSize = () => {
-    const referencia = this.titleRef.current;
-    const checkboxes = this.checkboxesRef.current;
+    const titleRef = this.titleRef.current
+    const checkboxesRef = this.checkboxesRef.current
 
-    if (referencia !== undefined && checkboxes !== undefined) {
-      checkboxes.style.width = `${referencia.clientWidth}px`;
+    if (titleRef !== undefined && checkboxesRef !== undefined) {
+      checkboxesRef.style.width = `${titleRef.clientWidth + 2}px`;
     }
   };
 
-  private showCheckboxes = () => {
-    if (!this.props.disabled) {
-      this.changeSize();
-      this.setState(prevState => {
-        return {
-          expanded: !prevState.expanded
-        };
-      });
-    }
-  };
+  private showCheckboxes = () => this.setState({ expanded: true })
 
-  private hideCheckboxes = () => {
-    this.changeSize();
-    this.setState({ expanded: false });
-  };
+  private hideCheckboxes = () => this.setState({ expanded: false })
 
-  private change = async (checked: boolean, data: T, text: string) => {
-    this.lettersDivRef.current.focus();
+  private change = (checked: boolean, data: T, text: string) => {
     this.props.onChange ? this.props.onChange(checked, data, text) : null;
 
     this.setState(prevState => {
-      const letters = [...prevState.selectedText];
-      const index = letters.findIndex(l => l === text);
+      const letters = [...prevState.selectedText]
+      const index = letters.findIndex(l => l === text)
 
       if (!checked) {
-        letters.splice(index, 1);
+        letters.splice(index, 1)
       } else {
-        letters.push(text);
+        letters.push(text)
       }
 
       return { selectedText: letters, expanded: true };
@@ -109,8 +132,8 @@ export default class MultiSelect<T> extends React.Component<
       selectedLetters = "";
       this.state.selectedText.forEach((text, index) => {
         selectedLetters +=
-          text + (index < this.state.selectedText.length - 1 ? ", " : "");
-      });
+          text + (index < this.state.selectedText.length - 1 ? ", " : "")
+      })
     }
 
     return selectedLetters;
@@ -147,7 +170,9 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   private onChangeInput = (e: any) => this.setState({ text: e.target.value })
+  //#endregion
 
+  //#region Render
   render() {
     // Expanded.
     const { expanded } = this.state;
@@ -173,20 +198,23 @@ export default class MultiSelect<T> extends React.Component<
 
     return (
       <div
-        ref={this.lettersDivRef}
+        ref={this.parentDivRef}
         tabIndex={0}
-        onBlur={this.hideCheckboxes}
         className="checkboxes-select"
       >
         {/* Label */}
-        <div ref={this.titleRef}>
-          <div
+        <div
+          ref={this.titleRef}
+          onClick={this.showCheckboxes}
+          className={labelClasses}
+          style={{ borderBottom }}
+        >
+          <input
+            type="text"
+            className="input-search"
+            value={this.state.text}
             onClick={this.showCheckboxes}
-            className={labelClasses}
-            style={{ borderBottom }}
-          >
-            <option>{!this.props.disabled ? selectedLetters : this.props.defaultText}</option>
-          </div>
+            onChange={this.onChangeInput} />
         </div>
 
         {/* Options */}
@@ -209,4 +237,5 @@ export default class MultiSelect<T> extends React.Component<
       </div>
     );
   }
+  //#endregion
 }
