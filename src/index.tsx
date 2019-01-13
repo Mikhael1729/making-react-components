@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import './styles/index.css';
 import App from './views/App';
+import 'spectre.css';
 
 ReactDOM.render(
   <App />,

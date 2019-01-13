@@ -15,6 +15,7 @@ export interface MultiSelectProps<T> {
 export interface MultiSelectState {
   expanded: boolean;
   selectedText: string[];
+  text: string;
 }
 
 export default class MultiSelect<T> extends React.Component<
@@ -23,7 +24,8 @@ export default class MultiSelect<T> extends React.Component<
   > {
   state: MultiSelectState = {
     expanded: false,
-    selectedText: []
+    selectedText: [],
+    text: ""
   };
 
   private titleRef: any = React.createRef();
@@ -143,6 +145,9 @@ export default class MultiSelect<T> extends React.Component<
 
     return labels;
   }
+
+  private onChangeInput = (e: any) => this.setState({ text: e.target.value })
+
   render() {
     // Expanded.
     const { expanded } = this.state;
@@ -195,9 +200,9 @@ export default class MultiSelect<T> extends React.Component<
         >
           {loading
             ? <span>
-                <br />
-                <i className="loading" />
-                &nbsp;
+              <br />
+              <i className="loading" />
+              &nbsp;
               </span>
             : Labels}
         </div>

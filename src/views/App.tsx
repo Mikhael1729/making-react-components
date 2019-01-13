@@ -4,7 +4,7 @@ import TestArea from './TestArea';
 class App extends React.Component {
   public render() {
     return (
-      <main>
+      <main style={{ padding: "20px"}}>
         <TestArea />
       </main>
     );

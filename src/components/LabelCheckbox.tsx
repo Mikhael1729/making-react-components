@@ -27,16 +27,17 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
   render() {
     const { checked, data, children, pointer, onClick } = this.props;
 
-    return <form>
-      <Label className={styles.Label} pointer={pointer}>
+    return <div className="form-group">
+      <Label className="form-checkbox is-error" pointer={pointer}>
         <Checkbox 
           data={data}
           checked={checked}
           onChange={this.onChange}
           onClick={onClick} />
 
-        {children}
+          <i className="form-icon" style={{ marginLeft: "10px" }} />{" "}
+          &nbsp;&nbsp;{this.props.children}
       </Label>
-    </form>
+    </div>
   }
 }
