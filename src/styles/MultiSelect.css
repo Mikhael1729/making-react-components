@@ -1,0 +1,40 @@
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes-select {
+  cursor: pointer;
+}
+
+.checkboxes-select:focus {
+  outline: none !important;
+  border-bottom: transparent;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.checkboxes-select:hover {
+  outline: none !important;
+}
+
+#checkboxes {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #caced7;
+  border-left: 1px solid #caced7;
+  border-right: 1px solid #caced7;
+  z-index: 1;
+  padding-right: 0px;
+  position: absolute;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+#checkboxes label:hover {
+  background-color: #e5e5e5;
+}
