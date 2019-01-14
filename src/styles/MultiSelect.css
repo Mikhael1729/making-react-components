@@ -14,7 +14,7 @@
 }
 
 #checkboxes {
-  border-top: 1px solid transparent;
+  border-top: 0px solid transparent;
   border-bottom: 1px solid #caced7;
   border-left: 1px solid #caced7;
   border-right: 1px solid #caced7;
@@ -25,10 +25,19 @@
   display: flex;
   flex-direction: column;
   user-select: none;
+  max-height: "200px";
+  overflow-y: auto;
 }
 
 #checkboxes label:hover {
   background-color: #e5e5e5;
+}
+
+@media (max-width: 768px) {
+  #checkboxes {
+      border-right: 1px solid #caced7;
+      border-bottom: 1px solid #caced7;
+  }
 }
 
 .input-search {
