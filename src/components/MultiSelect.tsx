@@ -182,30 +182,59 @@ export default class MultiSelect<T> extends React.Component<
     const nextValue: string = e.target.value.trim();
     this.setState(prevState => {
       const prevValue = prevState.text;
-      
-      const parts = nextValue.split(', ');
-      const selected = prevState.selectedText.join(", ");
-      const criteria = parts[parts.length - 1];
+      const selectedText = [...prevState.selectedText];
+      const parts = nextValue.split(',');
+      const selected = selectedText.join(", ");
+      const criteria = parts[parts.length - 1].trim();
+
+      console.log('nextValue:', nextValue)
+      console.log('prevValue:', prevValue)
+      console.log('selectedText:', selectedText)
+      console.log('parts:', parts)
+      console.log('selected:', selected)
+      console.log('criteria:', criteria)
 
       // If there are nothing in prev value
-      if(nextValue === "") 
-        return { text: "", writtingSearchCriteria: false }
+      if(nextValue === "") {
+        console.log('5')
+        return { ...prevState, text: "", writtingSearchCriteria: false }
+      }
 
       // If there aren't selected options.
       if(selected.length === 0) {
-        if(criteria.match("^[A-z0-9]+$")) // If the criteria is valid
-          return { text: nextValue, writtingSearchCriteria: true}
+        if(criteria.match("^[A-z0-9]+$")){// If the criteria is valid
+          console.log('4')
+          return { ...prevState, text: nextValue, writtingSearchCriteria: true}
+        } 
       } 
 
       // If there are selected options
       else if (selected.length > 0) {
-        if(criteria.match("^[A-z0-9]+$")) // If criteria is valid
-          return { text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
-        else if (prevState.selectedText.length === parts.length) 
-          return { text: `${selected}, `, writtingSearchCriteria: false }
+        if(criteria.match("^[A-z0-9]+$")) {// If criteria is valid
+          console.log('3')
+          return {...prevState, text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+        }
+        if (parts.length > selectedText.length) {
+          if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
+            console.log('2')
+            return { ...prevState, text: selectedText.join(', ') + ', ', writtingSearchCriteria: false}
+          }
+          else if (parts[parts.length - 1] === '') {
+            console.log('1')
+            const sliced = selectedText.slice(0, selectedText.length - 1);
+            return { 
+              ...prevState, 
+              text: `${sliced.join(', ')}` + (sliced.length > 0 ? (", ") : ""), 
+              selectedText: sliced}
+          }
+        }
       }
 
-      return { text: prevValue, writtingSearchCriteria: true }
+      console.log('final')
+      return { 
+        ...prevState,
+        text: prevValue, 
+        writtingSearchCriteria: true }
     })
   }
 
