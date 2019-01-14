@@ -175,7 +175,16 @@ export default class MultiSelect<T> extends React.Component<
             pointer: true,
           } as Props);
 
-          labels.push(labelCheckbox);
+          if(this.state.matches.length > 0) {
+            const matchInSearch = this.state.matches.find(m => {
+              return m === labelCheckbox.props.children.toString().toLowerCase()
+            });
+            if(matchInSearch) {
+              labels.push(labelCheckbox);
+            }
+          } else {
+            labels.push(labelCheckbox)
+          }
         }
       }
     )
@@ -192,20 +201,18 @@ export default class MultiSelect<T> extends React.Component<
       const selected = selectedOptions.join(", ");
       const criteria = parts[parts.length - 1].trim();
 
-      console.log('nextValue:', nextValue)
-      console.log('prevValue:', prevValue)
-      console.log('selectedOptions:', selectedOptions)
-      console.log('parts:', parts)
-      console.log('selected:', selected)
-      console.log('criteria:', criteria)
+      // console.log('nextValue:', nextValue)
+      // console.log('prevValue:', prevValue)
+      // console.log('selectedOptions:', selectedOptions)
+      // console.log('parts:', parts)
+      // console.log('selected:', selected)
+      // console.log('criteria:', criteria)
 
       // If there are nothing in prev value
       if (nextValue === "") {
         console.log('5')
         return { ...prevState, text: "", writtingSearchCriteria: false, matches: []}
       }
-
-
 
       // If criteria is valid.
       if (criteria.match("^[A-z0-9]+$")) {
@@ -266,9 +273,6 @@ export default class MultiSelect<T> extends React.Component<
     const matches: string[] = [];
     this.state.options.forEach(option => {
       const match = option.toLowerCase().match(key.toLowerCase());
-      console.log(option)
-      console.log(key);
-      console.log(match)
 
       if(match) 
         if(match.input)
