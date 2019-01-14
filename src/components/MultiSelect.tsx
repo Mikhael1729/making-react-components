@@ -301,6 +301,15 @@ export default class MultiSelect<T> extends React.Component<
         return { text: prevState.text }
     })
   }
+
+  private canToShowDefaultText = (): boolean => {
+    const { selectedOptions, matches, text } = this.state;
+
+    if(selectedOptions.length === 0 && matches.length === 0 && text.length === 0) 
+      return true;
+    else
+      return false
+  }
   //#endregion
 
   //#region Render
@@ -345,6 +354,7 @@ export default class MultiSelect<T> extends React.Component<
             className="input-search"
             value={this.state.text}
             onFocus={this.onFocusInput}
+            placeholder={this.props.defaultText}
             onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
             onChange={this.onChangeInput} />
