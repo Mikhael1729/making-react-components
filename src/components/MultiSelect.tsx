@@ -180,7 +180,6 @@ export default class MultiSelect<T> extends React.Component<
 
   private onChangeInput = (e: any) => {
     const nextValue: string = e.target.value.trim();
-    console.log(nextValue);
     this.setState(prevState => {
       const prevValue = prevState.text;
       
@@ -188,18 +187,25 @@ export default class MultiSelect<T> extends React.Component<
       const selected = prevState.selectedText.join(", ");
       const criteria = parts[parts.length - 1];
 
-      if(nextValue === "" && selected.length === 0) 
-        return { text: "", writtingSearchCriteria: false}
+      // If there are nothing in prev value
+      if(nextValue === "") 
+        return { text: "", writtingSearchCriteria: false }
 
-      if(selected.length === 0 && criteria.match("^[A-z0-9]+$")) 
-        return { text: nextValue, writtingSearchCriteria: true}
-      else if(criteria.match("^[A-z0-9]+$"))
-        return { text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
-      else if (prevState.selectedText.length === parts.length) 
-        return { text: `${selected}, `, writtingSearchCriteria: false }
-      else {
-        return { text: prevValue, writtingSearchCriteria: true }
+      // If there aren't selected options.
+      if(selected.length === 0) {
+        if(criteria.match("^[A-z0-9]+$")) // If the criteria is valid
+          return { text: nextValue, writtingSearchCriteria: true}
+      } 
+
+      // If there are selected options
+      else if (selected.length > 0) {
+        if(criteria.match("^[A-z0-9]+$")) // If criteria is valid
+          return { text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+        else if (prevState.selectedText.length === parts.length) 
+          return { text: `${selected}, `, writtingSearchCriteria: false }
       }
+
+      return { text: prevValue, writtingSearchCriteria: true }
     })
   }
 
