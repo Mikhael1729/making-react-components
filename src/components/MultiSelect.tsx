@@ -14,7 +14,7 @@ export interface MultiSelectProps<T> {
 
 export interface MultiSelectState {
   expanded: boolean;
-  selectedText: string[];
+  selectedOptions: string[];
   text: string;
   writtingSearchCriteria: boolean;
 }
@@ -26,7 +26,7 @@ export default class MultiSelect<T> extends React.Component<
   //#region Properties
   state: MultiSelectState = {
     expanded: false,
-    selectedText: [],
+    selectedOptions: [],
     text: "",
     writtingSearchCriteria: false,
   };
@@ -39,15 +39,15 @@ export default class MultiSelect<T> extends React.Component<
   //#region Lifecycle Methods 
   componentWillMount() {
     this.setState(prevState => {
-      const selectedText = [...prevState.selectedText];
+      const selectedOptions = [...prevState.selectedOptions];
       const selected = this.props.children.filter((c: any) => c.props.checked === true);
 
       if (selected)
         selected.forEach((s: any) => {
-          selectedText.push(s.props.children)
+          selectedOptions.push(s.props.children)
         })
 
-      return { selectedText }
+      return { selectedOptions }
     })
   }
 
@@ -71,7 +71,7 @@ export default class MultiSelect<T> extends React.Component<
   componentWillReceiveProps(nextProps: MultiSelectProps<T>) {
     // Reset selected options.
     if (this.props.disabled && !nextProps.disabled)
-      this.setState({ selectedText: [] })
+      this.setState({ selectedOptions: [] })
   }
 
   componentWillUnmount() {
@@ -116,32 +116,32 @@ export default class MultiSelect<T> extends React.Component<
     this.props.onChange ? this.props.onChange(checked, data, text) : null;
 
     this.setState(prevState => {
-      const selectedText = [...prevState.selectedText]
-      const index = selectedText.findIndex(l => l === text)
+      const selectedOptions = [...prevState.selectedOptions]
+      const index = selectedOptions.findIndex(l => l === text)
       let inputText = ""
 
       if (!checked)
-        selectedText.splice(index, 1)
+        selectedOptions.splice(index, 1)
       else
-        selectedText.push(text)
+        selectedOptions.push(text)
 
 
-      selectedText.forEach((s, i) => {
+      selectedOptions.forEach((s, i) => {
         const symbol = ", "
-        inputText += s + ((i <= selectedText.length - 2) ? ", " : "")
+        inputText += s + ((i <= selectedOptions.length - 2) ? ", " : "")
       });
 
-      return { selectedText, expanded: true, text: inputText, writtingSearchCriteria: false };
+      return { selectedOptions, expanded: true, text: inputText, writtingSearchCriteria: false };
     });
   };
 
   private computeSelectedLetters = (): string | undefined => {
     let selectedLetters = this.props.defaultText;
-    if (this.state.selectedText.length > 0) {
+    if (this.state.selectedOptions.length > 0) {
       selectedLetters = "";
-      this.state.selectedText.forEach((text, index) => {
+      this.state.selectedOptions.forEach((text, index) => {
         selectedLetters +=
-          text + (index < this.state.selectedText.length - 1 ? ", " : "")
+          text + (index < this.state.selectedOptions.length - 1 ? ", " : "")
       })
     }
 
@@ -160,7 +160,7 @@ export default class MultiSelect<T> extends React.Component<
           type Props = LabelCheckboxProps<T> | { key: number };
 
           // Searching if there are a selected CheckboxLabel.
-          const match = this.state.selectedText.find(s => s === child.props.children.toString());
+          const match = this.state.selectedOptions.find(s => s === child.props.children.toString());
 
           // Cloning LabelCheckbox with props.
           const labelCheckbox = React.cloneElement(child, {
@@ -182,78 +182,81 @@ export default class MultiSelect<T> extends React.Component<
     const nextValue: string = e.target.value.trim();
     this.setState(prevState => {
       const prevValue = prevState.text;
-      const selectedText = [...prevState.selectedText];
+      const selectedOptions = [...prevState.selectedOptions];
       const parts = nextValue.split(',');
-      const selected = selectedText.join(", ");
+      const selected = selectedOptions.join(", ");
       const criteria = parts[parts.length - 1].trim();
 
       console.log('nextValue:', nextValue)
       console.log('prevValue:', prevValue)
-      console.log('selectedText:', selectedText)
+      console.log('selectedOptions:', selectedOptions)
       console.log('parts:', parts)
       console.log('selected:', selected)
       console.log('criteria:', criteria)
 
       // If there are nothing in prev value
-      if(nextValue === "") {
+      if (nextValue === "") {
         console.log('5')
         return { ...prevState, text: "", writtingSearchCriteria: false }
       }
 
-      // If there aren't selected options.
-      if(selected.length === 0) {
-        if(criteria.match("^[A-z0-9]+$")){// If the criteria is valid
+      // If criteria is valid.
+      if (criteria.match("^[A-z0-9]+$")) {
+        // Add criteria without selected options.
+        if (selected.length === 0) {
           console.log('4')
-          return { ...prevState, text: nextValue, writtingSearchCriteria: true}
-        } 
-      } 
-
-      // If there are selected options
-      else if (selected.length > 0) {
-        if(criteria.match("^[A-z0-9]+$")) {// If criteria is valid
-          console.log('3')
-          return {...prevState, text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+          return { ...prevState, text: nextValue, writtingSearchCriteria: true }
         }
-        if (parts.length > selectedText.length) {
-          if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
-            console.log('2')
-            return { ...prevState, text: selectedText.join(', ') + ', ', writtingSearchCriteria: false}
-          }
-          else if (parts[parts.length - 1] === '') {
-            console.log('1')
-            const sliced = selectedText.slice(0, selectedText.length - 1);
-            return { 
-              ...prevState, 
-              text: `${sliced.join(', ')}` + (sliced.length > 0 ? (", ") : ""), 
-              selectedText: sliced}
+        // Add a letter in criteria
+        else if (selected.length > 0) {
+          console.log('3')
+          return { ...prevState, text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+        }
+      }
+      // If there are selected options and criteria isn't valid.
+      else if (selected.length > 0 && parts.length > selectedOptions.length) {
+        // Delete a letter in criteria
+        if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
+          console.log('2')
+          return { ...prevState, text: selectedOptions.join(', ') + ', ', writtingSearchCriteria: false }
+        }
+        // Delete an option.
+        else if (parts[parts.length - 1] === '') {
+          console.log('1')
+          const sliced = selectedOptions.slice(0, selectedOptions.length - 1);
+          return {
+            ...prevState,
+            text: `${sliced.join(', ')}` + (sliced.length > 0 ? (", ") : ""),
+            selectedOptions: sliced
           }
         }
       }
 
       console.log('final')
-      return { 
+      return {
         ...prevState,
-        text: prevValue, 
-        writtingSearchCriteria: true }
+        text: prevValue,
+        writtingSearchCriteria: true
+      }
     })
   }
 
   private onFocusInput = () => {
-    this.setState(prevState => { 
-      if(prevState.selectedText.length > 0 && !prevState.writtingSearchCriteria)
-        return {text: prevState.text + ", "}
-      else  
-        return {text: prevState.text}
+    this.setState(prevState => {
+      if (prevState.selectedOptions.length > 0 && !prevState.writtingSearchCriteria)
+        return { text: prevState.text + ", " }
+      else
+        return { text: prevState.text }
     })
   }
 
   private onBlurInput = () => {
     this.setState(prevState => {
       const textBefore = prevState.text;
-      
-      if(prevState.selectedText.length > 0 && !prevState.writtingSearchCriteria)
+
+      if (prevState.selectedOptions.length > 0 && !prevState.writtingSearchCriteria)
         return { text: textBefore.substr(0, textBefore.length - 2) }
-      else 
+      else
         return { text: prevState.text }
     })
   }
