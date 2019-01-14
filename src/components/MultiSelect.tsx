@@ -17,6 +17,8 @@ export interface MultiSelectState {
   selectedOptions: string[];
   text: string;
   writtingSearchCriteria: boolean;
+  matches: string[]
+  options: string[];
 }
 
 export default class MultiSelect<T> extends React.Component<
@@ -29,6 +31,8 @@ export default class MultiSelect<T> extends React.Component<
     selectedOptions: [],
     text: "",
     writtingSearchCriteria: false,
+    options: [],
+    matches: []
   };
 
   private titleRef: any = React.createRef();
@@ -40,14 +44,15 @@ export default class MultiSelect<T> extends React.Component<
   componentWillMount() {
     this.setState(prevState => {
       const selectedOptions = [...prevState.selectedOptions];
-      const selected = this.props.children.filter((c: any) => c.props.checked === true);
+      const options = [] as string[];
 
-      if (selected)
-        selected.forEach((s: any) => {
-          selectedOptions.push(s.props.children)
-        })
+      this.props.children.forEach((child: any) => {
+        options.push(child.props.children)
+        if(child.props.checked) 
+          selectedOptions.push(child.props.children)
+      })
 
-      return { selectedOptions }
+      return { selectedOptions, options }
     })
   }
 
@@ -197,28 +202,44 @@ export default class MultiSelect<T> extends React.Component<
       // If there are nothing in prev value
       if (nextValue === "") {
         console.log('5')
-        return { ...prevState, text: "", writtingSearchCriteria: false }
+        return { ...prevState, text: "", writtingSearchCriteria: false, matches: []}
       }
+
+
 
       // If criteria is valid.
       if (criteria.match("^[A-z0-9]+$")) {
         // Add criteria without selected options.
         if (selected.length === 0) {
+          
           console.log('4')
-          return { ...prevState, text: nextValue, writtingSearchCriteria: true }
+          return { 
+            ...prevState, 
+            text: nextValue, 
+            writtingSearchCriteria: true,
+            matches: this.search(criteria)
+          }
         }
         // Add a letter in criteria
         else if (selected.length > 0) {
           console.log('3')
-          return { ...prevState, text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+          return { 
+            ...prevState, 
+            text: `${selected}, ${criteria}`, 
+            writtingSearchCriteria: true,
+            matches: this.search(criteria) }
         }
       }
-      // If there are selected options and criteria isn't valid.
+      // If there are selected options and there are not criteria.
+      // When there are no criteria
       else if (selected.length > 0 && parts.length > selectedOptions.length) {
-        // Delete a letter in criteria
         if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
           console.log('2')
-          return { ...prevState, text: selectedOptions.join(', ') + ', ', writtingSearchCriteria: false }
+          return { 
+            ...prevState, 
+            text: selectedOptions.join(', ') + ', ', 
+            writtingSearchCriteria: false,
+            matches: [] }
         }
         // Delete an option.
         else if (parts[parts.length - 1] === '') {
@@ -239,6 +260,22 @@ export default class MultiSelect<T> extends React.Component<
         writtingSearchCriteria: true
       }
     })
+  }
+
+  private search = (key: string): string[] => {
+    const matches: string[] = [];
+    this.state.options.forEach(option => {
+      const match = option.toLowerCase().match(key.toLowerCase());
+      console.log(option)
+      console.log(key);
+      console.log(match)
+
+      if(match) 
+        if(match.input)
+          matches.push(match.input);
+    });
+
+    return matches;
   }
 
   private onFocusInput = () => {
