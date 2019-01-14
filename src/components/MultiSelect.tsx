@@ -38,6 +38,7 @@ export default class MultiSelect<T> extends React.Component<
   private titleRef: any = React.createRef();
   private checkboxesRef: any = React.createRef();
   private parentDivRef: any = React.createRef();
+  private inputRef: any = React.createRef();
   //#endregion
 
   //#region Lifecycle Methods 
@@ -48,7 +49,7 @@ export default class MultiSelect<T> extends React.Component<
 
       this.props.children.forEach((child: any) => {
         options.push(child.props.children)
-        if(child.props.checked) 
+        if (child.props.checked)
           selectedOptions.push(child.props.children)
       })
 
@@ -84,6 +85,13 @@ export default class MultiSelect<T> extends React.Component<
     window.removeEventListener("resize", this.changeSize)
     parent.removeEventListener("focusin", this.focusIn)
     parent.removeEventListener("focusout", this.focusOut)
+  }
+
+  componentDidUpdate(prevProps: MultiSelectProps<T>, prevState: MultiSelectState) {
+    if (prevState.text !== this.state.text) {
+      this.inputRef.current.selectionStart = this.inputRef.current.value.length;
+      this.inputRef.current.selectionEnd = this.inputRef.current.value.length;
+    }
   }
   //#endregion
 
@@ -136,7 +144,7 @@ export default class MultiSelect<T> extends React.Component<
         inputText += s + ((i <= selectedOptions.length - 2) ? ", " : "")
       });
 
-      return { selectedOptions, expanded: true, text: inputText, writtingSearchCriteria: false };
+      return { selectedOptions, expanded: true, text: inputText, writtingSearchCriteria: false, matches: [] };
     });
   };
 
@@ -175,11 +183,11 @@ export default class MultiSelect<T> extends React.Component<
             pointer: true,
           } as Props);
 
-          if(this.state.matches.length > 0) {
+          if (this.state.matches.length > 0) {
             const matchInSearch = this.state.matches.find(m => {
               return m === labelCheckbox.props.children.toString().toLowerCase()
             });
-            if(matchInSearch) {
+            if (matchInSearch) {
               labels.push(labelCheckbox);
             }
           } else {
@@ -208,21 +216,33 @@ export default class MultiSelect<T> extends React.Component<
       // console.log('selected:', selected)
       // console.log('criteria:', criteria)
 
+      // Selected options length.
+      const selectedOptionsLenght = selectedOptions.join().trim().length
+
+      // Transforming data to evaluate.
+      for(let i = 0 ; i < parts.length; i ++) 
+        parts[i] = parts[i].trimLeft().trimRight();
+      const partsJoin = parts.join()
+
+      // Parts length.
+      const partsLength = partsJoin.substr(0, partsJoin.length - 1).length
+
       // If there are nothing in prev value
       if (nextValue === "") {
         console.log('5')
-        return { ...prevState, text: "", writtingSearchCriteria: false, matches: []}
-      }
+        return { ...prevState, text: "", writtingSearchCriteria: false, matches: [] }
+      }  
+
 
       // If criteria is valid.
       if (criteria.match("^[A-z0-9]+$")) {
         // Add criteria without selected options.
         if (selected.length === 0) {
-          
+
           console.log('4')
-          return { 
-            ...prevState, 
-            text: nextValue, 
+          return {
+            ...prevState,
+            text: nextValue,
             writtingSearchCriteria: true,
             matches: this.search(criteria)
           }
@@ -230,26 +250,33 @@ export default class MultiSelect<T> extends React.Component<
         // Add a letter in criteria
         else if (selected.length > 0) {
           console.log('3')
-          return { 
-            ...prevState, 
-            text: `${selected}, ${criteria}`, 
+          return {
+            ...prevState,
+            text: `${selected}, ${criteria}`,
             writtingSearchCriteria: true,
-            matches: this.search(criteria) }
+            matches: this.search(criteria)
+          }
         }
       }
       // If there are selected options and there are not criteria.
       // When there are no criteria
       else if (selected.length > 0 && parts.length > selectedOptions.length) {
+        // console.log(selectedOptions.join().trim())
+        // console.log(partsJoin)
+
+        // console.log('partsLength:', partsLength)
+        // console.log('partsLength:', selectedOptionsLenght)
         if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
           console.log('2')
-          return { 
-            ...prevState, 
-            text: selectedOptions.join(', ') + ', ', 
+          return {
+            ...prevState,
+            text: selectedOptions.join(', ') + ', ',
             writtingSearchCriteria: false,
-            matches: [] }
+            matches: []
+          }
         }
         // Delete an option.
-        else if (parts[parts.length - 1] === '') {
+        else if (parts[parts.length - 1] === '' && partsLength === selectedOptionsLenght) {
           console.log('1')
           const sliced = selectedOptions.slice(0, selectedOptions.length - 1);
           return {
@@ -264,7 +291,7 @@ export default class MultiSelect<T> extends React.Component<
       return {
         ...prevState,
         text: prevValue,
-        writtingSearchCriteria: true
+        writtingSearchCriteria: partsLength !== selectedOptionsLenght ? false : true 
       }
     })
   }
@@ -274,8 +301,8 @@ export default class MultiSelect<T> extends React.Component<
     this.state.options.forEach(option => {
       const match = option.toLowerCase().match(key.toLowerCase());
 
-      if(match) 
-        if(match.input)
+      if (match)
+        if (match.input)
           matches.push(match.input);
     });
 
@@ -289,6 +316,8 @@ export default class MultiSelect<T> extends React.Component<
       else
         return { text: prevState.text }
     })
+
+    return this.state.text === this.state.text;
   }
 
   private onBlurInput = () => {
@@ -305,7 +334,7 @@ export default class MultiSelect<T> extends React.Component<
   private canToShowDefaultText = (): boolean => {
     const { selectedOptions, matches, text } = this.state;
 
-    if(selectedOptions.length === 0 && matches.length === 0 && text.length === 0) 
+    if (selectedOptions.length === 0 && matches.length === 0 && text.length === 0)
       return true;
     else
       return false
@@ -350,6 +379,7 @@ export default class MultiSelect<T> extends React.Component<
           style={{ borderBottom }}
         >
           <input
+            ref={this.inputRef}
             type="text"
             className="input-search"
             value={this.state.text}
