@@ -180,7 +180,7 @@ export default class MultiSelect<T> extends React.Component<
 
   private onChangeInput = (e: any) => {
     const nextValue: string = e.target.value.trim();
-
+    console.log(nextValue);
     this.setState(prevState => {
       const prevValue = prevState.text;
       
@@ -188,23 +188,24 @@ export default class MultiSelect<T> extends React.Component<
       const selected = prevState.selectedText.join(", ");
       const criteria = parts[parts.length - 1];
 
-      if(selected.length === 0) 
-        return { text: nextValue, writtingSearchCriteria: true}
+      if(nextValue === "" && selected.length === 0) 
+        return { text: "", writtingSearchCriteria: false}
 
-      if(criteria.match("^[A-z0-9]+$"))
+      if(selected.length === 0 && criteria.match("^[A-z0-9]+$")) 
+        return { text: nextValue, writtingSearchCriteria: true}
+      else if(criteria.match("^[A-z0-9]+$"))
         return { text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
       else if (prevState.selectedText.length === parts.length) 
         return { text: `${selected}, `, writtingSearchCriteria: false }
-      else 
+      else {
         return { text: prevValue, writtingSearchCriteria: true }
+      }
     })
   }
 
   private onFocusInput = () => {
     this.setState(prevState => { 
-      const textBefore = prevState.text;
-      const lastCharacter = textBefore[textBefore.length - 1]
-      if(lastCharacter !== ',' && lastCharacter !== undefined && lastCharacter !== ' ' && !prevState.writtingSearchCriteria)
+      if(prevState.selectedText.length > 0 && !prevState.writtingSearchCriteria)
         return {text: prevState.text + ", "}
       else  
         return {text: prevState.text}
@@ -214,10 +215,8 @@ export default class MultiSelect<T> extends React.Component<
   private onBlurInput = () => {
     this.setState(prevState => {
       const textBefore = prevState.text;
-      const lastCharacter = textBefore[textBefore.length - 1];
-      const beforeLastCharacter = textBefore[textBefore.length - 2];
       
-      if(lastCharacter === ' ' && beforeLastCharacter === ',')
+      if(prevState.selectedText.length > 0 && !prevState.writtingSearchCriteria)
         return { text: textBefore.substr(0, textBefore.length - 2) }
       else 
         return { text: prevState.text }
