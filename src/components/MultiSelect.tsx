@@ -16,6 +16,7 @@ export interface MultiSelectState {
   expanded: boolean;
   selectedText: string[];
   text: string;
+  writtingSearchCriteria: boolean;
 }
 
 export default class MultiSelect<T> extends React.Component<
@@ -26,7 +27,8 @@ export default class MultiSelect<T> extends React.Component<
   state: MultiSelectState = {
     expanded: false,
     selectedText: [],
-    text: ""
+    text: "",
+    writtingSearchCriteria: false,
   };
 
   private titleRef: any = React.createRef();
@@ -34,7 +36,7 @@ export default class MultiSelect<T> extends React.Component<
   private parentDivRef: any = React.createRef();
   //#endregion
 
-  //#region Lifecycle Methods
+  //#region Lifecycle Methods 
   componentWillMount() {
     this.setState(prevState => {
       const selectedText = [...prevState.selectedText];
@@ -48,6 +50,7 @@ export default class MultiSelect<T> extends React.Component<
       return { selectedText }
     })
   }
+
   componentDidMount() {
     const parent = this.parentDivRef.current;
 
@@ -113,16 +116,22 @@ export default class MultiSelect<T> extends React.Component<
     this.props.onChange ? this.props.onChange(checked, data, text) : null;
 
     this.setState(prevState => {
-      const letters = [...prevState.selectedText]
-      const index = letters.findIndex(l => l === text)
+      const selectedText = [...prevState.selectedText]
+      const index = selectedText.findIndex(l => l === text)
+      let inputText = ""
 
-      if (!checked) {
-        letters.splice(index, 1)
-      } else {
-        letters.push(text)
-      }
+      if (!checked)
+        selectedText.splice(index, 1)
+      else
+        selectedText.push(text)
 
-      return { selectedText: letters, expanded: true };
+
+      selectedText.forEach((s, i) => {
+        const symbol = ", "
+        inputText += s + ((i <= selectedText.length - 2) ? ", " : "")
+      });
+
+      return { selectedText, expanded: true, text: inputText, writtingSearchCriteria: false };
     });
   };
 
@@ -169,7 +178,51 @@ export default class MultiSelect<T> extends React.Component<
     return labels;
   }
 
-  private onChangeInput = (e: any) => this.setState({ text: e.target.value })
+  private onChangeInput = (e: any) => {
+    const nextValue: string = e.target.value.trim();
+
+    this.setState(prevState => {
+      const prevValue = prevState.text;
+      
+      const parts = nextValue.split(', ');
+      const selected = prevState.selectedText.join(", ");
+      const criteria = parts[parts.length - 1];
+
+      if(selected.length === 0) 
+        return { text: nextValue, writtingSearchCriteria: true}
+
+      if(criteria.match("^[A-z0-9]+$"))
+        return { text: `${selected}, ${criteria}`, writtingSearchCriteria: true }
+      else if (prevState.selectedText.length === parts.length) 
+        return { text: `${selected}, `, writtingSearchCriteria: false }
+      else 
+        return { text: prevValue, writtingSearchCriteria: true }
+    })
+  }
+
+  private onFocusInput = () => {
+    this.setState(prevState => { 
+      const textBefore = prevState.text;
+      const lastCharacter = textBefore[textBefore.length - 1]
+      if(lastCharacter !== ',' && lastCharacter !== undefined && lastCharacter !== ' ' && !prevState.writtingSearchCriteria)
+        return {text: prevState.text + ", "}
+      else  
+        return {text: prevState.text}
+    })
+  }
+
+  private onBlurInput = () => {
+    this.setState(prevState => {
+      const textBefore = prevState.text;
+      const lastCharacter = textBefore[textBefore.length - 1];
+      const beforeLastCharacter = textBefore[textBefore.length - 2];
+      
+      if(lastCharacter === ' ' && beforeLastCharacter === ',')
+        return { text: textBefore.substr(0, textBefore.length - 2) }
+      else 
+        return { text: prevState.text }
+    })
+  }
   //#endregion
 
   //#region Render
@@ -213,6 +266,8 @@ export default class MultiSelect<T> extends React.Component<
             type="text"
             className="input-search"
             value={this.state.text}
+            onFocus={this.onFocusInput}
+            onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
             onChange={this.onChangeInput} />
         </div>
