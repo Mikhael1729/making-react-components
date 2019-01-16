@@ -4,6 +4,7 @@ import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;
+  onDelete?: (checked?: boolean, data?: T, text?: string) => void;
   defaultText?: string;
   size?: "sm" | "md" | "lg";
   loading?: boolean;
@@ -14,11 +15,9 @@ export interface MultiSelectProps<T> {
 
 export interface MultiSelectState {
   expanded: boolean;
-  selectedOptions: string[];
   text: string;
   writtingSearchCriteria: boolean;
   matches: string[]
-  options: string[];
 }
 
 export default class MultiSelect<T> extends React.Component<
@@ -26,15 +25,35 @@ export default class MultiSelect<T> extends React.Component<
   MultiSelectState
   > {
   //#region Properties
-  state: MultiSelectState = {
-    expanded: false,
-    selectedOptions: [],
-    text: "",
-    writtingSearchCriteria: false,
-    options: [],
-    matches: []
-  };
+  
+  constructor(props: MultiSelectProps<T>) {
+    super(props);
 
+    this.state = {
+      expanded: false,
+      text: "",
+      writtingSearchCriteria: true,
+      matches: []
+    };
+  }
+
+  private get options(): string[] {
+    const selected: string[] = []
+    this.extractOptions().forEach(o => {
+      if(o.children) 
+        selected.push(o.children.toString())
+    })
+    return selected;
+  }
+
+  private get selectedOptions(): string[] {
+    const selected: string[] = []
+    this.extractOptions().filter(o => o.checked === true).forEach(s => {
+      if(s.children) 
+        selected.push(s.children.toString())
+    })
+    return selected;
+  } 
   private titleRef: any = React.createRef();
   private checkboxesRef: any = React.createRef();
   private parentDivRef: any = React.createRef();
@@ -42,10 +61,6 @@ export default class MultiSelect<T> extends React.Component<
   //#endregion
 
   //#region Lifecycle Methods 
-  componentWillMount() {
-    this.updateOptions()
-  }
-
   componentDidMount() {
     const parent = this.parentDivRef.current;
 
@@ -62,10 +77,12 @@ export default class MultiSelect<T> extends React.Component<
     this.changeSize();
   }
 
-  componentWillReceiveProps(nextProps: MultiSelectProps<T>) {
-    // Reset selected options.
-    if (this.props.disabled && !nextProps.disabled)
-      this.setState({ selectedOptions: [] })
+  componentDidUpdate(prevProps: MultiSelectProps<T>, prevState: MultiSelectState) {
+    // Moving the cursor to the end of input text.
+    if (prevState.text !== this.state.text) {
+      this.inputRef.current.selectionStart = this.inputRef.current.value.length;
+      this.inputRef.current.selectionEnd = this.inputRef.current.value.length;
+    }
   }
 
   componentWillUnmount() {
@@ -73,16 +90,6 @@ export default class MultiSelect<T> extends React.Component<
     window.removeEventListener("resize", this.changeSize)
     parent.removeEventListener("focusin", this.focusIn)
     parent.removeEventListener("focusout", this.focusOut)
-  }
-
-  componentDidUpdate(prevProps: MultiSelectProps<T>, prevState: MultiSelectState) {
-    if (prevState.text !== this.state.text) {
-      this.inputRef.current.selectionStart = this.inputRef.current.value.length;
-      this.inputRef.current.selectionEnd = this.inputRef.current.value.length;
-    }
-
-    if(prevProps.children.length !== this.props.children.length)
-      this.updateOptions()
   }
   //#endregion
 
@@ -122,40 +129,20 @@ export default class MultiSelect<T> extends React.Component<
   private hideCheckboxes = () => this.setState({ expanded: false })
 
   private change = (checked: boolean, data: T, text: string) => {
-    this.props.onChange ? this.props.onChange(checked, data, text) : null;
+    let inputText = ""
+    const selectedOptions = this.selectedOptions;
+    
+    selectedOptions.forEach((s, i) => {
+      inputText += s + ((i <= selectedOptions.length - 2) ? ", " : "")
+    });
+    
+    this.setState({ text: inputText, writtingSearchCriteria: false, matches: [] }, () => {
+      const onChange = this.props.onChange;
 
-    this.setState(prevState => {
-      const selectedOptions = [...prevState.selectedOptions]
-      const index = selectedOptions.findIndex(l => l.toString() === text)
-      let inputText = ""
-
-      if (!checked)
-        selectedOptions.splice(index, 1)
-      else
-        selectedOptions.push(text.toString())
-
-
-      selectedOptions.forEach((s, i) => {
-        const symbol = ", "
-        inputText += s + ((i <= selectedOptions.length - 2) ? ", " : "")
-      });
-
-      return { selectedOptions, expanded: true, text: inputText, writtingSearchCriteria: false, matches: [] };
+      if(onChange) 
+        onChange(checked, data, text)
     });
   };
-
-  private computeSelectedLetters = (): string | undefined => {
-    let selectedLetters = this.props.defaultText;
-    if (this.state.selectedOptions.length > 0) {
-      selectedLetters = "";
-      this.state.selectedOptions.forEach((text, index) => {
-        selectedLetters +=
-          text + (index < this.state.selectedOptions.length - 1 ? ", " : "")
-      })
-    }
-
-    return selectedLetters;
-  }
 
   private computeLabels = (): any => {
     const labels = [] as any[];
@@ -163,32 +150,18 @@ export default class MultiSelect<T> extends React.Component<
     // Iterating in each label.
     React.Children.forEach(
       this.props.children,
-      (child: any, index: number) => {
+      (child: any) => {
         if (child.type === LabelCheckbox) {
           // Creating props.
           type Props = LabelCheckboxProps<T> | { key: number };
 
-          // Searching if there are a selected CheckboxLabel.
-          const match = this.state.selectedOptions.find(s => s === child.props.children.toString());
-
           // Cloning LabelCheckbox with props.
           const labelCheckbox = React.cloneElement(child, {
-            key: index,
             onChange: this.change,
-            checked: match ? true : false,
             pointer: true,
           } as Props);
 
-          if (this.state.matches.length > 0) {
-            const matchInSearch = this.state.matches.find(m => {
-              return m === labelCheckbox.props.children.toString().toLowerCase()
-            });
-            if (matchInSearch) {
-              labels.push(labelCheckbox);
-            }
-          } else {
-            labels.push(labelCheckbox)
-          }
+          labels.push(labelCheckbox)
         }
       }
     )
@@ -197,12 +170,24 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   private onChangeInput = (e: any) => {
-    const nextValue: string = e.target.value.trim();
+    // Next value.
+    const nextValue: string = e.target.value ? e.target.value.trim() : "";
+    let toDelete: string;
+
     this.setState(prevState => {
+      // Prev value.
       const prevValue = prevState.text;
-      const selectedOptions = [...prevState.selectedOptions];
+
+      // Selected options.
+      const selectedOptions = this.selectedOptions;
+
+      // Parts.
       const parts = nextValue.split(',');
+
+      // Selected
       const selected = selectedOptions.join(", ");
+
+      // Search criteria.
       const criteria = parts[parts.length - 1].trim();
 
       // Selected options length.
@@ -218,14 +203,15 @@ export default class MultiSelect<T> extends React.Component<
 
       // If there are nothing in prev value
       if (nextValue === "") {
+        console.log(1)
         return { ...prevState, text: "", writtingSearchCriteria: false, matches: [] }
       }  
-
 
       // If criteria is valid.
       if (criteria.match("^[A-z0-9]+$")) {
         // Add criteria without selected options.
         if (selected.length === 0) {
+          console.log(2);
           return {
             ...prevState,
             text: nextValue,
@@ -235,6 +221,8 @@ export default class MultiSelect<T> extends React.Component<
         }
         // Add a letter in criteria
         else if (selected.length > 0) {
+          console.log(3);
+          
           return {
             ...prevState,
             text: `${selected}, ${criteria}`,
@@ -247,6 +235,8 @@ export default class MultiSelect<T> extends React.Component<
       // When there are no criteria
       else if (selected.length > 0 && parts.length > selectedOptions.length) {
         if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
+          console.log(4);
+          
           return {
             ...prevState,
             text: selectedOptions.join(', ') + ', ',
@@ -256,11 +246,13 @@ export default class MultiSelect<T> extends React.Component<
         }
         // Delete an option.
         else if (parts[parts.length - 1] === '' && partsLength === selectedOptionsLenght) {
+          console.log(5);
+          
           const sliced = selectedOptions.slice(0, selectedOptions.length - 1);
+          toDelete = sliced[sliced.length - 1];
           return {
             ...prevState,
             text: `${sliced.join(', ')}` + (sliced.length > 0 ? (", ") : ""),
-            selectedOptions: sliced
           }
         }
       }
@@ -270,13 +262,22 @@ export default class MultiSelect<T> extends React.Component<
         text: prevValue,
         writtingSearchCriteria: partsLength !== selectedOptionsLenght ? false : true 
       }
+    }, () => {
+      if(toDelete && this.props.onDelete) {
+        const labelCheckbox = this.extractOptions().find(o => o.children === toDelete);
+        if(labelCheckbox) {
+          const data = labelCheckbox.data;
+          const text = labelCheckbox.children ? labelCheckbox.children.toString() : undefined;
+          this.props.onDelete(false, data, text)
+        }
+      } 
     })
   }
 
-  private search = (key: string): string[] => {
+  private search = (searchKey: string): string[] => {
     const matches: string[] = [];
-    this.state.options.forEach(option => {
-      const match = option.toLowerCase().match(key.toLowerCase());
+    this.options.forEach(option => {
+      const match = option.toLowerCase().match(searchKey.toLowerCase());
 
       if (match)
         if (match.input)
@@ -288,7 +289,7 @@ export default class MultiSelect<T> extends React.Component<
 
   private onFocusInput = () => {
     this.setState(prevState => {
-      if (prevState.selectedOptions.length > 0 && !prevState.writtingSearchCriteria)
+      if (this.selectedOptions && !prevState.writtingSearchCriteria)
         return { text: prevState.text + ", " }
       else
         return { text: prevState.text }
@@ -301,56 +302,36 @@ export default class MultiSelect<T> extends React.Component<
     this.setState(prevState => {
       const textBefore = prevState.text;
 
-      if (prevState.selectedOptions.length > 0 && !prevState.writtingSearchCriteria)
+      if (this.selectedOptions && !prevState.writtingSearchCriteria)
         return { text: textBefore.substr(0, textBefore.length - 2) }
       else
         return { text: prevState.text }
     })
   }
 
-  private canToShowDefaultText = (): boolean => {
-    const { selectedOptions, matches, text } = this.state;
+  private extractOptions = (): Array<LabelCheckboxProps<T>> => {
+    const options: Array<LabelCheckboxProps<T>> = [];
 
-    if (selectedOptions.length === 0 && matches.length === 0 && text.length === 0)
-      return true;
-    else
-      return false
+    React.Children.forEach(this.props.children, (child: any) => {
+      options.push(child.props);
+    });
+
+    return options;
   }
-
-  updateOptions = () => {
-    this.setState(prevState => {
-      const selectedOptions = [...prevState.selectedOptions];
-      const options = [] as string[];
-
-      if(this.props.children.length > 0) {
-        this.props.children.forEach((child: any) => {
-          options.push(child.props.children.toString())
-          if (child.props.checked)
-            selectedOptions.push(child.props.children.toString())
-        })
-      }
-
-      return { selectedOptions, options, text: selectedOptions.join(", ") }
-    })
-  }
-
   //#endregion
 
   //#region Render
   render() {
     // Expanded.
-    const { expanded } = this.state;
+    const expanded = this.state.expanded;
 
     // Loading.
-    const { loading } = this.props;
+    const loading = this.props.loading;
 
     // Border bottom
     const borderBottom = expanded
       ? "1px solid transparent"
       : "1px solid #caced7";
-
-    // Computing preview
-    const selectedLetters = this.computeSelectedLetters();
 
     // Labels
     const Labels = this.computeLabels();
