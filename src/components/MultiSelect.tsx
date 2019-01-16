@@ -17,6 +17,7 @@ export interface MultiSelectState {
   expanded: boolean;
   text: string;
   writtingSearchCriteria: boolean;
+  removingSelectedOption: boolean;
   matches: string[]
 }
 
@@ -25,22 +26,23 @@ export default class MultiSelect<T> extends React.Component<
   MultiSelectState
   > {
   //#region Properties
-  
+
   constructor(props: MultiSelectProps<T>) {
     super(props);
 
     this.state = {
       expanded: false,
       text: "",
+      removingSelectedOption: false,
       writtingSearchCriteria: true,
-      matches: []
+      matches: [],
     };
   }
 
   private get options(): string[] {
     const selected: string[] = []
     this.extractOptions().forEach(o => {
-      if(o.children) 
+      if (o.children)
         selected.push(o.children.toString())
     })
     return selected;
@@ -49,11 +51,11 @@ export default class MultiSelect<T> extends React.Component<
   private get selectedOptions(): string[] {
     const selected: string[] = []
     this.extractOptions().filter(o => o.checked === true).forEach(s => {
-      if(s.children) 
+      if (s.children)
         selected.push(s.children.toString())
     })
     return selected;
-  } 
+  }
   private titleRef: any = React.createRef();
   private checkboxesRef: any = React.createRef();
   private parentDivRef: any = React.createRef();
@@ -120,7 +122,7 @@ export default class MultiSelect<T> extends React.Component<
   };
 
   private showCheckboxes = () => {
-    if(!this.props.disabled) {
+    if (!this.props.disabled) {
       this.changeSize();
       this.setState({ expanded: true })
     }
@@ -132,20 +134,20 @@ export default class MultiSelect<T> extends React.Component<
     const selected = this.selectedOptions;
     const index = selected.findIndex(s => s === text);
 
-    if(checked && index < 1) 
+    if (checked && index < 1)
       selected.push(text);
     else
       selected.splice(index, 1);
 
-    this.setState({ 
-        text: selected.join(', '), 
-        writtingSearchCriteria: false, 
-        matches: [] 
-      }, () => {
-        const onChange = this.props.onChange;
+    this.setState({
+      text: selected.join(', '),
+      writtingSearchCriteria: false,
+      matches: []
+    }, () => {
+      const onChange = this.props.onChange;
 
-        if(onChange) 
-          onChange(checked, data, text)
+      if (onChange)
+        onChange(checked, data, text)
     });
   };
 
@@ -177,28 +179,44 @@ export default class MultiSelect<T> extends React.Component<
   private onChangeInput = (e: any) => {
     const newValue = e.target.value as string;
     const selectedOptions = this.selectedOptions;
-    console.log('newValue -->', newValue);
-    
-    if(newValue) {
-      const separation = this.createSeparation(); 
+    console.log('newValue -->', newValue)
+    // If removing a selected option.
+    // If there are a new value.
+    if (newValue) {
+      const separation = this.createSeparation();
       console.log('separation -->', separation)
       const selected = selectedOptions.join(", ");
       console.log('selected -->', selected);
       const criteria = newValue.slice(selected.length + separation.length, newValue.length).replace(/,/g, '').trim();
       console.log('criteria -->', criteria);
-      this.setState({ 
-        text: selected + separation + criteria, 
-        writtingSearchCriteria: criteria.length > 0 ? true : false 
+      this.setState({
+        text: selected + separation + criteria,
+        writtingSearchCriteria: criteria.length > 0 ? true : false
       });
-    } else {
+    }
+    // If there there isn't a new value.
+    else {
       this.setState({ text: "" })
+    }
+  }
+
+  private getIndex = (newValue: string): number => {
+    return 1;
+  }
+
+  private onKeyDown = (e: any) => {
+    if (e.keyCode === 8) {
+      console.log("I'm pressing backspace");
+      if (!this.state.writtingSearchCriteria) {
+        this.setState({ removingSelectedOption: true });
+      }
     }
   }
 
   private createSeparation = (): string => (this.selectedOptions.length > 0 ? ", " : "");
 
   private onFocusInput = () => {
-    if(!this.state.writtingSearchCriteria)
+    if (!this.state.writtingSearchCriteria)
       this.setState(prevState => {
         let text = prevState.text;
         text += this.createSeparation();
@@ -207,7 +225,7 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   private onBlurInput = () => {
-    if(!this.state.writtingSearchCriteria) 
+    if (!this.state.writtingSearchCriteria)
       this.setState({ text: this.selectedOptions.join(", ") })
   }
 
@@ -279,6 +297,7 @@ export default class MultiSelect<T> extends React.Component<
             onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
             disabled={this.props.disabled}
+            onKeyDown={this.onKeyDown}
             onChange={this.onChangeInput} />
         </div>
 
