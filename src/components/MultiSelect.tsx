@@ -129,18 +129,23 @@ export default class MultiSelect<T> extends React.Component<
   private hideCheckboxes = () => this.setState({ expanded: false })
 
   private change = (checked: boolean, data: T, text: string) => {
-    let inputText = ""
-    const selectedOptions = this.selectedOptions;
-    
-    selectedOptions.forEach((s, i) => {
-      inputText += s + ((i <= selectedOptions.length - 2) ? ", " : "")
-    });
-    
-    this.setState({ text: inputText, writtingSearchCriteria: false, matches: [] }, () => {
-      const onChange = this.props.onChange;
+    const selected = this.selectedOptions;
+    const index = selected.findIndex(s => s === text);
 
-      if(onChange) 
-        onChange(checked, data, text)
+    if(checked && index < 1) 
+      selected.push(text);
+    else
+      selected.splice(index, 1);
+
+    this.setState({ 
+        text: selected.join(', '), 
+        writtingSearchCriteria: false, 
+        matches: [] 
+      }, () => {
+        const onChange = this.props.onChange;
+
+        if(onChange) 
+          onChange(checked, data, text)
     });
   };
 
@@ -170,108 +175,41 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   private onChangeInput = (e: any) => {
-    // Next value.
-    const nextValue: string = e.target.value ? e.target.value.trim() : "";
-    let toDelete: string;
-
-    this.setState(prevState => {
-      // Prev value.
-      const prevValue = prevState.text;
-
-      // Selected options.
-      const selectedOptions = this.selectedOptions;
-
-      // Parts.
-      const parts = nextValue.split(',');
-
-      // Selected
+    const newValue = e.target.value as string;
+    const selectedOptions = this.selectedOptions;
+    console.log('newValue -->', newValue);
+    
+    if(newValue) {
+      const separation = this.createSeparation(); 
+      console.log('separation -->', separation)
       const selected = selectedOptions.join(", ");
+      console.log('selected -->', selected);
+      const criteria = newValue.slice(selected.length + separation.length, newValue.length).replace(/,/g, '').trim();
+      console.log('criteria -->', criteria);
+      this.setState({ 
+        text: selected + separation + criteria, 
+        writtingSearchCriteria: criteria.length > 0 ? true : false 
+      });
+    } else {
+      this.setState({ text: "" })
+    }
+  }
 
-      // Search criteria.
-      const criteria = parts[parts.length - 1].trim();
+  private createSeparation = (): string => (this.selectedOptions.length > 0 ? ", " : "");
 
-      // Selected options length.
-      const selectedOptionsLenght = selectedOptions.join().trim().length
-
-      // Transforming data to evaluate.
-      for(let i = 0 ; i < parts.length; i ++) 
-        parts[i] = parts[i].trimLeft().trimRight();
-      const partsJoin = parts.join()
-
-      // Parts length.
-      const partsLength = partsJoin.substr(0, partsJoin.length - 1).length
-
-      // If there are nothing in prev value
-      if (nextValue === "") {
-        console.log(1)
-        return { ...prevState, text: "", writtingSearchCriteria: false, matches: [] }
-      }  
-
-      // If criteria is valid.
-      if (criteria.match("^[A-z0-9]+$")) {
-        // Add criteria without selected options.
-        if (selected.length === 0) {
-          console.log(2);
-          return {
-            ...prevState,
-            text: nextValue,
-            writtingSearchCriteria: true,
-            matches: this.search(criteria.toString())
-          }
-        }
-        // Add a letter in criteria
-        else if (selected.length > 0) {
-          console.log(3);
-          
-          return {
-            ...prevState,
-            text: `${selected}, ${criteria}`,
-            writtingSearchCriteria: true,
-            matches: this.search(criteria.toString())
-          }
-        }
-      }
-      // If there are selected options and there are not criteria.
-      // When there are no criteria
-      else if (selected.length > 0 && parts.length > selectedOptions.length) {
-        if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
-          console.log(4);
-          
-          return {
-            ...prevState,
-            text: selectedOptions.join(', ') + ', ',
-            writtingSearchCriteria: false,
-            matches: []
-          }
-        }
-        // Delete an option.
-        else if (parts[parts.length - 1] === '' && partsLength === selectedOptionsLenght) {
-          console.log(5);
-          
-          const sliced = selectedOptions.slice(0, selectedOptions.length - 1);
-          toDelete = sliced[sliced.length - 1];
-          return {
-            ...prevState,
-            text: `${sliced.join(', ')}` + (sliced.length > 0 ? (", ") : ""),
-          }
-        }
-      }
-
-      return {
-        ...prevState,
-        text: prevValue,
-        writtingSearchCriteria: partsLength !== selectedOptionsLenght ? false : true 
-      }
-    }, () => {
-      if(toDelete && this.props.onDelete) {
-        const labelCheckbox = this.extractOptions().find(o => o.children === toDelete);
-        if(labelCheckbox) {
-          const data = labelCheckbox.data;
-          const text = labelCheckbox.children ? labelCheckbox.children.toString() : undefined;
-          this.props.onDelete(false, data, text)
-        }
-      } 
+  private onFocusInput = () => {
+    this.setState(prevState => {
+      let text = prevState.text;
+      text += this.createSeparation();
+      return { text }
     })
+
+    return this.state.text === this.state.text;
+  }
+
+  private onBlurInput = () => {
+    if(!this.state.writtingSearchCriteria) 
+      this.setState({ text: this.selectedOptions.join(", ") })
   }
 
   private search = (searchKey: string): string[] => {
@@ -285,28 +223,6 @@ export default class MultiSelect<T> extends React.Component<
     });
 
     return matches;
-  }
-
-  private onFocusInput = () => {
-    this.setState(prevState => {
-      if (this.selectedOptions && !prevState.writtingSearchCriteria)
-        return { text: prevState.text + ", " }
-      else
-        return { text: prevState.text }
-    })
-
-    return this.state.text === this.state.text;
-  }
-
-  private onBlurInput = () => {
-    this.setState(prevState => {
-      const textBefore = prevState.text;
-
-      if (this.selectedOptions && !prevState.writtingSearchCriteria)
-        return { text: textBefore.substr(0, textBefore.length - 2) }
-      else
-        return { text: prevState.text }
-    })
   }
 
   private extractOptions = (): Array<LabelCheckboxProps<T>> => {
@@ -359,8 +275,8 @@ export default class MultiSelect<T> extends React.Component<
             type="text"
             className="input-search"
             value={this.state.text}
-            onFocus={this.onFocusInput}
             placeholder={this.props.defaultText}
+            onFocus={this.onFocusInput}
             onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
             disabled={this.props.disabled}
