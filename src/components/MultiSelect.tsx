@@ -198,13 +198,12 @@ export default class MultiSelect<T> extends React.Component<
   private createSeparation = (): string => (this.selectedOptions.length > 0 ? ", " : "");
 
   private onFocusInput = () => {
-    this.setState(prevState => {
-      let text = prevState.text;
-      text += this.createSeparation();
-      return { text }
-    })
-
-    return this.state.text === this.state.text;
+    if(!this.state.writtingSearchCriteria)
+      this.setState(prevState => {
+        let text = prevState.text;
+        text += this.createSeparation();
+        return { text }
+      })
   }
 
   private onBlurInput = () => {
