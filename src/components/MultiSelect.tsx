@@ -79,7 +79,28 @@ export default class MultiSelect<T> extends React.Component<
     this.changeSize();
   }
 
+  componentWillUpdate(nextProps: MultiSelectProps<T>, nextState: MultiSelectState) {
+    // Used to delete an option.
+    if(nextState.removingSelectedOption) {
+      const selectedOptions: string[] = [];
+      const children = nextProps.children;
+
+      if(children) {
+        React.Children.forEach(children, (child: any) => {
+          const text = child.props.children;
+          const isChecked = child.props.checked;
+
+          if(text)
+            if(isChecked) 
+              selectedOptions.push(text.toString());
+        })
+      }
+      this.setState({ text: selectedOptions.join(', '), removingSelectedOption: false})
+    }
+  }
+
   componentDidUpdate(prevProps: MultiSelectProps<T>, prevState: MultiSelectState) {
+    console.log(prevProps.children)
     // Moving the cursor to the end of input text.
     if (prevState.text !== this.state.text) {
       this.inputRef.current.selectionStart = this.inputRef.current.value.length;
@@ -179,16 +200,12 @@ export default class MultiSelect<T> extends React.Component<
   private onChangeInput = (e: any) => {
     const newValue = e.target.value as string;
     const selectedOptions = this.selectedOptions;
-    console.log('newValue -->', newValue)
-    // If removing a selected option.
+
     // If there are a new value.
     if (newValue) {
       const separation = this.createSeparation();
-      console.log('separation -->', separation)
       const selected = selectedOptions.join(", ");
-      console.log('selected -->', selected);
       const criteria = newValue.slice(selected.length + separation.length, newValue.length).replace(/,/g, '').trim();
-      console.log('criteria -->', criteria);
       this.setState({
         text: selected + separation + criteria,
         writtingSearchCriteria: criteria.length > 0 ? true : false
@@ -200,20 +217,21 @@ export default class MultiSelect<T> extends React.Component<
     }
   }
 
-  private getIndex = (newValue: string): number => {
-    return 1;
-  }
-
-  private onKeyDown = (e: any) => {
+  private onDelete = (e: any) => {
     if (e.keyCode === 8) {
-      console.log("I'm pressing backspace");
       if (!this.state.writtingSearchCriteria) {
-        this.setState({ removingSelectedOption: true });
+        const toDelete = this.selectedOptions[this.selectedOptions.length - 1];
+
+        if(this.props.onChange) {
+          const option = this.getOption(toDelete);
+          if(option)  {
+            this.setState({ removingSelectedOption: true })
+            this.props.onChange(false, option.data, toDelete);
+          }
+        }
       }
     }
   }
-
-  private createSeparation = (): string => (this.selectedOptions.length > 0 ? ", " : "");
 
   private onFocusInput = () => {
     if (!this.state.writtingSearchCriteria)
@@ -242,6 +260,8 @@ export default class MultiSelect<T> extends React.Component<
     return matches;
   }
 
+  private createSeparation = (): string => (this.selectedOptions.length > 0 ? ", " : "");
+
   private extractOptions = (): Array<LabelCheckboxProps<T>> => {
     const options: Array<LabelCheckboxProps<T>> = [];
 
@@ -250,6 +270,18 @@ export default class MultiSelect<T> extends React.Component<
     });
 
     return options;
+  }
+
+  private getOption = (text: string): LabelCheckboxProps<T> | undefined => {
+    const options = this.extractOptions();
+    const option = options.find(o => {
+      if(o.children) 
+        return o.children.toString() === text;
+      else 
+        return false
+    })
+
+    return option
   }
   //#endregion
 
@@ -297,7 +329,7 @@ export default class MultiSelect<T> extends React.Component<
             onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
             disabled={this.props.disabled}
-            onKeyDown={this.onKeyDown}
+            onKeyDown={this.onDelete}
             onChange={this.onChangeInput} />
         </div>
 
