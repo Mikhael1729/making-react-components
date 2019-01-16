@@ -1,6 +1,6 @@
 import * as React from 'react';
-import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
 import "styles/MultiSelect.css";
+import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;
@@ -43,18 +43,7 @@ export default class MultiSelect<T> extends React.Component<
 
   //#region Lifecycle Methods 
   componentWillMount() {
-    this.setState(prevState => {
-      const selectedOptions = [...prevState.selectedOptions];
-      const options = [] as string[];
-
-      this.props.children.forEach((child: any) => {
-        options.push(child.props.children)
-        if (child.props.checked)
-          selectedOptions.push(child.props.children)
-      })
-
-      return { selectedOptions, options }
-    })
+    this.updateOptions()
   }
 
   componentDidMount() {
@@ -68,7 +57,6 @@ export default class MultiSelect<T> extends React.Component<
 
     // Subscribing of focus out of parent div.
     parent.addEventListener('focusout', this.focusOut);
-
 
     // Adding the same size of the label parent to checkboxs div
     this.changeSize();
@@ -92,6 +80,9 @@ export default class MultiSelect<T> extends React.Component<
       this.inputRef.current.selectionStart = this.inputRef.current.value.length;
       this.inputRef.current.selectionEnd = this.inputRef.current.value.length;
     }
+
+    if(prevProps.children.length !== this.props.children.length)
+      this.updateOptions()
   }
   //#endregion
 
@@ -121,7 +112,12 @@ export default class MultiSelect<T> extends React.Component<
     }
   };
 
-  private showCheckboxes = () => this.setState({ expanded: true })
+  private showCheckboxes = () => {
+    if(!this.props.disabled) {
+      this.changeSize();
+      this.setState({ expanded: true })
+    }
+  }
 
   private hideCheckboxes = () => this.setState({ expanded: false })
 
@@ -130,13 +126,13 @@ export default class MultiSelect<T> extends React.Component<
 
     this.setState(prevState => {
       const selectedOptions = [...prevState.selectedOptions]
-      const index = selectedOptions.findIndex(l => l === text)
+      const index = selectedOptions.findIndex(l => l.toString() === text)
       let inputText = ""
 
       if (!checked)
         selectedOptions.splice(index, 1)
       else
-        selectedOptions.push(text)
+        selectedOptions.push(text.toString())
 
 
       selectedOptions.forEach((s, i) => {
@@ -209,13 +205,6 @@ export default class MultiSelect<T> extends React.Component<
       const selected = selectedOptions.join(", ");
       const criteria = parts[parts.length - 1].trim();
 
-      // console.log('nextValue:', nextValue)
-      // console.log('prevValue:', prevValue)
-      // console.log('selectedOptions:', selectedOptions)
-      // console.log('parts:', parts)
-      // console.log('selected:', selected)
-      // console.log('criteria:', criteria)
-
       // Selected options length.
       const selectedOptionsLenght = selectedOptions.join().trim().length
 
@@ -229,7 +218,6 @@ export default class MultiSelect<T> extends React.Component<
 
       // If there are nothing in prev value
       if (nextValue === "") {
-        console.log('5')
         return { ...prevState, text: "", writtingSearchCriteria: false, matches: [] }
       }  
 
@@ -238,36 +226,27 @@ export default class MultiSelect<T> extends React.Component<
       if (criteria.match("^[A-z0-9]+$")) {
         // Add criteria without selected options.
         if (selected.length === 0) {
-
-          console.log('4')
           return {
             ...prevState,
             text: nextValue,
             writtingSearchCriteria: true,
-            matches: this.search(criteria)
+            matches: this.search(criteria.toString())
           }
         }
         // Add a letter in criteria
         else if (selected.length > 0) {
-          console.log('3')
           return {
             ...prevState,
             text: `${selected}, ${criteria}`,
             writtingSearchCriteria: true,
-            matches: this.search(criteria)
+            matches: this.search(criteria.toString())
           }
         }
       }
       // If there are selected options and there are not criteria.
       // When there are no criteria
       else if (selected.length > 0 && parts.length > selectedOptions.length) {
-        // console.log(selectedOptions.join().trim())
-        // console.log(partsJoin)
-
-        // console.log('partsLength:', partsLength)
-        // console.log('partsLength:', selectedOptionsLenght)
         if (parts[parts.length - 1] === '' && prevState.writtingSearchCriteria) {
-          console.log('2')
           return {
             ...prevState,
             text: selectedOptions.join(', ') + ', ',
@@ -277,7 +256,6 @@ export default class MultiSelect<T> extends React.Component<
         }
         // Delete an option.
         else if (parts[parts.length - 1] === '' && partsLength === selectedOptionsLenght) {
-          console.log('1')
           const sliced = selectedOptions.slice(0, selectedOptions.length - 1);
           return {
             ...prevState,
@@ -287,7 +265,6 @@ export default class MultiSelect<T> extends React.Component<
         }
       }
 
-      console.log('final')
       return {
         ...prevState,
         text: prevValue,
@@ -339,6 +316,24 @@ export default class MultiSelect<T> extends React.Component<
     else
       return false
   }
+
+  updateOptions = () => {
+    this.setState(prevState => {
+      const selectedOptions = [...prevState.selectedOptions];
+      const options = [] as string[];
+
+      if(this.props.children.length > 0) {
+        this.props.children.forEach((child: any) => {
+          options.push(child.props.children.toString())
+          if (child.props.checked)
+            selectedOptions.push(child.props.children.toString())
+        })
+      }
+
+      return { selectedOptions, options, text: selectedOptions.join(", ") }
+    })
+  }
+
   //#endregion
 
   //#region Render
@@ -387,6 +382,7 @@ export default class MultiSelect<T> extends React.Component<
             placeholder={this.props.defaultText}
             onBlur={this.onBlurInput}
             onClick={this.showCheckboxes}
+            disabled={this.props.disabled}
             onChange={this.onChangeInput} />
         </div>
 
