@@ -80,7 +80,7 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   componentWillUpdate(nextProps: MultiSelectProps<T>, nextState: MultiSelectState) {
-    // Used to delete an option.
+    // Used to delete an option from text.
     if(nextState.removingSelectedOption) {
       const selectedOptions: string[] = [];
       const children = nextProps.children;
@@ -189,7 +189,18 @@ export default class MultiSelect<T> extends React.Component<
             pointer: true,
           } as Props);
 
-          labels.push(labelCheckbox)
+          if(this.state.matches.length > 0) {
+            const option = labelCheckbox.props.children;
+            if(option) {
+              const match = this.state.matches.find(m => m.toLowerCase() === option.toString().toLowerCase())
+              if(match) {
+                console.log(match)
+                labels.push(labelCheckbox);
+              }
+            }
+          } else {
+            labels.push(labelCheckbox)
+          }
         }
       }
     )
@@ -208,12 +219,13 @@ export default class MultiSelect<T> extends React.Component<
       const criteria = newValue.slice(selected.length + separation.length, newValue.length).replace(/,/g, '').trim();
       this.setState({
         text: selected + separation + criteria,
-        writtingSearchCriteria: criteria.length > 0 ? true : false
+        writtingSearchCriteria: criteria.length > 0 ? true : false,
+        matches: this.search(criteria)
       });
     }
     // If there there isn't a new value.
     else {
-      this.setState({ text: "" })
+      this.setState({ text: "", matches: [] })
     }
   }
 
