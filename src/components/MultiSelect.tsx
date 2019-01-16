@@ -100,7 +100,6 @@ export default class MultiSelect<T> extends React.Component<
   }
 
   componentDidUpdate(prevProps: MultiSelectProps<T>, prevState: MultiSelectState) {
-    console.log(prevProps.children)
     // Moving the cursor to the end of input text.
     if (prevState.text !== this.state.text) {
       this.inputRef.current.selectionStart = this.inputRef.current.value.length;
@@ -194,7 +193,6 @@ export default class MultiSelect<T> extends React.Component<
             if(option) {
               const match = this.state.matches.find(m => m.toLowerCase() === option.toString().toLowerCase())
               if(match) {
-                console.log(match)
                 labels.push(labelCheckbox);
               }
             }
