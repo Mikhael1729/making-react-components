@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './styles/index.css';
-import App from './views/App';
-import 'spectre.css';
 
 ReactDOM.render(
   <App />,
