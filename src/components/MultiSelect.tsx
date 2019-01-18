@@ -26,7 +26,6 @@ export default class MultiSelect<T> extends React.Component<
   MultiSelectState
   > {
   //#region Properties
-
   constructor(props: MultiSelectProps<T>) {
     super(props);
 
@@ -81,7 +80,7 @@ export default class MultiSelect<T> extends React.Component<
 
   componentWillUpdate(nextProps: MultiSelectProps<T>, nextState: MultiSelectState) {
     // Used to delete an option from text.
-    if(nextState.removingSelectedOption) {
+    if(nextState.removingSelectedOption || nextProps.children !== this.props.children) {
       const selectedOptions: string[] = [];
       const children = nextProps.children;
 
@@ -95,7 +94,12 @@ export default class MultiSelect<T> extends React.Component<
               selectedOptions.push(text.toString());
         })
       }
-      this.setState({ text: selectedOptions.join(', '), removingSelectedOption: false})
+
+      this.setState({ 
+        text: selectedOptions.join(', '), 
+        removingSelectedOption: false, 
+        writtingSearchCriteria: false,
+      })
     }
   }
 
