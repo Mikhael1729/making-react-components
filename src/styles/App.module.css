@@ -23,7 +23,8 @@
 }
 
 .Navbar .Brand .Title {
-  font-size: 2em;
+  font-size: 1.5em;
+  filter: brightness(90%);
 }
 
 .Navbar .Brand .Subtitle {
