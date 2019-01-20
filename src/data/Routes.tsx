@@ -1,5 +1,4 @@
 import NestedRoutes from "views/NestedRoutes/NestedRoutes";
-import { IRoute } from "models/IRoute";
 import TestArea from "views/TestArea/TestArea";
 import { testData } from "./TestRepository";
 import * as React from "react";
