@@ -18,7 +18,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "experimentalDecorators": true,
-    "downlevelIteration" : true
+    "downlevelIteration" : true,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",

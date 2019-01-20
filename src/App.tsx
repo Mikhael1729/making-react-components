@@ -1,31 +1,32 @@
 import * as React from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route, NavLink } from 'react-router-dom';
 import { routes } from './data/Routes';
+import { Content, Navbar, Active, Brand, Title, Subtitle } from "styles/App.module.css";
 
-class App extends React.Component {
-  render() {
-    return <BrowserRouter>
-      <>
-        {/* Navigation Controls */}
-        <nav>
-          <ul>
-            {routes.map((r, index) => (
-              <li key={index}>
-                <Link to={r.path}>{r.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>;
-      
-        {/* Pages */}
-        <main style={{ padding: "20px" }}>
-          {routes.map((r, index) => (
-            <Route key={index} path={r.path} component={r.component} />
-          ))}
-        </main>
-      </>
-    </BrowserRouter>
-  }
-}
+const App: React.SFC<any> = (props) => <BrowserRouter>
+  <div style={{ height: '100%' }}>
+    {/* Navigation Controls */}
+    <nav className={Navbar}>
+      <div className={Brand}>
+        <span className={Title}>&lt;Mikhael /&gt;</span>  
+        <span className={Subtitle}>Codificando mundos</span>
+      </div>
+      <ul>
+        {routes.map((r, index) => (
+          <li key={index}>
+            <NavLink to={r.path} activeClassName={Active}>{r.label}</NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    {/* Pages */}
+    <main className={Content}>
+      {routes.map((r, index) => (
+        <Route key={index} path={r.path} component={r.component} />
+      ))}
+    </main>
+  </div>
+</BrowserRouter>
 
 export default App;

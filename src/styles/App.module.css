@@ -1,0 +1,65 @@
+:root {
+  --navbar-box-shadow: inset -12px 0 20px var(--background-color);
+}
+
+/* Navbar */
+.Navbar {
+  width: 320px;
+  height: auto;
+  background-color: inherit;
+  height: 100%;
+  position: fixed;
+  overflow-y: auto;
+  border-right: 1px solid var(--hidden);
+}
+
+.Navbar .Brand {
+  padding: 18px 16px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;  
+  border-bottom: 1px solid var(--hidden);
+}
+
+.Navbar .Brand .Title {
+  font-size: 2em;
+}
+
+.Navbar .Brand .Subtitle {
+  padding: 2px;
+  font-size: 1em;
+}
+
+.Navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Navbar li a {
+  padding: 18px 16px;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid transparent;
+}
+
+.Navbar li a:hover {
+  background-color: var(--background-color);
+  color: inherit;
+  filter: brightness(90%);
+}
+
+.Navbar .Active {
+  background-color: inherit;
+  border-bottom: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+/* Content */
+.Content {
+  margin: 0;
+  padding: 16px 18px;
+  margin-left: 360px;
+}

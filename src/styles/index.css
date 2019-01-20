@@ -1,5 +1,24 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Consolas";
+  overflow-y: scroll !important;
+  background: var(--background-color);
+  color: var(--text-color);
+} 
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: inherit;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #01A2CB;
+}
+::-webkit-scrollbar-button {
+  background-color: inherit;
+}
+::-webkit-scrollbar-corner {
+  background-color: inherit;
 }
