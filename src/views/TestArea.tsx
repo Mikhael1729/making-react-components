@@ -2,6 +2,7 @@ import * as React from 'react';
 import LabelCheckbox from 'components/LabelCheckbox';
 import { TestModel } from 'models/TestModel';
 import MultiSelect from 'components/MultiSelect';
+import * as styles from "styles/TestArea.module.css";
 
 export interface TestAreaProps {
   data: TestModel[]
@@ -50,7 +51,8 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
             key={index}
             data={item}
             checked={this.isChecked(item)}
-            children={item.name} />)
+            children={item.name}
+            className={styles.LabelCheckbox} />)
         )}
       </MultiSelect>
     </>

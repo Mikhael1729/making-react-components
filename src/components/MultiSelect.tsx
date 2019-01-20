@@ -190,7 +190,7 @@ export default class MultiSelect<T> extends React.Component<
           const labelCheckbox = React.cloneElement(child, {
             onChange: this.change,
             pointer: true,
-            className: LabelCheckboxStyles
+            className: child.props.className + ' ' + LabelCheckboxStyles
           } as Props);
 
           if(this.state.matches.length > 0) {
