@@ -1,9 +1,15 @@
 import * as React from "react"
-import { Container } from "styles/Mockup.module.css";
+import "styles/Mockup.css";
 
 const Mockup: React.SFC<any> = () => {
   return <>
-    <h1>Hello</h1>
+    <h1>¿Probando cajitas?</h1>
+
+    <label className="container">
+      <input type="checkbox" />
+      <span className="checkmark"></span>
+      <span>Hello</span>
+    </label>
   </>
 }
 
