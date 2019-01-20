@@ -1,6 +1,6 @@
 import * as React from 'react';
-import "styles/MultiSelect.css";
 import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
+import { Checkboxes, CheckboxesSelect, InputSearch } from "styles/MultiSelect.module.css"
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;
@@ -324,7 +324,7 @@ export default class MultiSelect<T> extends React.Component<
       <div
         ref={this.parentDivRef}
         tabIndex={0}
-        className="checkboxes-select"
+        className={CheckboxesSelect}
       >
         {/* Label */}
         <div
@@ -336,7 +336,7 @@ export default class MultiSelect<T> extends React.Component<
           <input
             ref={this.inputRef}
             type="text"
-            className="input-search"
+            className={InputSearch}
             value={this.state.text}
             placeholder={this.props.defaultText}
             onFocus={this.onFocusInput}
@@ -349,7 +349,7 @@ export default class MultiSelect<T> extends React.Component<
 
         {/* Options */}
         <div
-          id="checkboxes"
+          id={Checkboxes}
           ref={this.checkboxesRef}
           style={{
             display: expanded ? "block" : "none",

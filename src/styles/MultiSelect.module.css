@@ -1,19 +1,19 @@
-.checkboxes-select {
+.CheckboxesSelect {
   cursor: pointer;
 }
 
-.checkboxes-select:focus {
+.CheckboxesSelect:focus {
   outline: none !important;
   border-bottom: transparent;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-.checkboxes-select:hover {
+.CheckboxesSelect:hover {
   outline: none !important;
 }
 
-#checkboxes {
+#Checkboxes {
   border-top: 0px solid transparent;
   border-bottom: 1px solid #caced7;
   border-left: 1px solid #caced7;
@@ -29,23 +29,23 @@
   overflow-y: auto;
 }
 
-#checkboxes label:hover {
+#Checkboxes label:hover {
   background-color: #e5e5e5;
 }
 
 @media (max-width: 768px) {
-  #checkboxes {
+  #Checkboxes {
       border-right: 1px solid #caced7;
       border-bottom: 1px solid #caced7;
   }
 }
 
-.input-search {
+.InputSearch {
   width: 100%;
   height: 100%;
   border: 0px;
 }
-.input-search:focus {
+.InputSearch:focus {
   outline: none !important;
   border-bottom: transparent;
   -webkit-box-shadow: none !important;
