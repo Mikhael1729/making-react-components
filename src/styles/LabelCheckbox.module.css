@@ -4,6 +4,81 @@
   align-items: center;
 }
 
-.Redsito {
-  background: red;
+:root {
+  --checkmark-symbol-width: 5px;
+  --checkmark-symbol-height: calc(var(--checkmark-symbol-width) * 2);
+  --checkmark-container-size: calc(var(--checkmark-symbol-width) * 3); 
+  --checkmark-background: #eee; 
+}
+
+.Label {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  position: relative;
+  background: inherit;
+  cursor: pointer;
+  font-size: 1em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.Label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;  
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.Checkmark {
+  position: absolute;
+  display: block;
+  border: 1px solid var(--text-color);
+  height: var(--checkmark-container-size);
+  width: var(--checkmark-container-size);
+  background-color: inherit;
+}
+
+/* On mouse-over, add a grey background color */
+.Label:hover input ~ .Checkmark {
+  filter: brightness(80%)
+}
+
+/* When the checkbox is checked, add a blue background */
+.Label input:checked ~ .Checkmark {
+  border-color: var(--primary);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.Checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.Label input:checked ~ .Checkmark:after {
+  display: block;
+}
+
+.Label .Checkmark ~ span {
+  margin-left: calc(var(--checkmark-container-size) + 10px);
+}
+
+/* Style the checkmark/indicator */
+.Label .Checkmark:after {
+  left: calc((var(--checkmark-container-size) / 2) - ((var(--checkmark-symbol-height) / 2) * 0.7));
+  top: calc((var(--checkmark-container-size) / 2) - ((var(--checkmark-symbol-height) / 2)) * 1.5);
+  width: var(--checkmark-symbol-width);
+  height: var(--checkmark-symbol-height);
+  border: solid var(--primary);
+  border-width: 0px 2px 2px 0px;
+  -webkit-transform: rotate(calc(15));
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

@@ -29,13 +29,15 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
     const { checked, data, children, pointer, onClick, className } = this.props;
 
     return <div className={styles.Container + ' ' + className}>
-      <Label pointer={pointer}>
+      <Label pointer={pointer} className={styles.Label}>
         <Checkbox
           data={data}
           checked={checked}
           onChange={this.onChange}
           onClick={onClick} />
-        {children}
+        
+        <span className={styles.Checkmark}></span>
+        <span>{children}</span>
       </Label>
     </div>
   }
