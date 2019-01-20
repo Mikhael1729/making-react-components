@@ -44,15 +44,13 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
     return <>
       <h1>Testing my MultiSelect</h1>
 
-      <b>Mikhael</b>
-      <br />
-
       <MultiSelect defaultText="Escoge" onChange={this.handleChange}>
         {this.props.data.map((item, index) => (
           <LabelCheckbox
             key={index}
             data={item}
-            checked={this.isChecked(item)}>{item.name}</LabelCheckbox>)
+            checked={this.isChecked(item)}
+            children={item.name} />)
         )}
       </MultiSelect>
     </>

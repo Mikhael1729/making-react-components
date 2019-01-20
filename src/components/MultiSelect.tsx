@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
-import { Checkboxes, CheckboxesSelect, InputSearch } from "styles/MultiSelect.module.css"
+import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles} from "styles/MultiSelect.module.css"
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;
@@ -141,7 +141,7 @@ export default class MultiSelect<T> extends React.Component<
     const checkboxesRef = this.checkboxesRef.current
 
     if (titleRef !== undefined && checkboxesRef !== undefined) {
-      checkboxesRef.style.width = `${titleRef.clientWidth + 2}px`;
+      checkboxesRef.style.width = `${titleRef.clientWidth - 1.59}px`;
     }
   };
 
@@ -190,6 +190,7 @@ export default class MultiSelect<T> extends React.Component<
           const labelCheckbox = React.cloneElement(child, {
             onChange: this.change,
             pointer: true,
+            className: LabelCheckboxStyles
           } as Props);
 
           if(this.state.matches.length > 0) {

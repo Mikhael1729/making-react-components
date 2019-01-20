@@ -10,6 +10,7 @@ export interface LabelCheckboxProps<T> {
   data?: T;
   children?: string | number | undefined;
   pointer?: boolean;
+  className?: string;
 }
 
 export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxProps<T>, any> {
@@ -25,18 +26,17 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
   };
 
   render() {
-    const { checked, data, children, pointer, onClick } = this.props;
+    const { checked, data, children, pointer, onClick, className } = this.props;
 
-    return <div className="form-group">
-      <Label className="form-checkbox" pointer={pointer}>
-        <Checkbox 
+    return <div className={styles.LabelCheckbox + ' ' + className}>
+
+      <Label pointer={pointer}>
+        <Checkbox
           data={data}
           checked={checked}
           onChange={this.onChange}
           onClick={onClick} />
-
-          <i className="form-icon" style={{ marginLeft: "10px" }} />{" "}
-          &nbsp;&nbsp;{this.props.children}
+        {children}
       </Label>
     </div>
   }
