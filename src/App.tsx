@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { routes } from './data/Routes';
-import { Content, Navbar, Active, Brand, Title, Subtitle } from "styles/App.module.css";
-import Sidebar from 'views/MainLayout/Sidebar/Sidebar';
 import MainLayout from 'views/MainLayout/MainLayout';
 
 const App: React.SFC<any> = (props) => <Router>
