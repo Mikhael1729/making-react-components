@@ -1,10 +1,10 @@
-import NestedRoutes from "views/NestedRoutes";
+import NestedRoutes from "views/NestedRoutes/NestedRoutes";
 import { IRoute } from "models/IRoute";
-import GenericThings from "views/GenericThings";
-import TestArea from "views/TestArea";
+import TestArea from "views/TestArea/TestArea";
 import { testData } from "./TestRepository";
 import * as React from "react";
-import Mockup from "views/Mockup";
+import Mockup from "views/Mockup/Mockup";
+import GenericThings from "views/GenericThings/GenericThings";
 
 export const routes: IRoute[] = [
   { path: "/generic-things", label: "Cosas genéricas", component: GenericThings },
