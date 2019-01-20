@@ -2,6 +2,16 @@
   --navbar-box-shadow: inset -12px 0 20px var(--background-color);
 }
 
+/* Element selectors */
+a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2.6em;
+}
+
 /* Navbar */
 .Navbar {
   width: 320px;
@@ -63,4 +73,9 @@
   margin: 0;
   padding: 16px 18px;
   margin-left: 360px;
+}
+
+/* Text styles */
+.Title {
+  font-size: 2em;
 }
