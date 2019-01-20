@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { BrowserRouter, Link, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { routes } from './data/Routes';
 import { Content, Navbar, Active, Brand, Title, Subtitle } from "styles/App.module.css";
 
-const App: React.SFC<any> = (props) => <BrowserRouter>
-  <div style={{ height: '100%' }}>
+const App: React.SFC<any> = (props) => <Router>
+  <>
     {/* Navigation Controls */}
     <nav className={Navbar}>
       <div className={Brand}>
@@ -26,7 +26,7 @@ const App: React.SFC<any> = (props) => <BrowserRouter>
         <Route key={index} path={r.path} component={r.component} />
       ))}
     </main>
-  </div>
-</BrowserRouter>
+  </>
+</Router>
 
 export default App;
