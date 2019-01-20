@@ -8,9 +8,9 @@ import Home from "views/Home/Home";
 import Route from "models/Route";
 
 export const routes: Route[] = [
-  new Route({ path: "/", label: "Inicio", component: Home }),
-  new Route({ path: "/generic-things", label: "Cosas genéricas", component: GenericThings }),
-  new Route({ path: "/test-area", label: "Área de pruebas", component: () => <TestArea data={testData}/>}),
-  new Route({ path: "/nested-routes", label: "Rutas anidadas", component: NestedRoutes }),
-  new Route({ path: "/mockup", label: "Aprende CSS", component: Mockup }),
+  { path: "/", label: "Inicio", component: Home, exact: true },
+  { path: "/generic-things", label: "Cosas genéricas", component: GenericThings },
+  { path: "/test-area", label: "Área de pruebas", component: () => <TestArea data={testData}/>},
+  { path: "/nested-routes", label: "Rutas anidadas", component: NestedRoutes },
+  { path: "/mockup", label: "Aprende CSS", component: Mockup },
 ]
