@@ -28,8 +28,7 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
   render() {
     const { checked, data, children, pointer, onClick, className } = this.props;
 
-    return <div className={styles.LabelCheckbox + ' ' + className}>
-
+    return <div className={styles.Container + ' ' + className}>
       <Label pointer={pointer}>
         <Checkbox
           data={data}
