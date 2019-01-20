@@ -13,7 +13,7 @@ export interface MainLayoutState {
 
 }
 
-class MainLayout extends React.Component<MainLayoutProps, MainLayoutState> {
+class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
   render() {
     return <>
       {/* Navigation Controls */}
