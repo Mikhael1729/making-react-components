@@ -20,7 +20,7 @@ class MainLayout extends React.Component<MainLayoutProps, MainLayoutState> {
       <Sidebar>
         {routes.map((r, index) => (
           <li key={index}>
-            <NavLink to={r.path} activeClassName={Active}>{r.label}</NavLink>
+            <NavLink to={r.path} activeClassName={Active} {...r}>{r.label}</NavLink>
           </li>
         ))}
       </Sidebar>

@@ -6,7 +6,7 @@ import MainLayout from 'views/MainLayout/MainLayout';
 const App: React.SFC<any> = (props) => <Router>
   <MainLayout>
     {routes.map((r, index) => (
-      <Route key={index} path={r.path} component={r.component} />
+      <Route key={index} path={r.path} component={r.component} {...r}/>
     ))}
   </MainLayout>
 </Router>
