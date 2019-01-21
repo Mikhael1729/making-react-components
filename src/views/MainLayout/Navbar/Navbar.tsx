@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as Styles from "styles/views/App.module.css";
+import { RouteComponentProps, withRouter } from 'react-router';
 
-interface NavbarProps {
+interface NavbarProps extends RouteComponentProps {
 }
 
 const Navbar: React.SFC<NavbarProps> = (props) => {
+  console.log(props);
   return (
     <div className={Styles.Navbar}>
       <div className={Styles.Brand}>
@@ -17,4 +19,4 @@ const Navbar: React.SFC<NavbarProps> = (props) => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
