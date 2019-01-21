@@ -2,7 +2,7 @@ import * as React from 'react';
 import LabelCheckbox from 'components/LabelCheckbox';
 import { TestModel } from 'models/TestModel';
 import MultiSelect from 'components/MultiSelect';
-import * as styles from "styles/TestArea.module.css";
+import * as styles from "styles/views/TestArea.module.css";
 
 export interface TestAreaProps {
   data: TestModel[]

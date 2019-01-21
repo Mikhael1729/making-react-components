@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
-import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles} from "styles/MultiSelect.module.css"
+import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles} from "styles/components/MultiSelect.module.css"
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;

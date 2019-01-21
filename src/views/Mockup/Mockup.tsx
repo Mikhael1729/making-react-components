@@ -1,5 +1,5 @@
 import * as React from "react"
-import "styles/Mockup.css";
+import "styles/views/Mockup.css";
 
 const Mockup: React.SFC<any> = () => {
   return <>

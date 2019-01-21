@@ -4,7 +4,7 @@ import {
   Navbar,
   Subtitle,
   Title
-  } from 'styles/App.module.css';
+  } from 'styles/views/App.module.css';
 
 interface SidebarProps {
 }

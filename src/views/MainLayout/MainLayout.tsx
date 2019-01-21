@@ -2,7 +2,7 @@ import * as React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import { routes } from "data/Routes";
 import { NavLink } from "react-router-dom";
-import { Active, Content } from "styles/App.module.css";
+import { Active, Content } from "styles/views/App.module.css";
 import { Route } from "react-router";
 
 export interface MainLayoutProps {

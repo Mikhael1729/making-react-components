@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-do
 import { routes } from './data/Routes';
 import MainLayout from 'views/MainLayout/MainLayout';
 import Sidebar from 'views/MainLayout/Sidebar/Sidebar';
-import { Active, Content } from 'styles/App.module.css';
+import { Active, Content } from 'styles/views/App.module.css';
 
 const App: React.SFC<any> = (props) => <Router>
   <Switch>
