@@ -6,6 +6,7 @@ import Mockup from "views/Mockup/Mockup";
 import GenericThings from "views/GenericThings/GenericThings";
 import Home from "views/Home/Home";
 import Route from "models/Route";
+import Writes from "views/Writes/Writes";
 
 export const sidebarRoutes: Route[] = [
   { path: "/", label: "Inicio", component: Home, exact: true },
@@ -16,5 +17,5 @@ export const sidebarRoutes: Route[] = [
 ]
 
 export const navbarRoutes: Route[] = [
-  { path: "/writer", label: "Escribe", component: GenericThings, icon:"icon-pencil2" }
+  { path: "/writer", label: "Escribe", component: Writes, icon:"icon-pencil2" }
 ]
