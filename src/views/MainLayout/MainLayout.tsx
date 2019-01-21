@@ -4,6 +4,7 @@ import { routes } from "data/Routes";
 import { NavLink } from "react-router-dom";
 import { Active, Content } from "styles/views/App.module.css";
 import { Route } from "react-router";
+import Navbar from "./Navbar/Navbar";
 
 export interface MainLayoutProps {
 
@@ -31,6 +32,9 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
           </li>
         ))}
       </Sidebar>
+
+      {/* Navbar */}
+      <Navbar />
 
       {/* Content */}
       <main className={Content}>
