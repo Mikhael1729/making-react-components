@@ -12,8 +12,16 @@ const Navbar: React.SFC<NavbarProps> = (props) => {
       </div>
       <ul>
         <li>
-          <span className="icon-pencil2"></span>
-          &nbsp;Escribe
+          <a>
+            <span className="icon-pencil2"></span>
+            &nbsp;Escribe
+          </a>
+        </li>
+        <li>
+          <a>
+            <span className="icon-pencil2"></span>
+            &nbsp;Escribe
+          </a>
         </li>
       </ul>
     </div>
