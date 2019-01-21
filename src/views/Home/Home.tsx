@@ -16,7 +16,7 @@ const Home: React.SFC<HomeProps> = (props) => {
     <b>¿Dónde hay más?</b>
 
     <p>
-      ¿Quieres ver más de lo que hay en esta ruta? Hay muchas más esperando a ser presionadas en el <i>Sidebar</i>, y quien sabe si alguna otra dentro de una página que algún destino dentro de las rutas del sidebar.
+      ¿Quieres ver más de lo que hay en esta ruta? Hay muchas más esperando a ser presionadas en el <i>Sidebar</i>, y quién sabe si alguna otra más se encuentre escondida dentro de alguna ruta superficial, encontrándose entre las que están anidadas.
     </p>
   </>;
 };
