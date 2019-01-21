@@ -13,7 +13,7 @@ h1 {
 }
 
 /* Navbar */
-.Navbar {
+.Sidebar {
   width: 320px;
   height: auto;
   background-color: inherit;
@@ -23,7 +23,7 @@ h1 {
   border-right: 1px solid var(--hidden);
 }
 
-.Navbar .Brand {
+.Sidebar .Brand {
   padding: 18px 16px;
   color: inherit;
   display: flex;
@@ -32,23 +32,23 @@ h1 {
   border-bottom: 1px solid var(--hidden);
 }
 
-.Navbar .Brand .Title {
+.Sidebar .Brand .Title {
   font-size: 1.5em;
   filter: brightness(90%);
 }
 
-.Navbar .Brand .Subtitle {
+.Sidebar .Brand .Subtitle {
   padding: 2px;
   font-size: 1em;
 }
 
-.Navbar ul {
+.Sidebar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.Navbar li a {
+.Sidebar li a {
   padding: 18px 16px;
   display: block;
   text-decoration: none;
@@ -56,13 +56,13 @@ h1 {
   border-bottom: 1px solid transparent;
 }
 
-.Navbar li a:hover {
+.Sidebar li a:hover {
   background-color: var(--background-color);
   color: inherit;
   filter: brightness(90%);
 }
 
-.Navbar .Active {
+.Sidebar .Active {
   filter: brightness(85%);
   background-color: var(--background-color);
   color: var(--primary);

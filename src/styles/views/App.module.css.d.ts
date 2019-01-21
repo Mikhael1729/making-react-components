@@ -1,4 +1,4 @@
-export const Navbar: string;
+export const Sidebar: string;
 export const Content: string;
 export const Active: string;
 export const Brand: string;

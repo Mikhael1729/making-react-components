@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   Brand,
-  Navbar,
+  Sidebar as SidebarStyles,
   Subtitle,
   Title
   } from 'styles/views/App.module.css';
@@ -13,7 +13,7 @@ const Sidebar: React.SFC<SidebarProps> = (props) => {
   const { children } = props;
 
   return (
-    <nav className={Navbar}>
+    <nav className={SidebarStyles}>
       <div className={Brand}>
         <span className={Title}>&lt;Mikhael /&gt;</span>
         <span className={Subtitle}>Codificando mundos</span>
