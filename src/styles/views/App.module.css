@@ -1,7 +1,7 @@
 :root {
   --navbar-box-shadow: inset -12px 0 20px var(--background-color);
   --sidebar-width: 320px;
-  --navbar-height: 40px;
+  --navbar-height: 60px;
   --edge-padding: 16px;
 }
 
@@ -26,7 +26,6 @@ h1 {
   display: flex;
   align-items: center;
   align-content: center;
-  justify-content: flex-end;
   padding-right: var(--edge-padding);
   padding-left: var(--edge-padding);
 } 
@@ -36,13 +35,22 @@ h1 {
   margin: 0;
   list-style-type: none;
   padding: 0;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .Navbar li {
-  height: var(--navbar-height);
   display: flex;
   align-items: center;
-  padding: 0px 10px 0px 10px;
+  align-content: center;
+  padding: 10px;
+  border: 1px solid var(--hidden);
+  border-radius: 10px;
+}
+
+.Navbar .Brand {
+  display: flex;
+  font-size: 1.5em;
 }
   
 /* Sidebar */
@@ -104,6 +112,7 @@ h1 {
 .Content {
   margin: 0;
   padding: 16px 18px;
+  padding-top: var(--navbar-height);
   margin-left: calc(var(--sidebar-width));
 }
 
