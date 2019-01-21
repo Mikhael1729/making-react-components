@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
-import { routes } from './data/Routes';
+import { sidebarRoutes, navbarRoutes } from './data/Routes';
 import MainLayout from 'views/MainLayout/MainLayout';
 import Sidebar from 'views/MainLayout/Sidebar/Sidebar';
 import { Active, Content } from 'styles/views/App.module.css';
@@ -8,7 +8,7 @@ import { Active, Content } from 'styles/views/App.module.css';
 const App: React.SFC<any> = (props) => <Router>
   <Switch>
     <MainLayout>
-      {routes.map((r, index) => (
+      {(sidebarRoutes.concat(navbarRoutes)).map((r, index) => (
         <Route
           key={index}
           path={r.path}

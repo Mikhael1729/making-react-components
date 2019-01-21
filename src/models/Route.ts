@@ -6,6 +6,7 @@ class Route {
   component?: any;
   strict?: boolean;
   exact?: boolean;
+  icon?: string;
 
   constructor(data: Route) {
     init<Route>(this, data);

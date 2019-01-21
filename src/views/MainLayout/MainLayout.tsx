@@ -1,6 +1,6 @@
 import * as React from "react";
 import Sidebar from "./Sidebar/Sidebar";
-import { routes } from "data/Routes";
+import { sidebarRoutes, navbarRoutes } from "data/Routes";
 import { NavLink } from "react-router-dom";
 import { Active, Content } from "styles/views/App.module.css";
 import { Route } from "react-router";
@@ -19,7 +19,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
     return <>
       {/* Navigation Controls */}
       <Sidebar>
-        {routes.map((r, index) => (
+        {sidebarRoutes.map((r, index) => (
           <li key={index}>
             <NavLink
               to={r.path}
@@ -34,7 +34,21 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
       </Sidebar>
 
       {/* Navbar */}
-      <Navbar />
+      <Navbar>
+        {navbarRoutes.map((r, index) => (
+          <li key={index}>
+            <NavLink
+              to={r.path}
+              activeClassName={Active}
+              exact={r.exact}
+              strict={r.strict}
+            >
+              <span className={r.icon} />
+              <span>&nbsp;{r.label}</span>
+            </NavLink>
+          </li>
+        ))}
+      </Navbar>
 
       {/* Content */}
       <main className={Content}>

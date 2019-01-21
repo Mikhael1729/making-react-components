@@ -7,10 +7,14 @@ import GenericThings from "views/GenericThings/GenericThings";
 import Home from "views/Home/Home";
 import Route from "models/Route";
 
-export const routes: Route[] = [
+export const sidebarRoutes: Route[] = [
   { path: "/", label: "Inicio", component: Home, exact: true },
   { path: "/generic-things", label: "Cosas genéricas", component: GenericThings },
-  { path: "/test-area", label: "Área de pruebas", component: () => <TestArea data={testData}/>},
+  { path: "/test-area", label: "Área de pruebas", component: () => <TestArea data={testData} /> },
   { path: "/nested-routes", label: "Rutas anidadas", component: NestedRoutes },
   { path: "/mockup", label: "Aprende CSS", component: Mockup },
+]
+
+export const navbarRoutes: Route[] = [
+  { path: "/writer", label: "Escribe", component: GenericThings, icon:"icon-pencil2" }
 ]

@@ -48,9 +48,12 @@ h1 {
 
 .Navbar li a {
   padding: 8px;
-  border: 1px solid var(--secondary);
+  border: 1px solid var(--hidden);
   border-radius: 10px;
-  display: block;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  align-content: center;
   cursor: pointer;
 }
 
@@ -108,7 +111,7 @@ h1 {
   filter: brightness(90%);
 }
 
-.Sidebar .Active {
+.Sidebar .Active, .Navbar .Active {
   filter: brightness(85%);
   background-color: var(--background-color);
   color: var(--primary);
