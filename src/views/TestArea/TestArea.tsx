@@ -43,7 +43,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
   )
 
   private multipleSort<T>(a: T, b: T, properties: string[]) {
-    const fields: Array<{ value1: any, value2:any}> = [];
+    const fields: Array<{ value1: any, value2: any }> = [];
 
     for (const property of properties)
       fields.push({
@@ -52,9 +52,9 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
       });
 
     for (const field of fields) {
-      if(field.value1 > field.value2) 
+      if (field.value1 > field.value2)
         return 1;
-      if(field.value1 < field.value2) 
+      if (field.value1 < field.value2)
         return -1;
     }
 
@@ -65,14 +65,14 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
     const qualifications = assignedQualifications();
     console.log("qualifications: -> ", qualifications);
 
-    const desorganizado = [ qualifications[0], qualifications[9], qualifications[5], qualifications[8], qualifications[1], qualifications[2]]
+    const desorganizado = [qualifications[0], qualifications[9], qualifications[5], qualifications[8], qualifications[1], qualifications[2]]
     console.log("desorganizado: -> ", desorganizado);
 
     const tmp = [...desorganizado];
-    
+
     const organizado = tmp.sort((a, b) => this.multipleSort(a, b, ["subjectCode"]));
     console.log("organizado: -> ", organizado);
-    
+
     return <>
       <h1>Área de pruebas</h1>
 
@@ -96,7 +96,12 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
         {/* Another */}
         <div>
-          Another
+          <div className={styles.Mydiv}>
+            <div className={styles.Mydivheader}>Click here to move</div>
+            <p>Move</p>
+            <p>this</p>
+            <p>DIV</p>
+          </div>
         </div>
       </div>
     </>
