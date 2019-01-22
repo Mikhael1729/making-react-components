@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as styles from "styles/views/Publications.module.css";
 
-interface PublicationProps {
+interface PostProps {
   title: string;
   content: string;
   publicationDate: Date;
 }
 
-const Publication: React.SFC<PublicationProps> = (props) => {
+const Post: React.SFC<PostProps> = (props) => {
   const { content, title, publicationDate } = props;
   const shortContent = content.length > 232 ? content.slice(0, 232) : content;
   const day = publicationDate.getDate();
@@ -40,4 +40,4 @@ const computeMonth = (date: Date): string => {
   return months[date.getMonth()];
 }
 
-export default Publication;
+export default Post;
