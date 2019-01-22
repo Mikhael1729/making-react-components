@@ -1,5 +1,6 @@
 import { TestModel } from "models/TestModel";
 import { Post } from "models/Post";
+import { AssignedQualification } from "models/AssignedQualification";
 
 export const testData: TestModel[] = [
   { name: "Pruebita 1", quantity: 1, things: ["one"] },
@@ -24,3 +25,28 @@ export const posts: Post[] = [
     dateTime: new Date()
   }
 ]
+
+export function assignedQualifications() {
+  const qualifications: AssignedQualification[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    const qualification = new AssignedQualification({
+      career: `Carrera ${i}`,
+      enrollment: `Matricula-H-${i}`,
+      id: i,
+      letter: 'A',
+      name: `Person ${i}`,
+      period: `Periodo ${i}`,
+      periodId: i * 300,
+      qualification: i * 400,
+      qualificationId: i * 500,
+      subject: `Asignatura ${i}`,
+      subjectCode: `Subject-C-${i}`,
+      year: 2000 + i
+    })
+    
+    qualifications.push(qualification)
+  }
+
+  return qualifications;
+}
