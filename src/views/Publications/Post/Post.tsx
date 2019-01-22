@@ -9,7 +9,11 @@ interface PostProps {
 
 const Post: React.SFC<PostProps> = (props) => {
   const { content, title, publicationDate } = props;
+
+  // Short content.
   const shortContent = content.length > 232 ? content.slice(0, 232) : content;
+
+  // Date
   const day = publicationDate.getDate();
   const month = computeMonth(publicationDate);
   const year = publicationDate.getFullYear();
