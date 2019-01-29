@@ -1,0 +1,13 @@
+.MyDiv {
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* If screen width is <= 768*/
+@media only screen and (max-width: 768px) {
+  .MyDiv {
+    background-color: blue;
+  }
+}
+

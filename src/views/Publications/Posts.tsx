@@ -17,7 +17,7 @@ class Posts extends React.Component<PostsProps, PostsState> {
 
       <Row>
         {posts.map((p, index) => (
-          <Column size="col-6" cssMargin="10px">
+          <Column key={index} lg="4" cssMargin={4}>
             <Post
               title={p.title!}
               content={p.content!}
