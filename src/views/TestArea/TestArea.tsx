@@ -12,15 +12,25 @@ export interface TestAreaProps {
 export interface TestAreaState {
   checked: boolean;
   selected: TestModel[];
+  position: { one: number, two: number, three: number, fourth: number }  
 }
 
 export default class TestArea extends React.Component<TestAreaProps, TestAreaState> {
+  private drawableDivTitleRef: any = React.createRef();
+  private drawableDivRef: any = React.createRef();
+  
   constructor(props: TestAreaProps) {
     super(props);
 
     this.state = {
       checked: false,
-      selected: []
+      selected: [],
+      position: {
+        one: 0,
+        three: 0,
+        fourth: 0,
+        two: 0
+      }
     }
   }
 
@@ -61,6 +71,53 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
     return 0;
   }
 
+  onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    let pos1 = 0;
+    let pos2 = 0;
+    let pos3 = 0;
+    let pos4 = 0;
+
+    const drawableDiv = this.drawableDivRef.current;
+    const drawableDivTitle = this.drawableDivTitleRef.current;
+
+    if(drawableDivTitle) 
+      drawableDivTitle.onmousedown = dragMouseDown;
+    else
+      drawableDiv.onmousedown = dragMouseDown;
+
+    function dragMouseDown(event: any) {
+      event = event || window.event;
+      event.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = event.clientX;
+      pos4 = event.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+  
+    function elementDrag(event: any) {
+      event = event || window.event;
+      event.preventDefault();
+      // calculate the new cursor position:
+      pos1 = pos3 - event.clientX;
+      pos2 = pos4 - event.clientY;
+      pos3 = event.clientX;
+      pos4 = event.clientY;
+      // set the element's new position:
+      drawableDiv.style.top = (drawableDiv.offsetTop - pos2) + "px";
+      drawableDiv.style.left = (drawableDiv.offsetLeft - pos1) + "px";
+    }
+  
+    function closeDragElement() {
+      /* stop moving when mouse button is released:*/
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+
   render() {
     const qualifications = assignedQualifications();
     console.log("qualifications: -> ", qualifications);
@@ -96,8 +153,11 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
         {/* Another */}
         <div>
-          <div className={styles.Mydiv}>
-            <div className={styles.Mydivheader}>Click here to move</div>
+          <div className={styles.Mydiv} ref={this.drawableDivRef}>
+            <div 
+              className={styles.Mydivheader} 
+              onMouseDown={this.onMouseDown}
+              ref={this.drawableDivTitleRef}>Click here to move</div>
             <p>Move</p>
             <p>this</p>
             <p>DIV</p>
