@@ -8,7 +8,9 @@ export interface ColmunProps {
   lg?: ResponsiveWidth;
   md?: ResponsiveWidth;
   sm?: ResponsiveWidth;
+  xs?: ResponsiveWidth;
   cssMargin?: number;
+  onChange?: () => void;
   children?: React.ReactNode;
 }
 
@@ -18,57 +20,116 @@ export interface ColmunState {
 
 export default class Colmun extends React.Component<ColmunProps, ColmunState> {
   public static contextType = RowContext;
+  private columnRef: any = React.createRef();
   public state: ColmunState = {
     cssWidth: ''
   }
-
   public static defaultProps = {
     cssMargin: 0
   }
-  private generateClassName = (width: ResponsiveWidth | undefined) => {
-    let lg = width as string;
-    lg = lg ? `col-${lg}` : '';
-
-    return lg;
-  }
-
-  componentWillMount() {
-  }
 
   componentDidMount() {
-    const node = ReactDOM.findDOMNode(this) as any;
-    
-    if(node) {
-      const nodeStyles = window.getComputedStyle(node);
-      
-      if(nodeStyles.margin) 
-        if(nodeStyles.width) 
-          this.setState({ cssWidth: nodeStyles.width });
-    }
+    this.computeWidth();
+
+    window.addEventListener("resize", this.computeWidth);
   }
 
   public componentWillUnmount() {
     window.removeEventListener("resize", this.computeWidth);
   }
 
-  private computeWidth = () => {
-    console.log(window.innerWidth);
+  private computeWidth = (e?: any) => {
+    const { lg, md, sm, xs, onChange } = this.props;
+
+    // Screen width.
+    const screenWidth = window.innerWidth;
+
+    // Div reference.
+    const div = this.columnRef.current;
+
+    // Margin.
+    const margin = this.props.cssMargin! * 2 + "px";
+
+    // Width percentage.
+    let percentage: string | undefined;
+
+    if (screenWidth >= 1200 && lg)
+      percentage = this.computePercentage(lg)
+    else if (screenWidth >= 992 && md)
+      percentage = this.computePercentage(md)
+    else if (screenWidth >= 768 && sm)
+      percentage = this.computePercentage(sm)
+    else if (screenWidth < 768 && xs)
+      percentage = this.computePercentage(xs)
+
+    if(percentage) {
+      // Apyling width changes.
+      const newWidth = `calc(${percentage} - ${margin})`
+  
+      if (newWidth !== div.style.width) {
+        div.style.width = newWidth;
+  
+        if(onChange)
+          onChange();
+      }
+    }
+  }
+
+  private computePercentage = (size: ResponsiveWidth): string => {
+    let percentage: string;
+
+    switch (size) {
+      case "1":
+        percentage = "8.33%";
+        break;
+      case "2":
+        percentage = "16.66%";
+        break;
+      case "3":
+        percentage = "25%";
+        break;
+      case "4":
+        percentage = "33.33%";
+        break;
+      case "5":
+        percentage = "41.66%";
+        break;
+      case "6":
+        percentage = "50%";
+        break;
+      case "7":
+        percentage = "58.33%";
+        break;
+      case "8":
+        percentage = "66.66%";
+        break;
+      case "9":
+        percentage = "75%";
+        break;
+      case "10":
+        percentage = "83.33%";
+        break;
+      case "11":
+        percentage = "91.66%";
+        break;
+      default:
+        percentage = "100%";
+        break;
+    }
+
+    return percentage;
   }
 
   public render() {
-    const margin = this.props.cssMargin ? this.props.cssMargin : 0;
-    const rowWidth = parseFloat(this.context);
-    const colWidth = parseFloat(this.state.cssWidth);
-    const percentage = (colWidth / rowWidth) * 100;
-
-    return <div
-      className={this.generateClassName(this.props.lg)}
-      style={{
-        margin: margin + "px",
-        width: `calc(${percentage}% - ${margin * 2}px)`,
-        display: 'flex',
-      }}>
-      {this.props.children}
-    </div>;
+    return (
+      <div
+        ref={this.columnRef}
+        style={{
+          margin: this.props.cssMargin,
+          display: 'flex',
+        }}>
+        {this.props.children}
+      </div>
+    )
   }
 }
