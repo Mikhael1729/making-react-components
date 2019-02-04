@@ -4,6 +4,7 @@ import { TestModel } from 'models/TestModel';
 import MultiSelect from 'components/MultiSelect';
 import * as styles from "styles/views/TestArea.module.css";
 import { assignedQualifications } from 'data/repository';
+import ResponsiveSensor from 'components/ResponsiveSensor';
 
 export interface TestAreaProps {
   data: TestModel[]
@@ -120,15 +121,15 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
   render() {
     const qualifications = assignedQualifications();
-    console.log("qualifications: -> ", qualifications);
+    // console.log("qualifications: -> ", qualifications);
 
     const desorganizado = [qualifications[0], qualifications[9], qualifications[5], qualifications[8], qualifications[1], qualifications[2]]
-    console.log("desorganizado: -> ", desorganizado);
+    // console.log("desorganizado: -> ", desorganizado);
 
     const tmp = [...desorganizado];
 
     const organizado = tmp.sort((a, b) => this.multipleSort(a, b, ["subjectCode"]));
-    console.log("organizado: -> ", organizado);
+    // console.log("organizado: -> ", organizado);
 
     return <>
       <h1>Área de pruebas</h1>
@@ -164,6 +165,8 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
           </div>
         </div>
       </div>
+
+      <ResponsiveSensor callBack={(size, breakPoint) => console.log(size, breakPoint)}/>
     </>
   }
 }
