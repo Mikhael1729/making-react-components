@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { RowContext } from './Row';
-
-type ResponsiveWidth = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+import ResponsiveWidth from 'models/components/ResponsiveWidth';
 
 export interface ColumnProps {
   lg?: ResponsiveWidth;
@@ -122,12 +121,7 @@ export default class Column extends React.Component<ColumnProps, ColumnState> {
 
   public render() {
     return (
-      <div
-        ref={this.columnRef}
-        style={{
-          margin: this.props.cssMargin,
-          display: 'flex',
-        }}>
+      <div ref={this.columnRef} style={{ margin: this.props.cssMargin, display: 'flex' }}>
         {this.props.children}
       </div>
     )
