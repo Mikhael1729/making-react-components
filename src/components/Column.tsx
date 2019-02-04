@@ -4,7 +4,7 @@ import { RowContext } from './Row';
 
 type ResponsiveWidth = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
 
-export interface ColmunProps {
+export interface ColumnProps {
   lg?: ResponsiveWidth;
   md?: ResponsiveWidth;
   sm?: ResponsiveWidth;
@@ -14,14 +14,14 @@ export interface ColmunProps {
   children?: React.ReactNode;
 }
 
-export interface ColmunState {
+export interface ColumnState {
   cssWidth: string;
 }
 
-export default class Colmun extends React.Component<ColmunProps, ColmunState> {
+export default class Column extends React.Component<ColumnProps, ColumnState> {
   public static contextType = RowContext;
   private columnRef: any = React.createRef();
-  public state: ColmunState = {
+  public state: ColumnState = {
     cssWidth: ''
   }
   public static defaultProps = {
