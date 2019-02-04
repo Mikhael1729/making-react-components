@@ -10,6 +10,7 @@ export interface ResponsiveSensorState {
 
 export default class ResponsiveSensor extends React.Component<ResponsiveSensorProps, ResponsiveSensorState> {
   componentDidMount() {
+    this.compute();
     window.addEventListener("resize", this.compute);
   }
 
@@ -17,7 +18,7 @@ export default class ResponsiveSensor extends React.Component<ResponsiveSensorPr
     window.removeEventListener("resize", this.compute);
   }
 
-  private compute = (e: UIEvent) => {
+  private compute = (e?: UIEvent) => {
     const { callBack } = this.props;
     const screenWidth = window.innerWidth;
 
