@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as styles from "./Button.module.scss";
+import * as variables from "./variables.module.scss"
 
 export type ButtonShape = "circle" | "square";
 export type ButtonColors = "primary" | "secondary" | "warning";
@@ -48,7 +49,6 @@ const computeModel = (props: IButtonProps) => {
 
 const Button: React.FunctionComponent<IButtonProps> = props => {
   const model = computeModel(props);
-  
   return (
     <button
       className={model.classes}
