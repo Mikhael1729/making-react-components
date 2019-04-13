@@ -5,6 +5,7 @@ import MultiSelect from 'components/MultiSelect';
 import * as styles from "styles/views/TestArea.module.css";
 import { assignedQualifications } from 'data/repository';
 import ResponsiveSensor from 'components/ResponsiveSensor';
+import Button from 'components/Button/Button';
 
 export interface TestAreaProps {
   data: TestModel[]
@@ -13,13 +14,13 @@ export interface TestAreaProps {
 export interface TestAreaState {
   checked: boolean;
   selected: TestModel[];
-  position: { one: number, two: number, three: number, fourth: number }  
+  position: { one: number, two: number, three: number, fourth: number }
 }
 
 export default class TestArea extends React.Component<TestAreaProps, TestAreaState> {
   private drawableDivTitleRef: any = React.createRef();
   private drawableDivRef: any = React.createRef();
-  
+
   constructor(props: TestAreaProps) {
     super(props);
 
@@ -82,7 +83,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
     const drawableDiv = this.drawableDivRef.current;
     const drawableDivTitle = this.drawableDivTitleRef.current;
 
-    if(drawableDivTitle) 
+    if (drawableDivTitle)
       drawableDivTitle.onmousedown = dragMouseDown;
     else
       drawableDiv.onmousedown = dragMouseDown;
@@ -97,7 +98,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
       // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
     }
-  
+
     function elementDrag(event: any) {
       event = event || window.event;
       event.preventDefault();
@@ -110,7 +111,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
       drawableDiv.style.top = (drawableDiv.offsetTop - pos2) + "px";
       drawableDiv.style.left = (drawableDiv.offsetLeft - pos1) + "px";
     }
-  
+
     function closeDragElement() {
       /* stop moving when mouse button is released:*/
       document.onmouseup = null;
@@ -152,11 +153,16 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
           <br />
         </div>
 
+        {/* Button */}
+        <div style={{ marginBottom: "50px"}}>
+          <Button>Hello World</Button>
+        </div>
+
         {/* Another */}
         <div>
           <div className={styles.Mydiv} ref={this.drawableDivRef}>
-            <div 
-              className={styles.Mydivheader} 
+            <div
+              className={styles.Mydivheader}
               onMouseDown={this.onMouseDown}
               ref={this.drawableDivTitleRef}>Click here to move</div>
             <p>Move</p>
@@ -166,7 +172,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
         </div>
       </div>
 
-      <ResponsiveSensor callBack={(size, breakPoint) => console.log(size, breakPoint)}/>
+      <ResponsiveSensor callBack={(size, breakPoint) => console.log(size, breakPoint)} />
     </>
   }
 }

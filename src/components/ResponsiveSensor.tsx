@@ -3,6 +3,10 @@ import ScreenBreakPoint from 'models/components/ScreenBreakPoint';
 
 export interface ResponsiveSensorProps {
   callBack: (windowSize: number, breakPoint: ScreenBreakPoint) => void;
+  onExtraSmall?: (windiwSize: number) => void;
+  onSmall?: (windiwSize: number) => void;
+  onMedium?: (windiwSize: number) => void;
+  onLarge?: (windiwSize: number) => void;
 }
 
 export interface ResponsiveSensorState {
@@ -19,17 +23,29 @@ export default class ResponsiveSensor extends React.Component<ResponsiveSensorPr
   }
 
   private compute = (e?: UIEvent) => {
-    const { callBack } = this.props;
+    const { callBack, onLarge, onMedium, onSmall, onExtraSmall } = this.props;
     const screenWidth = window.innerWidth;
 
-    if(screenWidth >= ScreenBreakPoint.lg)
+    if(screenWidth >= ScreenBreakPoint.lg) {
       callBack(screenWidth, ScreenBreakPoint.lg);
-    else if (screenWidth >= ScreenBreakPoint.md) 
+      if(onLarge) 
+        onLarge(screenWidth)
+    }
+    else if (screenWidth >= ScreenBreakPoint.md) {
       callBack(screenWidth, ScreenBreakPoint.md)
-    else if (screenWidth >= ScreenBreakPoint.sm) 
+      if(onMedium)
+        onMedium(screenWidth)
+    } 
+    else if (screenWidth >= ScreenBreakPoint.sm) {
       callBack(screenWidth, ScreenBreakPoint.sm)
-    else if (screenWidth <= ScreenBreakPoint.xs)
+      if(onSmall)
+        onSmall(screenWidth)
+    } 
+    else if (screenWidth <= ScreenBreakPoint.xs) {
       callBack(screenWidth, ScreenBreakPoint.xs)
+      if(onExtraSmall)
+        onExtraSmall(screenWidth)
+    }
   }
 
   public render() {

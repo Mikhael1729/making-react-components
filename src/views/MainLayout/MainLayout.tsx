@@ -8,6 +8,8 @@ import Navbar from "./Navbar/Navbar";
 import ResponsiveSensor from "components/ResponsiveSensor";
 import ScreenBreakPoint from "models/components/ScreenBreakPoint";
 import Content from "./Content/Content";
+import Button from "components/Button/Button";
+import * as styles from "./MainLayout.module.scss";
 
 export interface MainLayoutProps {
 
@@ -38,12 +40,16 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
 
   private showOrHideSidebar = () => this.setState(prevState => ({ showSidebar: !prevState.showSidebar }));
 
+  private computeModel = () => {
+    return { ...this.state, ...styles }
+  }
+
   render() {
-    const { showSidebar, showMenuButton } = this.state;
+    const { ShowCloseButtonContainer, showMenuButton, showSidebar } = this.computeModel();
 
     return (
       <MainLayoutContext.Provider value={{ isMobile: !this.state.showSidebar, sidebarWidth: 250 }}>
-        
+
         {/* Navigation Controls */}
         <Sidebar>
           {sidebarRoutes.map((r, index) => (
