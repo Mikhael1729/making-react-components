@@ -7,12 +7,23 @@ $alert-color: #cb492a;
 $light-black-color: #706e72;
 $black-color: #414042;
 
+$background-color: #002b36;
+$hidden: #3f5962;
+$text-color: #efefef;
+$primary: #38d75b;
+$secondary: #01A2CB;
+$warning: #d78538; 
+$red-color: red;
+
+$border-radius: 10px;
+
 :export {
-  whitecolor: $white-color;
-  darkcolor: $dark-color;
-  lightcolor: $light-color;
-  mediumcolor: $medium-color;
-  alertcolor: $alert-color;
-  lightblackcolor: $light-black-color;
-  blackcolor: $black-color;
+  backgroundColor: $background-color;
+  hidden: $hidden;
+  textColor: $text-color;
+  primary: $primary;
+  secondary: $secondary;
+  warning: $warning;
+  redColor: $red-color;
+  borderRadius: $border-radius;
 }
