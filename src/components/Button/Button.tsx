@@ -16,7 +16,7 @@ interface IButtonProps {
   children?: React.ReactChild;
 }
 
-const computeColorStyles = (color?: Colors) => {
+const computeColorClasses = (color?: Colors) => {
   switch (color) {
     case "primary":
       return styles.PrimaryColor;
@@ -29,7 +29,7 @@ const computeColorStyles = (color?: Colors) => {
   }
 }
 
-const computeShapeStyles = (shape?: ButtonShape) => {
+const computeShapeClasses = (shape?: ButtonShape) => {
   switch (shape) {
     case "circle":
       return styles.CircleButton
@@ -44,13 +44,13 @@ const computeModel = (props: IButtonProps) => {
   const { onClick, style, children, color, shape } = props;
 
   // Shape styles.
-  const shapeStyles = computeShapeStyles(shape);
+  const shapeClasses = computeShapeClasses(shape);
 
   // Color styles.
-  const colorStyles = computeColorStyles(color);
+  const colorClasses = computeColorClasses(color);
 
   // Classes.
-  const classes = [styles.Button, shapeStyles, colorStyles].join(' ');
+  const classes = [styles.Button, shapeClasses, colorClasses].join(' ');
 
   return { onClick, style, children, classes }
 }
