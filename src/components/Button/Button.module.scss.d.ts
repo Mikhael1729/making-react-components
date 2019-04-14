@@ -12,6 +12,9 @@ declare const styles: {
   readonly "PrimaryColor": string;
   readonly "SecondaryColor": string;
   readonly "WarningColor": string;
+  readonly "LargeSize": string;
+  readonly "MediumSize": string;
+  readonly "SmallSize": string;
   readonly "CircleButton": string;
   readonly "CircleButtonSmall": string;
   readonly "CircleButtonMedium": string;

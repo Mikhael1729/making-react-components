@@ -1,4 +1,4 @@
-// variables.scss
+// Colors
 $background-color: #002b36;
 $hidden: #3f5962;
 $text-color: #efefef;
@@ -7,7 +7,13 @@ $secondary: #01A2CB;
 $warning: #d78538; 
 $red-color: red;
 
+// Borders.
 $border-radius: 10px;
+
+// Text sizes.
+$text-size-sm: 0.8em;
+$text-size-md: 1em;
+$text-size-lg: 1.5em;
 
 :export {
   backgroundColor: $background-color;

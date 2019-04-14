@@ -39,8 +39,21 @@ const computeShapeClasses = (shape?: ButtonShape) => {
   }
 }
 
+const computeSizeClasses = (size?: Size) => {
+  switch (size) {
+    case "large":
+      return styles.LargeSize
+    case "medium":
+      return styles.MediumSize;
+    case "small":
+      return styles.SmallSize;
+    default: 
+      return "medium"
+  }
+}
+
 const computeModel = (props: IButtonProps) => {
-  const { onClick, style, children, color, shape } = props;
+  const { onClick, style, children, color, shape, size } = props;
 
   // Shape styles.
   const shapeClasses = computeShapeClasses(shape);
@@ -48,15 +61,17 @@ const computeModel = (props: IButtonProps) => {
   // Color styles.
   const colorClasses = computeColorClasses(color);
 
+  // Size classes.
+  const sizeClasses = computeSizeClasses(size)
+
   // Classes.
-  const classes = [styles.Button, shapeClasses, colorClasses].join(' ');
+  const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses ].join(' ');
 
   return { onClick, style, children, classes }
 }
 
 const Button = (props: IButtonProps) => {
   const model = computeModel(props);
-  console.log(props.children);
   
   return (
     <button

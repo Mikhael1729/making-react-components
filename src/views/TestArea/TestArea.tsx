@@ -156,7 +156,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
         {/* Button */}
         <div style={{ marginBottom: "50px"}}>
-          <Button color="primary">
+          <Button color="primary" size="medium">
             <Icon name="icon-codepen" />
             Hello World
           </Button>
