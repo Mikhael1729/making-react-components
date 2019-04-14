@@ -6,7 +6,7 @@ import { Active } from "styles/views/App.module.css";
 import { Route } from "react-router";
 import Navbar from "./Navbar/Navbar";
 import ResponsiveSensor from "components/ResponsiveSensor";
-import ScreenBreakPoint from "models/components/ScreenBreakPoint";
+import ScreenBreakPoint from "models/ScreenBreakPoint";
 import Content from "./Content/Content";
 import Button from "components/Button/Button";
 import * as styles from "./MainLayout.module.scss";

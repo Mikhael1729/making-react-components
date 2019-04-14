@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ScreenBreakPoint from 'models/components/ScreenBreakPoint';
+import ScreenBreakPoint from 'models/ScreenBreakPoint';
 
 export interface ResponsiveSensorProps {
   callBack: (windowSize: number, breakPoint: ScreenBreakPoint) => void;

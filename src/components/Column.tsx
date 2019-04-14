@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { RowContext } from './Row';
-import ResponsiveWidth from 'models/components/ResponsiveWidth';
+import ResponsiveWidth from 'models/ResponsiveWidth';
 
 export interface ColumnProps {
   lg?: ResponsiveWidth;
