@@ -12,7 +12,7 @@ interface IButtonProps {
   shape?: ButtonShape;
   size?: Size;
   fill?: ButtonFill;
-  children?: React.ReactChild;
+  children?: React.ReactNode;
 }
 
 const computeColorClasses = (color?: Colors) => {
@@ -56,14 +56,16 @@ const computeModel = (props: IButtonProps) => {
 
 const Button = (props: IButtonProps) => {
   const model = computeModel(props);
-
+  console.log(props.children);
+  
   return (
     <button
       className={model.classes}
       onClick={model.onClick}
       style={model.style}>
-
-      {model.children}
+      <div className={styles.ChildrenContainer}>
+        {model.children}
+      </div>
     </button>
   );
 };

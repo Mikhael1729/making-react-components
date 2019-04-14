@@ -8,6 +8,7 @@ declare const styles: {
   readonly "redColor": string;
   readonly "borderRadius": string;
   readonly "Button": string;
+  readonly "ChildrenContainer": string;
   readonly "PrimaryColor": string;
   readonly "SecondaryColor": string;
   readonly "WarningColor": string;

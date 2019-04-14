@@ -6,6 +6,7 @@ import * as styles from "views/TestArea/TestArea.module.css";
 import { assignedQualifications } from 'data/repository';
 import ResponsiveSensor from 'components/ResponsiveSensor/ResponsiveSensor';
 import Button from 'components/Button/Button';
+import Icon from 'components/Icon/Icon';
 
 export interface TestAreaProps {
   data: TestModel[]
@@ -156,6 +157,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
         {/* Button */}
         <div style={{ marginBottom: "50px"}}>
           <Button color="primary">
+            <Icon name="icon-codepen" />
             Hello World
           </Button>
         </div>

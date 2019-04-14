@@ -19,6 +19,12 @@
   text-transform: capitalize;
 }
 
+.ChildrenContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 /* Colors */
 .PrimaryColor {
   @include computeColor($primary);
