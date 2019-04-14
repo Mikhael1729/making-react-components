@@ -1,1 +1,5 @@
-export const ShowCloseButtonContainer: string;
+declare const styles: {
+  readonly "ShowCloseButtonContainer": string;
+};
+export = styles;
+

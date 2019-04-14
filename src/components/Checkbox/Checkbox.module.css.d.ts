@@ -1,2 +1,2 @@
-export const Checkbox: string;
 export const Container: string;
+export const Checkbox: string;
