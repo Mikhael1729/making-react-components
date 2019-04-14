@@ -1,23 +1,22 @@
 import * as React from 'react';
 import * as styles from "./Button.module.scss";
 import * as variables from "styles/variables.module.scss"
-
-export type ButtonShape = "circle" | "square";
-export type ButtonColors = "primary" | "secondary" | "warning";
-export type ButtonSize = "small" | "large" | "medium"
-export type ButtonFill = "outline" | "normal";
+import { ButtonShape } from 'types/ButtonShape';
+import { Colors } from 'types/Colors';
+import { Size } from 'types/Size';
+import { ButtonFill } from 'types/ButtonFill';
 
 interface IButtonProps {
   onClick?: () => void;
   style?: React.CSSProperties;
-  color?: ButtonColors
+  color?: Colors
   shape?: ButtonShape;
-  children?: React.ReactNode;
-  size?: ButtonSize;
+  size?: Size;
   fill?: ButtonFill;
+  children?: React.ReactChild;
 }
 
-const computeColorStyles = (color?: ButtonColors) => {
+const computeColorStyles = (color?: Colors) => {
   switch (color) {
     case "primary":
       return styles.PrimaryColor;
@@ -64,6 +63,7 @@ const Button = (props: IButtonProps) => {
       className={model.classes}
       onClick={model.onClick}
       style={model.style}>
+
       {model.children}
     </button>
   );
