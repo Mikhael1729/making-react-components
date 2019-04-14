@@ -1,5 +1,9 @@
 @import '../../styles/variables.module.scss';
 
+/* Variables */
+$button-padding: 5px;
+
+/* Mixins */
 @mixin computeColor($background) {
   color: white;
   border-color: darken($background, 25%);
@@ -10,8 +14,7 @@
   }
 }
 
-$button-padding: 5px;
-
+/* Button: Parent styles */
 .Button {
   background-color: inherit;
   color: white;
@@ -25,7 +28,6 @@ $button-padding: 5px;
 }
 
 /* Children container */
-
 .ChildrenContainer {
   display: flex;
   flex-direction: row;
@@ -34,6 +36,7 @@ $button-padding: 5px;
 }
 
 /* Colors */
+
 .PrimaryColor {
   @include computeColor($primary);
 }
@@ -65,6 +68,11 @@ $button-padding: 5px;
 
 .CircleButton {
   border-radius: 50%;
+  // Margin 0 avoid a deformed circle eleement.
+  margin: 0 !important; 
+  * {
+    margin: 0px !important;
+  }
 }
 
 .CircleButtonSmall {
