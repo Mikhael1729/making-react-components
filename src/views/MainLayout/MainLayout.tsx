@@ -2,7 +2,7 @@ import * as React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import { sidebarRoutes, navbarRoutes } from "data/Routes";
 import { NavLink } from "react-router-dom";
-import { Active } from "styles/views/App.module.css";
+import { Active } from "App.module.css";
 import { Route } from "react-router";
 import Navbar from "./Navbar/Navbar";
 import ResponsiveSensor from "components/ResponsiveSensor/ResponsiveSensor";

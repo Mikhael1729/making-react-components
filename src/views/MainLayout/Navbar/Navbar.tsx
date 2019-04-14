@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Styles from "styles/views/App.module.css";
+import * as Styles from "App.module.css";
 import { RouteComponentProps, withRouter } from 'react-router';
 import { sidebarRoutes, navbarRoutes } from "data/Routes";
 import { MainLayoutContext } from '../MainLayout';

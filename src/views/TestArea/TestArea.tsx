@@ -2,7 +2,7 @@ import * as React from 'react';
 import LabelCheckbox from 'components/LabelCheckbox/LabelCheckbox';
 import { TestModel } from 'models/TestModel';
 import MultiSelect from 'components/MultiSelect/MultiSelect';
-import * as styles from "styles/views/TestArea.module.css";
+import * as styles from "views/TestArea/TestArea.module.css";
 import { assignedQualifications } from 'data/repository';
 import ResponsiveSensor from 'components/ResponsiveSensor/ResponsiveSensor';
 import Button from 'components/Button/Button';

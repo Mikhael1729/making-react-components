@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from "styles/components/LabelCheckbox.module.css";
+import * as styles from "components/LabelCheckbox/LabelCheckbox.module.css";
 import Label from '../Label/Label';
 import Checkbox from '../Checkbox/Checkbox';
 
