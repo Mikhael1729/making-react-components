@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { RowContext } from './Row';
+import { RowContext } from '../Row/Row';
 import ResponsiveWidth from 'models/ResponsiveWidth';
 
 export interface ColumnProps {

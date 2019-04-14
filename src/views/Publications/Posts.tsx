@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Post from "./Post/Post";
 import { posts } from 'data/repository';
-import Row from 'components/Row';
-import Column from 'components/Column';
+import Row from 'components/Row/Row';
+import Column from 'components/Column/Column';
 
 export interface PostsProps {
 }

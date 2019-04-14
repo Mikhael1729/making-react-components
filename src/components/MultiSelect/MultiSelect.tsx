@@ -1,5 +1,5 @@
 import * as React from 'react';
-import LabelCheckbox, { LabelCheckboxProps } from './LabelCheckbox';
+import LabelCheckbox, { LabelCheckboxProps } from '../LabelCheckbox/LabelCheckbox';
 import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles} from "styles/components/MultiSelect.module.css"
 
 export interface MultiSelectProps<T> {

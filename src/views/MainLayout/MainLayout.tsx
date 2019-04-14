@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Active } from "styles/views/App.module.css";
 import { Route } from "react-router";
 import Navbar from "./Navbar/Navbar";
-import ResponsiveSensor from "components/ResponsiveSensor";
+import ResponsiveSensor from "components/ResponsiveSensor/ResponsiveSensor";
 import ScreenBreakPoint from "models/ScreenBreakPoint";
 import Content from "./Content/Content";
 import Button from "components/Button/Button";

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from "styles/components/LabelCheckbox.module.css";
-import Label from './Label';
-import Checkbox from './Checkbox';
+import Label from '../Label/Label';
+import Checkbox from '../Checkbox/Checkbox';
 
 export interface LabelCheckboxProps<T> {
   checked?: boolean;
