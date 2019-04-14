@@ -1,10 +1,9 @@
 import * as React from 'react';
-import * as styles from "./Button.module.scss";
-import * as variables from "styles/variables.module.scss"
+import * as styles from './Button.module.scss';
+import { ButtonFill } from 'types/ButtonFill';
 import { ButtonShape } from 'types/ButtonShape';
 import { Colors } from 'types/Colors';
 import { Size } from 'types/Size';
-import { ButtonFill } from 'types/ButtonFill';
 
 interface IButtonProps {
   onClick?: () => void;
