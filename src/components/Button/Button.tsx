@@ -20,11 +20,11 @@ interface IButtonProps {
 const computeColorStyles = (color?: ButtonColors) => {
   switch (color) {
     case "primary":
-      return variables.primary;
+      return styles.PrimaryColor;
     case "secondary":
-      return variables.secondary;
+      return styles.SecondaryColor;
     case "warning":
-      return variables.warning;
+      return styles.WarningColor;
     default:
       return "";
   }

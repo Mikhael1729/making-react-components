@@ -1,9 +1,38 @@
+@import '../../styles/variables.module.scss';
+
+@mixin computeColor($background) {
+  color: white;
+  border-color: darken($background, 25%);
+  @if $background != $primary {
+    background: $background
+  } @else {
+    background: darken($background, 10%);
+  }
+}
+
 .Button {
   background-color: inherit;
   color: white;
-  border: 1px solid white;
+  border: 2px solid white;
   padding: 5px;
+  font-family: 'Consolas';
+  text-transform: capitalize;
 }
+
+/* Colors */
+.PrimaryColor {
+  @include computeColor($primary);
+}
+
+.SecondaryColor {
+  @include computeColor($secondary);
+}
+
+.WarningColor {
+  @include computeColor($warning);
+}
+
+/* Shapes */
 
 .CircleButton {
   border-radius: 50%;
