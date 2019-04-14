@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MainLayoutContext } from '../MainLayout';
-import { Content as Styles } from "App.module.css";
+import { Content as Styles } from "views/App/App.module.css";
 
 interface ContentProps {
 }
