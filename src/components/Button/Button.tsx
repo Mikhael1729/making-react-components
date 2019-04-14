@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as styles from "./Button.module.scss";
-import * as variables from "../../styles/variables.module.scss"
 
 export type ButtonShape = "circle" | "square";
 export type ButtonColors = "primary" | "secondary" | "warning";
