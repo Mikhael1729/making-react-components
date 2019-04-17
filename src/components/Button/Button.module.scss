@@ -8,9 +8,15 @@ $button-padding: 5px;
   color: white;
   border-color: darken($background, 25%);
   @if $background != $primary {
-    background: $background
+    background: $background;
+    &:hover {
+      background: darken($background, 15%);
+    }
   } @else {
     background: darken($background, 10%);
+    &:hover {
+      background: darken(darken($background, 10%), 15%);
+    }
   }
 }
 
@@ -65,7 +71,6 @@ $button-padding: 5px;
 }
 
 /* Shapes */
-
 .CircleButton {
   border-radius: 50%;
   // Margin 0 avoid a deformed circle eleement.
@@ -74,21 +79,3 @@ $button-padding: 5px;
     margin: 0px !important;
   }
 }
-
-.CircleButtonSmall {
-  width: 30px;
-  height: 30px;
-}
-
-.CircleButtonMedium {
-  color: red;
-}
-
-.CircleButtonLarge {
-  color: red;
-}
-
-.SquareButton {
-  color: red;
-}
-
