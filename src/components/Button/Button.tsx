@@ -33,7 +33,7 @@ const computeShapeClasses = (shape?: ButtonShape) => {
     case "circle":
       return styles.CircleButton
     case "square":
-      return styles.SquareButton
+      return "" // TODO.
     default:
       return styles.Button
   }
@@ -47,13 +47,24 @@ const computeSizeClasses = (size?: Size) => {
       return styles.MediumSize;
     case "small":
       return styles.SmallSize;
-    default: 
+    default:
       return "medium"
   }
 }
 
+const computeStuff = (stuff?: ButtonFill) => {
+  switch (stuff) {
+    case "normal":
+      return styles.Filled;
+    case "outline":
+      return styles.Outline;
+    default:
+      return "";
+  }
+}
+
 const computeModel = (props: IButtonProps) => {
-  const { onClick, style, children, color, shape, size } = props;
+  const { onClick, style, children, color, shape, size, fill } = props;
 
   // Shape styles.
   const shapeClasses = computeShapeClasses(shape);
@@ -62,17 +73,20 @@ const computeModel = (props: IButtonProps) => {
   const colorClasses = computeColorClasses(color);
 
   // Size classes.
-  const sizeClasses = computeSizeClasses(size)
+  const sizeClasses = computeSizeClasses(size);
+
+  // Stuff.
+  const fillClasses = computeStuff(fill);
 
   // Classes.
-  const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses ].join(' ');
+  const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses, fillClasses].join(' ');
 
   return { onClick, style, children, classes }
 }
 
 const Button = (props: IButtonProps) => {
   const model = computeModel(props);
-  
+
   return (
     <button
       className={model.classes}

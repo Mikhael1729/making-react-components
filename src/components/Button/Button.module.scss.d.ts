@@ -7,6 +7,7 @@ declare const styles: {
   readonly "warning": string;
   readonly "redColor": string;
   readonly "borderRadius": string;
+  readonly "NameSpace": string;
   readonly "Button": string;
   readonly "ChildrenContainer": string;
   readonly "PrimaryColor": string;
@@ -15,11 +16,9 @@ declare const styles: {
   readonly "LargeSize": string;
   readonly "MediumSize": string;
   readonly "SmallSize": string;
+  readonly "Filled": string;
+  readonly "Outline": string;
   readonly "CircleButton": string;
-  readonly "CircleButtonSmall": string;
-  readonly "CircleButtonMedium": string;
-  readonly "CircleButtonLarge": string;
-  readonly "SquareButton": string;
 };
 export = styles;
 

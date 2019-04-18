@@ -2,23 +2,29 @@
 
 /* Variables */
 $button-padding: 5px;
+$current-background: transparent !global;
 
 /* Mixins */
-@mixin computeColor($background) {
+@mixin computeColor($new-background) {
   color: white;
-  border-color: darken($background, 25%);
-  @if $background != $primary {
-    background: $background;
+  border-color: darken($new-background, 25%);
+
+  @if $new-background != $primary {
+    $current-background: $new-background !global;
+    background: $current-background;
+
     &:hover {
-      background: darken($background, 15%);
+      background: darken($new-background, 15%);
     }
   } @else {
-    background: darken($background, 10%);
+    $current-background: darken($new-background, 10%) !global;
+    background: $current-background;
     &:hover {
-      background: darken(darken($background, 10%), 15%);
+      background: darken(darken($new-background, 10%), 15%);
     }
   }
 }
+
 
 /* Button: Parent styles */
 .Button {
@@ -69,6 +75,17 @@ $button-padding: 5px;
 .SmallSize {
   font-size: $text-size-sm;
 }
+
+/* Stuff */
+.Filled {
+  background: $current-background;
+}
+
+.Outline {
+  background: transparent;
+  border-color: $current-background;
+}
+
 
 /* Shapes */
 .CircleButton {
