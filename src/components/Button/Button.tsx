@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as styles from './Button.module.scss';
-import { ButtonFill } from 'types/ButtonFill';
+import { ButtonFill as ButtonType } from 'types/ButtonFill';
 import { ButtonShape } from 'types/ButtonShape';
 import { Colors } from 'types/Colors';
 import { Size } from 'types/Size';
@@ -11,7 +11,7 @@ interface IButtonProps {
   color?: Colors
   shape?: ButtonShape;
   size?: Size;
-  fill?: ButtonFill;
+  type?: ButtonType;
   children?: React.ReactNode;
 }
 
@@ -24,7 +24,7 @@ const computeColorClasses = (color?: Colors) => {
     case "warning":
       return styles.WarningColor;
     default:
-      return "";
+      return styles.DefaultColor;
   }
 }
 
@@ -52,9 +52,9 @@ const computeSizeClasses = (size?: Size) => {
   }
 }
 
-const computeStuff = (stuff?: ButtonFill) => {
+const computeStuff = (stuff?: ButtonType) => {
   switch (stuff) {
-    case "normal":
+    case "filled":
       return styles.Filled;
     case "outline":
       return styles.Outline;
@@ -64,7 +64,7 @@ const computeStuff = (stuff?: ButtonFill) => {
 }
 
 const computeModel = (props: IButtonProps) => {
-  const { onClick, style, children, color, shape, size, fill } = props;
+  const { onClick, style, children, color, shape, size, type: fill } = props;
 
   // Shape styles.
   const shapeClasses = computeShapeClasses(shape);

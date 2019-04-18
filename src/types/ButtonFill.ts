@@ -1,1 +1,1 @@
-export type ButtonFill = "outline" | "normal";
+export type ButtonFill = "outline" | "filled";
