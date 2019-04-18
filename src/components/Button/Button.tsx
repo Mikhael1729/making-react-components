@@ -15,6 +15,7 @@ interface IButtonProps {
   children?: React.ReactNode;
 }
 
+// Compute color
 const computeColorClasses = (color?: Colors) => {
   switch (color) {
     case "primary":
@@ -28,6 +29,7 @@ const computeColorClasses = (color?: Colors) => {
   }
 }
 
+// Compute shape
 const computeShapeClasses = (shape?: ButtonShape) => {
   switch (shape) {
     case "circle":
@@ -39,6 +41,7 @@ const computeShapeClasses = (shape?: ButtonShape) => {
   }
 }
 
+// Compute size.
 const computeSizeClasses = (size?: Size) => {
   switch (size) {
     case "large":
@@ -52,7 +55,8 @@ const computeSizeClasses = (size?: Size) => {
   }
 }
 
-const computeStuff = (stuff?: ButtonType) => {
+// Compute fill.
+const computeFill = (stuff?: ButtonType) => {
   switch (stuff) {
     case "filled":
       return styles.Filled;
@@ -76,7 +80,7 @@ const computeModel = (props: IButtonProps) => {
   const sizeClasses = computeSizeClasses(size);
 
   // Stuff.
-  const fillClasses = computeStuff(fill);
+  const fillClasses = computeFill(fill);
 
   // Classes.
   const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses, fillClasses].join(' ');
