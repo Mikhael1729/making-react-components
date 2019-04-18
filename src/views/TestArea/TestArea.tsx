@@ -175,8 +175,6 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
           </div>
         </div>
       </div>
-
-      <ResponsiveSensor callBack={(size, breakPoint) => console.log(size, breakPoint)} />
     </>
   }
 }
