@@ -1,0 +1,12 @@
+.Navbar {
+  color: rgb(128, 75, 75);
+}
+
+@function get-vw($target) {
+  $vw-context: (1000*.01) * 1px;
+  @return ($target/$vw-context) * 1vw;
+}
+
+.Test {
+  font-size: get-vw(72px);
+}
