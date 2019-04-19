@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { sidebarRoutes, navbarRoutes } from "data/Routes";
-import { MainLayoutContext } from '../MainLayout';
 import * as styles from "../../App/App.module.scss";
 
 interface NavbarProps extends RouteComponentProps { }
@@ -20,7 +19,7 @@ class Navbar extends React.Component<NavbarProps, {}> {
     return (
       <>
         <div className={styles.Navbar} style={{ marginLeft: "250px"}}>
-          <div>
+          <div className={styles.Brand}>
             {title}
           </div>
           <ul>

@@ -18,7 +18,7 @@ h1 {
 
 /* Navbar */
 .Navbar {
-  width: calc(100% - $sidebar-width - ($edge-padding * 2));
+  width: calc(100% - #{$sidebar-width} - (#{$edge-padding} * 2));
   height: $navbar-height;
   background: inherit;
   position: fixed;
