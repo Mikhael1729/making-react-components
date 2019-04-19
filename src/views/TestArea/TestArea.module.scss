@@ -1,3 +1,5 @@
+@import "../../styles/variables.module.scss";
+
 @function get-vw($target) {
   $vw-context: (1000*.01) * 1px;
   @return ($target/$vw-context) * 1vw;
@@ -26,16 +28,21 @@
 // Testing responsive
 .Test {
   font-size: get-vw(72px);
-}
 
-.Another {
-  color: red;
-}
+    
+  @media (min-width: $screen-size-lg) {
+    color: green;
+  }
 
-.Another2 {
-  color: blue;
-}
+  @media (max-width: $screen-size-lg) {
+    color: red;
+  }
 
-.Another3 {
-  color: black;
+  @media (max-width: $screen-size-md) {
+    color: blue;
+  }
+
+  @media (max-width: $screen-size-sm) {
+    color: orange;
+  }
 }

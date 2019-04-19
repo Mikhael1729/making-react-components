@@ -7,6 +7,9 @@ declare const styles: {
   readonly "warning": string;
   readonly "redColor": string;
   readonly "borderRadius": string;
+  readonly "screenSizeLg": string;
+  readonly "screenSizeMd": string;
+  readonly "screenSizeSm": string;
   readonly "Button": string;
   readonly "ChildrenContainer": string;
   readonly "PrimaryColor": string;

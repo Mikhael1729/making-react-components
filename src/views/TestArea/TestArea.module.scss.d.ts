@@ -3,9 +3,6 @@ declare const styles: {
   readonly "Mydiv": string;
   readonly "Mydivheader": string;
   readonly "Test": string;
-  readonly "Another": string;
-  readonly "Another2": string;
-  readonly "Another3": string;
 };
 export = styles;
 

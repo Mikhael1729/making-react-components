@@ -161,6 +161,12 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
           </Button>
         </div>
 
+        <div style={{ marginBottom: "50px" }}>
+          <div className={styles.Test}>
+            Here
+          </div>
+        </div>
+
         {/* Another */}
         <div>
           <div className={styles.Mydiv} ref={this.drawableDivRef}>
