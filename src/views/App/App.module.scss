@@ -1,13 +1,9 @@
-:root {
-  --navbar-box-shadow: inset -12px 0 20px var(--background-color);
-  --sidebar-width: 250px;
-  --navbar-height: 60px;
-  --edge-padding: 16px;
-}
+
+@import "../../styles/variables.module.scss";
 
 /* Element selectors */
 a {
-  color: var(--secondary);
+  color: $secondary;
   text-decoration: none;
   cursor: pointer;
 }
@@ -22,17 +18,17 @@ h1 {
 
 /* Navbar */
 .Navbar {
-  width: calc(100% - var(--sidebar-width) - (var(--edge-padding) * 2));
-  height: var(--navbar-height);
+  width: calc(100% - $sidebar-width - ($edge-padding * 2));
+  height: $navbar-height;
   background: inherit;
   position: fixed;
-  border-bottom: 1px solid var(--hidden);
-  margin-left: var(--sidebar-width);
+  border-bottom: 1px solid $hidden;
+  margin-left: $sidebar-width;
   display: flex;
   align-items: center;
   align-content: center;
-  padding-right: var(--edge-padding);
-  padding-left: var(--edge-padding);
+  padding-right: $edge-padding;
+  padding-left: $edge-padding;
 } 
 
 .Navbar ul {
@@ -53,9 +49,9 @@ h1 {
 
 .Navbar li a {
   padding: 8px;
-  border: 1px solid var(--hidden);
+  border: 1px solid $hidden;
   border-radius: 10px;
-  color: var(--text-color);
+  color: $text-color;
   display: flex;
   align-items: center;
   align-content: center;
@@ -70,13 +66,13 @@ h1 {
   
 /* Sidebar */
 .Sidebar {
-  width: var(--sidebar-width);
+  width: $sidebar-width;
   height: auto;
   background-color: inherit;
   height: 100%;
   position: fixed;
   overflow-y: auto;
-  border-right: 1px solid var(--hidden);
+  border-right: 1px solid $hidden;
 }
 
 .Sidebar .Brand {
@@ -112,23 +108,23 @@ h1 {
 }
 
 .Sidebar li a:hover, .Navbar li a:hover {
-  background-color: var(--background-color);
+  background-color: $background-color;
   color: inherit;
   filter: brightness(90%);
 }
 
 .Sidebar .Active, .Navbar .Active {
   filter: brightness(85%);
-  background-color: var(--background-color);
-  color: var(--primary);
+  background-color: $background-color;
+  color: $primary;
 }
 
 /* Content */
 .Content {
   margin: 0;
   padding: 16px 18px;
-  padding-top: var(--navbar-height);
-  margin-left: calc(var(--sidebar-width));
+  padding-top: $navbar-height;
+  margin-left: calc($sidebar-width);
 }
 
 /* Text styles */

@@ -2,7 +2,7 @@ import * as React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import { sidebarRoutes, navbarRoutes } from "data/Routes";
 import { NavLink } from "react-router-dom";
-import { Active } from "views/App/App.module.css";
+import { Active } from "views/App/App.module.scss";
 import { Route } from "react-router";
 import Navbar from "./Navbar/Navbar";
 import ResponsiveSensor from "components/ResponsiveSensor/ResponsiveSensor";
@@ -45,11 +45,10 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
   }
 
   render() {
-    const { ShowCloseButtonContainer, showMenuButton, showSidebar } = this.computeModel();
+    const { showMenuButton } = this.computeModel();
 
     return (
-      <MainLayoutContext.Provider value={{ isMobile: !this.state.showSidebar, sidebarWidth: 250 }}>
-
+      <>
         {/* Navigation Controls */}
         <Sidebar>
           {sidebarRoutes.map((r, index) => (
@@ -101,9 +100,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
         <Content>
           {this.props.children}
         </Content>
-
-        <ResponsiveSensor callBack={this.showOrHideElements} />
-      </MainLayoutContext.Provider>
+      </>
     )
   }
 }

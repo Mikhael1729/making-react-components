@@ -4,7 +4,7 @@ import {
   Sidebar as SidebarStyles,
   Subtitle,
   Title
-} from 'views/App/App.module.css';
+} from 'views/App/App.module.scss';
 import { MainLayoutContext } from '../MainLayout';
 
 interface SidebarProps {

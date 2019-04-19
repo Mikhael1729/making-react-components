@@ -1,22 +1,16 @@
 import * as React from 'react';
-import { MainLayoutContext } from '../MainLayout';
-import { Content as Styles } from "views/App/App.module.css";
+import { Content as Styles } from "views/App/App.module.scss";
 
-interface ContentProps {
-}
+interface ContentProps { }
 
-const Content: React.SFC<ContentProps> = (props) => {
-  return <MainLayoutContext.Consumer>
-    {context => {
-      const marginLeft = context.isMobile ? "0px" : context.sidebarWidth + "px";
-      
-      return (
-        <main className={Styles} style={{ marginLeft }}>
-          {props.children}
-        </main>
-      )
-    }}
-  </MainLayoutContext.Consumer>
+const Content: React.FunctionComponent<ContentProps> = (props) => {
+  return (
+    <>
+      <main className={Styles} style={{ marginLeft: "250px" }}>
+        {props.children}
+      </main>
+    </>
+  )
 };
 
 export default Content;

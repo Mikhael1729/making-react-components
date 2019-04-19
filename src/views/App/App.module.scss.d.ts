@@ -12,6 +12,11 @@ declare const styles: {
   readonly "screenSizeSm": string;
   readonly "Navbar": string;
   readonly "Brand": string;
+  readonly "Sidebar": string;
+  readonly "Title": string;
+  readonly "Subtitle": string;
+  readonly "Active": string;
+  readonly "Content": string;
 };
 export = styles;
 
