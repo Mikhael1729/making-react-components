@@ -1,38 +1,21 @@
 import * as React from 'react';
-import {
-  Brand,
-  Sidebar as SidebarStyles,
-  Subtitle,
-  Title
-} from 'views/App/App.module.scss';
-import { MainLayoutContext } from '../MainLayout';
+import * as styles from "./Sidebar.module.scss";
 
 interface SidebarProps {
 }
 
 const Sidebar: React.SFC<SidebarProps> = (props) => {
   const { children } = props;
-
   return (
-    <MainLayoutContext.Consumer>
-      {context => {
-        if(!context.isMobile) {
-          return (
-            <nav className={SidebarStyles}>
-              <div className={Brand}>
-                <span className={Title}>&lt;Mikhael /&gt;</span>
-                <span className={Subtitle}>Codificando mundos</span>
-              </div>
-              <ul>
-                {children}
-              </ul>
-            </nav>
-          )
-        } else {
-          return null;
-        }
-      }}
-    </MainLayoutContext.Consumer>
+    <nav className={styles.Sidebar}>
+      <div className={styles.Brand}>
+        <span className={styles.Title}>&lt;Mikhael /&gt;</span>
+        <span className={styles.Subtitle}>Codificando mundos</span>
+      </div>
+      <ul>
+        {children}
+      </ul>
+    </nav>
   );
 };
 

@@ -10,6 +10,7 @@ import ScreenBreakPoint from "models/ScreenBreakPoint";
 import Content from "./Content/Content";
 import Button from "components/Button/Button";
 import * as styles from "./MainLayout.module.scss";
+import * as sidebarStyles from "views/MainLayout/Sidebar/Sidebar.module.scss";
 
 export interface MainLayoutProps {
 
@@ -23,19 +24,9 @@ export interface MainLayoutState {
 export const MainLayoutContext = React.createContext({} as { isMobile: boolean, sidebarWidth: number });
 
 class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
-  constructor(props: MainLayoutProps) {
-    super(props);
-    this.state = {
-      showMenuButton: false,
-      showSidebar: true
-    }
-  }
-
-  private showOrHideElements = (windowSize: number, breakPoint: ScreenBreakPoint) => {
-    if (breakPoint === ScreenBreakPoint.md)
-      this.setState({ showMenuButton: true, showSidebar: false })
-    else if (breakPoint === ScreenBreakPoint.lg)
-      this.setState({ showMenuButton: false, showSidebar: true });
+  state: MainLayoutState = {
+    showMenuButton: false,
+    showSidebar: true
   }
 
   private showOrHideSidebar = () => this.setState(prevState => ({ showSidebar: !prevState.showSidebar }));
@@ -55,7 +46,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
             <li key={index}>
               <NavLink
                 to={r.path}
-                activeClassName={Active}
+                activeClassName={sidebarStyles.Active}
                 exact={r.exact}
                 strict={r.strict}
               >
