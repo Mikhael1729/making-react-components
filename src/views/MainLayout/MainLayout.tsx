@@ -5,7 +5,7 @@ import * as styles from './MainLayout.module.scss';
 import Content from './Content/Content';
 import Navbar from './Navbar/Navbar';
 import Sidebar from './Sidebar/Sidebar';
-import { navbarRoutes, sidebarRoutes } from 'data/Routes';
+import { navbarRoutes, sidebarRoutes } from "routes";
 import { NavLink } from 'react-router-dom';
 
 export interface MainLayoutProps { }

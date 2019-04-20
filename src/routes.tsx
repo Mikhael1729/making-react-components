@@ -1,6 +1,6 @@
 import NestedRoutes from "views/NestedRoutes/NestedRoutes";
 import TestArea from "views/TestArea/TestArea";
-import { testData } from "./repository";
+import { testData } from "./data/repository";
 import * as React from "react";
 import Mockup from "views/Mockup/Mockup";
 import GenericThings from "views/GenericThings/GenericThings";
