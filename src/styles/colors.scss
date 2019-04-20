@@ -1,0 +1,17 @@
+// Colors
+$background-color: #002b36;
+$hidden: #3f5962;
+$text-color: #efefef;
+$primary: #38d75b;
+$secondary: #01A2CB;
+$warning: #d78538; 
+$red-color: red;
+:export {
+  backgroundColor: $background-color;
+  hidden: $hidden;
+  textColor: $text-color;
+  primary: $primary;
+  secondary: $secondary;
+  warning: $warning;
+  redColor: $red-color;
+}

@@ -1,0 +1,10 @@
+// Screen sizes.
+$screen-size-lg: 1200px;
+$screen-size-md: 992px;
+$screen-size-sm: 768px;
+
+:export {
+  screenSizeLg: $screen-size-lg; 
+  screenSizeMd: $screen-size-md; 
+  screenSizeSm: $screen-size-sm; 
+}
