@@ -11,6 +11,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "^4.0.8",
     "react-select": "^2.2.0",
+    "rfs": "^8.0.4",
     "spectre.css": "^0.5.8"
   },
   "scripts": {
