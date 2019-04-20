@@ -75,20 +75,6 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
           ))}
         </Navbar>
 
-        {showMenuButton
-          ?
-          <button
-            onClick={this.showOrHideSidebar}
-            style={{
-              position: 'fixed',
-              bottom: "5px",
-              right: "5px"
-            }}
-          >
-            Hello
-            </button>
-          : null}
-
         {/* Content */}
         <Content>
           {this.props.children}

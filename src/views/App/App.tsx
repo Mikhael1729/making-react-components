@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
-import { sidebarRoutes, navbarRoutes } from '../../data/Routes';
 import MainLayout from 'views/MainLayout/MainLayout';
-import Sidebar from 'views/MainLayout/Sidebar/Sidebar';
-import { Active, Content } from 'views/App/App.module.scss';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { navbarRoutes, sidebarRoutes } from '../../data/Routes';
 
 const App: React.SFC<any> = (props) => <Router>
   <Switch>

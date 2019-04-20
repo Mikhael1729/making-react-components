@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Content as Styles } from "views/App/App.module.scss";
+import { Content as Styles} from "./Content.module.scss";
 
 interface ContentProps { }
 

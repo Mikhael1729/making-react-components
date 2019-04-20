@@ -1,0 +1,8 @@
+@import "src/styles/variables.module.scss";
+
+.Content {
+  margin: 0;
+  padding: 16px 18px;
+  padding-top: $navbar-height;
+  margin-left: calc($sidebar-width);
+}

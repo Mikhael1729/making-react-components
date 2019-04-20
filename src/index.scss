@@ -1,14 +1,29 @@
-@import url("styles/variables.css");
-@import url("assets/icons/style.css");
+@import "styles/variables.module.scss";
+@import "assets/icons/style.css";
 
 body {
   margin: 0;
   padding: 0;
   font-family: "Consolas" !important;
   overflow-y: scroll !important;
-  background: var(--background-color);
-  color: var(--text-color);
+  background: $background-color;
+  color: $text-color;
 } 
+
+/* Element selectors */
+a {
+  color: $secondary;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  filter: brightness(80%);
+}
+
+h1 {
+  font-size: 2.6em;
+}
 
 ::-webkit-scrollbar {
   width: 5px;
