@@ -1,29 +1,19 @@
-import * as React from "react";
-import Sidebar from "./Sidebar/Sidebar";
-import { sidebarRoutes, navbarRoutes } from "data/Routes";
-import { NavLink } from "react-router-dom";
-import { Active } from "views/App/App.module.scss";
-import { Route } from "react-router";
-import Navbar from "./Navbar/Navbar";
-import ResponsiveSensor from "components/ResponsiveSensor/ResponsiveSensor";
-import ScreenBreakPoint from "models/ScreenBreakPoint";
-import Content from "./Content/Content";
-import Button from "components/Button/Button";
-import * as styles from "./MainLayout.module.scss";
-import * as sidebarStyles from "./Sidebar/Sidebar.module.scss";
-import * as navbarStyles from "./Navbar/Navbar.module.scss";
-import * as appStyles from "../App/App.module.scss";
+import * as navbarStyles from './Navbar/Navbar.module.scss';
+import * as React from 'react';
+import * as sidebarStyles from './Sidebar/Sidebar.module.scss';
+import * as styles from './MainLayout.module.scss';
+import Content from './Content/Content';
+import Navbar from './Navbar/Navbar';
+import Sidebar from './Sidebar/Sidebar';
+import { navbarRoutes, sidebarRoutes } from 'data/Routes';
+import { NavLink } from 'react-router-dom';
 
-export interface MainLayoutProps {
-
-}
+export interface MainLayoutProps { }
 
 export interface MainLayoutState {
   showMenuButton: boolean;
   showSidebar: boolean;
 }
-
-export const MainLayoutContext = React.createContext({} as { isMobile: boolean, sidebarWidth: number });
 
 class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
   state: MainLayoutState = {
@@ -31,15 +21,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
     showSidebar: true
   }
 
-  private showOrHideSidebar = () => this.setState(prevState => ({ showSidebar: !prevState.showSidebar }));
-
-  private computeModel = () => {
-    return { ...this.state, ...styles }
-  }
-
   render() {
-    const { showMenuButton } = this.computeModel();
-
     return (
       <>
         {/* Navigation Controls */}
