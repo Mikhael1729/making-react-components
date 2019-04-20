@@ -9,6 +9,27 @@
   position: fixed;
   overflow-y: auto;
   border-right: 1px solid $hidden;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li a {
+    padding: 18px 16px;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      background-color: $background-color;
+      color: inherit;
+      filter: brightness(90%);
+    }
+  }
+
 }
 
 // Brand
@@ -17,7 +38,7 @@
   color: inherit;
   display: flex;
   flex-direction: column;
-  font-weight: bold;  
+  font-weight: bold;
 
   .Title {
     font-size: 1.5em;
@@ -33,25 +54,5 @@
 .Active {
   filter: brightness(85%);
   background-color: $background-color;
-  color: $primary;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li a {
-  padding: 18px 16px;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  border-bottom: 1px solid transparent;
-
-  &:hover {
-    background-color: $background-color;
-    color: inherit;
-    filter: brightness(90%);
-  }
+  color: $primary !important;
 }

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { sidebarRoutes, navbarRoutes } from "data/Routes";
-import * as styles from "../../App/App.module.scss";
+// import * as styles from "views/App/App.module.scss";
+import * as styles from "./Navbar.module.scss";
 
 interface NavbarProps extends RouteComponentProps { }
 

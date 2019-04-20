@@ -10,7 +10,9 @@ import ScreenBreakPoint from "models/ScreenBreakPoint";
 import Content from "./Content/Content";
 import Button from "components/Button/Button";
 import * as styles from "./MainLayout.module.scss";
-import * as sidebarStyles from "views/MainLayout/Sidebar/Sidebar.module.scss";
+import * as sidebarStyles from "./Sidebar/Sidebar.module.scss";
+import * as navbarStyles from "./Navbar/Navbar.module.scss";
+import * as appStyles from "../App/App.module.scss";
 
 export interface MainLayoutProps {
 
@@ -62,7 +64,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
             <li key={index}>
               <NavLink
                 to={r.path}
-                activeClassName={Active}
+                activeClassName={navbarStyles.Active}
                 exact={r.exact}
                 strict={r.strict}
               >

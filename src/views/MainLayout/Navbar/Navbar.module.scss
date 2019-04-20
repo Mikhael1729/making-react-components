@@ -1,7 +1,7 @@
 @import "../../../styles/variables.module.scss";
 
 .Navbar {
-  width: calc(100% - $sidebar-width - ($edge-padding * 2));
+  width: calc(100% - #{$sidebar-width} - (#{$edge-padding} * 2));
   height: $navbar-height;
   background: inherit;
   position: fixed;
@@ -12,32 +12,37 @@
   align-content: center;
   padding-right: $edge-padding;
   padding-left: $edge-padding;
-}
-
-ul {
-  display: flex;
-  margin: 0;
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-  justify-content: flex-end;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  margin-left: 10px;
-
-  a {
-    padding: 8px;
-    border: 1px solid $hidden;
-    border-radius: 10px;
-    color: $text-color;
+  
+  ul {
+    display: flex;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  li {
     display: flex;
     align-items: center;
     align-content: center;
-    cursor: pointer;
+    margin-left: 10px;
+  
+    a {
+      padding: 8px;
+      border: 1px solid $hidden;
+      border-radius: 10px;
+      color: $text-color;
+      display: flex;
+      align-items: center;
+      align-content: center;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: $background-color;
+        color: inherit;
+        filter: brightness(90%);
+      }
+    }
   }
 }
 
@@ -45,4 +50,10 @@ li {
   display: flex;
   font-size: 1.5em;
   width: 100%;
+}
+
+.Active {
+  filter: brightness(85%);
+  background-color: $background-color;
+  color: $primary;
 }
