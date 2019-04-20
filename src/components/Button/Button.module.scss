@@ -7,50 +7,57 @@ $current-background: transparent !global;
 
 /* Mixins */
 @mixin computeColor($new-background) {
-  $hover-color: $text-color;
 
+  // Current background.
   @if $new-background !=$primary {
     $current-background: $new-background !global;
-  } @else {
+  }
+
+  @else {
     $current-background: darken($new-background, 10%) !global;
-  }
-
-  @if $new-background == $hover-color {
-    $hover-color: $background-color;
-  }
-
-  color: $text-color;
-  border-color: darken($new-background, 25%);
-  background: $current-background;
-
-  &:hover {
-    background: darken($current-background, 15%) !important;
-    color: $hover-color !important;
-
-    &.Outline {
-      color: $text-color;
-    }
   }
 
   &:focus {
     outline: none;
   }
-  
+
   &.Outline {
-    border-color: $current-background;
+    background: transparent;
     color: $current-background;
+    border-color: $current-background;
+
+    &:hover {
+      background: darken($background-color, 2%);
+      color: darken($current-background, 15%);
+      border-color: darken($current-background, 15%);
+    }
   }
 
   &.Filled {
+    // Computing color.
+    $color: $text-color;
+
+    @if $color==$current-background {
+      $color: darken($color, 70%);
+    }
+
     background: $current-background;
+    color: $color;
+    border-color: $color;
+
+    &:hover {
+      background: darken($current-background, 10%);
+      color: darken($color, 10%);
+      border-color: darken($color, 10%);
+    }
   }
 }
 
 /* Button: Parent styles */
 .Button {
   background-color: inherit;
-  color: white;
-  border: 2px solid white;
+  color: $text-color;
+  border: 1px solid $text-color;
   padding: $button-padding;
   font-family: 'Consolas';
   text-transform: capitalize;
@@ -71,13 +78,16 @@ $current-background: transparent !global;
 /* Colors */
 .PrimaryColor {
   @include computeColor($primary);
-} 
+}
+
 .SecondaryColor {
   @include computeColor($secondary);
-} 
+}
+
 .WarningColor {
   @include computeColor($warning);
-} 
+}
+
 .DefaultColor {
   @include computeColor($text-color);
 }
