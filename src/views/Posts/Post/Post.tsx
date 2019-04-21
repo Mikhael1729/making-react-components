@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from "views/Posts/Publications.module.css";
+import * as styles from "./Post.module.css";
 
 interface PostProps {
   title: string;
