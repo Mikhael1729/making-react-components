@@ -22,7 +22,7 @@ export default class TestArea extends React.Component<ITestAreaProps, ITestAreaS
   private drawableDivTitleRef: any = React.createRef();
   private drawableDivRef: any = React.createRef();
 
-  state: ITestAreaState = {
+  readonly state: ITestAreaState = {
     checked: false,
     selected: [],
     position: {
