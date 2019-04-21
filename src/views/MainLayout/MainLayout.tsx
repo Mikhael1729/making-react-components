@@ -7,6 +7,9 @@ import Navbar from './Navbar/Navbar';
 import Sidebar from './Sidebar/Sidebar';
 import { navbarRoutes, sidebarRoutes } from "routes";
 import { NavLink } from 'react-router-dom';
+import Button from 'components/Button/Button';
+import Icon from 'components/Icon/Icon';
+import Text from 'components/Text/Text';
 
 export interface MainLayoutProps { }
 
@@ -43,17 +46,16 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
         {/* Navbar */}
         <Navbar>
           {navbarRoutes.map((r, index) => (
-            <li key={index}>
+            <Button>
               <NavLink
                 to={r.path}
-                activeClassName={navbarStyles.Active}
                 exact={r.exact}
                 strict={r.strict}
               >
-                <span className={r.icon} />
-                <span>&nbsp;{r.label}</span>
+                <Icon name={r.icon} />
+                <Text>{r.label}</Text>
               </NavLink>
-            </li>
+            </Button>
           ))}
         </Navbar>
 

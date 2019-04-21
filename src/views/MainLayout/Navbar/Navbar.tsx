@@ -23,9 +23,9 @@ class Navbar extends React.Component<NavbarProps, {}> {
           <div className={styles.Brand}>
             {title}
           </div>
-          <ul>
+          <div className={styles.Actions}>
             {this.props.children}
-          </ul>
+          </div>
         </div>
       </>
 

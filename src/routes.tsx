@@ -19,5 +19,6 @@ export const sidebarRoutes: Route[] = [
 ]
 
 export const navbarRoutes: Route[] = [
+  { path: "/writer", label: "Escribe", component: Writes, icon:"icon-pencil2" },
   { path: "/writer", label: "Escribe", component: Writes, icon:"icon-pencil2" }
 ]

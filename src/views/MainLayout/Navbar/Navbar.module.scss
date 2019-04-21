@@ -50,6 +50,11 @@
   }
 }
 
+.Actions {
+  display: flex;
+  flex-direction: row;
+}
+
 .Brand {
   display: flex;
   font-size: 1.5em;

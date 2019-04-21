@@ -9,7 +9,7 @@ interface ITextProps {
   size?: FontSizes;
   weight?: FontWeight;
   color?: Colors;
-  children: string | string[];
+  children: string | string[] | undefined;
 }
 
 const computeFontSizeClass = (size?: FontSizes): string => {

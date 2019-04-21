@@ -66,7 +66,13 @@ $current-background: transparent !global;
   text-transform: capitalize;
   display: flex;
   justify-content: center;
+  align-items: center;
+  align-content: center;
   cursor: pointer;
+
+  a {
+    color: $text-color;
+  }
 }
 
 /* Children container */

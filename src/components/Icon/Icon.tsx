@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface IIconProps {
-  name: string;
+  name: string | undefined;
   cssSize?: string;
   cssMargin?: string;
 }

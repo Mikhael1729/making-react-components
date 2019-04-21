@@ -12,6 +12,7 @@ declare const styles: {
   readonly "FontColorDefault": string;
   readonly "FontColorHidden": string;
   readonly "Navbar": string;
+  readonly "Actions": string;
   readonly "Brand": string;
   readonly "Active": string;
 };
