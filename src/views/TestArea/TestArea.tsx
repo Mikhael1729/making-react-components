@@ -1,42 +1,37 @@
 import * as React from 'react';
-import LabelCheckbox from 'components/LabelCheckbox/LabelCheckbox';
-import { TestModel } from 'models/TestModel';
-import MultiSelect from 'components/MultiSelect/MultiSelect';
-import * as styles from "./TestArea.module.scss";
-import { assignedQualifications } from 'data/repository';
+import * as styles from './TestArea.module.scss';
 import Button from 'components/Button/Button';
 import Icon from 'components/Icon/Icon';
+import LabelCheckbox from 'components/LabelCheckbox/LabelCheckbox';
+import MultiSelect from 'components/MultiSelect/MultiSelect';
 import Text from 'components/Text/Text';
+import { assignedQualifications } from 'data/repository';
+import { TestModel } from 'models/TestModel';
 
-export interface TestAreaProps {
+export interface ITestAreaProps {
   data: TestModel[]
 }
 
-export interface TestAreaState {
+export interface ITestAreaState {
   checked: boolean;
   selected: TestModel[];
   position: { one: number, two: number, three: number, fourth: number }
 }
 
-export default class TestArea extends React.Component<TestAreaProps, TestAreaState> {
+export default class TestArea extends React.Component<ITestAreaProps, ITestAreaState> {
   private drawableDivTitleRef: any = React.createRef();
   private drawableDivRef: any = React.createRef();
 
-  constructor(props: TestAreaProps) {
-    super(props);
-
-    this.state = {
-      checked: false,
-      selected: [],
-      position: {
-        one: 0,
-        three: 0,
-        fourth: 0,
-        two: 0
-      }
+  state: ITestAreaState = {
+    checked: false,
+    selected: [],
+    position: {
+      one: 0,
+      three: 0,
+      fourth: 0,
+      two: 0
     }
   }
-
   private handleChange = (checked: boolean, data: TestModel, text: string) => {
     this.setState(prevState => {
       const selected = [...prevState.selected];
@@ -155,7 +150,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
         </div>
 
         {/* Button */}
-        <div style={{ marginBottom: "50px"}}>
+        <div style={{ marginBottom: "50px" }}>
           <h3>Este es mi botón</h3>
           <Button type="filled" color="secondary">
             <Icon name="icon-codepen" />
@@ -163,9 +158,11 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
           </Button>
         </div>
 
-        <div style={{ marginBottom: "50px"}}>
+        <div style={{ marginBottom: "50px" }}>
           <h3>¡¡Texto!!</h3>
-          <Text size="h3" weight="bold" color="secondary">Hello World</Text>
+          <Text size="h3" weight="bold" color="warning">
+            Hello World
+          </Text>
         </div>
 
         <div style={{ marginBottom: "50px" }}>
