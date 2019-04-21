@@ -1,6 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps, Route } from "react-router";
 import { Link } from "react-router-dom";
+import Text from "components/Text/Text";
 
 const Part1 = () => <h3>Parte 1</h3>
 const Part2 = () => <h3>Parte 2</h3>
@@ -17,7 +18,7 @@ const NestedRoutes: React.SFC<NestedRoutesProps> = (props) => {
 
   console.log(match)
   return <>
-    <h1>Nested routes</h1>
+    <Text size="h3">Nested routes</Text>
 
     <ul>
       <li>

@@ -129,7 +129,7 @@ export default class TestArea extends React.Component<ITestAreaProps, ITestAreaS
     // console.log("organizado: -> ", organizado);
 
     return <>
-      <h1>Área de pruebas</h1>
+      <Text size="h3">Área de pruebas</Text>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {/* MultiSelect */}

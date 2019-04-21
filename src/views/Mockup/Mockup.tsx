@@ -1,10 +1,14 @@
 import * as React from "react"
 import "./Mockup.css";
+import Text from "components/Text/Text";
+import Space from "components/Space/Space";
 
 const Mockup: React.SFC<any> = () => {
   return <>
-    <h1>¿Probando cajitas?</h1>
+    <Text size="h3">¿Probando cajitas?</Text>
 
+    <Space size={2}/>
+    
     <label className="container">
       <input type="checkbox" />
       <span className="checkmark"></span>

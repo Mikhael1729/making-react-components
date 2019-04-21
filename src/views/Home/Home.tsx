@@ -1,11 +1,12 @@
 import * as React from 'react';
+import Text from 'components/Text/Text';
 
 interface HomeProps {
 }
 
 const Home: React.SFC<HomeProps> = (props) => {
   return <>
-    <h1>Inicio</h1>
+    <Text size="h3">Inicio</Text>
 
     <p>
       Esta página es varias cosas a la vez: una demotración de mi ego de programador web, un lugar donde creo y uso mis propios controles visuales en ReactJS y un diario relativamente personal de mi vida.

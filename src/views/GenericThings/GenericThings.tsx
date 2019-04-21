@@ -1,9 +1,10 @@
 import * as React from "react";
+import Text from "components/Text/Text";
 
 class GenericThings extends React.Component{
   render() {
     return <>
-      <h1>Generic things</h1>
+      <Text size="h3">Generic things</Text>
     </>
   }
 }
