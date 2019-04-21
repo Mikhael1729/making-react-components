@@ -1,0 +1,25 @@
+@import "../../styles/text-sizes.scss";
+@import "~rfs/scss";
+
+.FontSizeSmall {
+  @include rfs($font-size-small);
+}
+.FontSizeRegular {
+  @include rfs($font-size-regular);
+}
+.FontSizeLarge {
+  @include rfs($font-size-large);
+}
+.FontSizeXLarge {
+  @include rfs($font-size-x-large);
+}
+.FontSizeXxLarge {
+  @include rfs($font-size-xx-large);
+}
+.FontSizeXxxLarge {
+  @include rfs($font-size-xxx-large);
+}
+.FontSizeXxxxLarge {
+  @include rfs($font-size-xxxx-large);
+}
+

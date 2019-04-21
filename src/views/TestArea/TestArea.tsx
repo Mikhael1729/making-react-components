@@ -6,6 +6,7 @@ import * as styles from "./TestArea.module.scss";
 import { assignedQualifications } from 'data/repository';
 import Button from 'components/Button/Button';
 import Icon from 'components/Icon/Icon';
+import Text from 'components/Text/Text';
 
 export interface TestAreaProps {
   data: TestModel[]
@@ -155,10 +156,16 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
         {/* Button */}
         <div style={{ marginBottom: "50px"}}>
+          <h3>Este es mi botón</h3>
           <Button type="filled" color="secondary">
             <Icon name="icon-codepen" />
-            Hello world
+            <Text>Hello world</Text>
           </Button>
+        </div>
+
+        <div style={{ marginBottom: "50px"}}>
+          <h3>¡¡Texto!!</h3>
+          <Text fontSize="h1">Hello World</Text>
         </div>
 
         <div style={{ marginBottom: "50px" }}>
