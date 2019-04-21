@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import Column from 'components/Column/Column';
 import Post from './Post/Post';
 import Row from 'components/Row/Row';
@@ -6,13 +6,13 @@ import { posts } from 'data/repository';
 import Text from 'components/Text/Text';
 import Space from 'components/Space/Space';
 
-export interface PostsProps { }
+export interface IPostsProps { }
 
-export interface PostsState { }
+export interface IPostsState { }
 
-class Posts extends React.Component<PostsProps, PostsState> {
+class Posts extends Component<IPostsProps, IPostsState> {
   render() {
-    return (
+    return (  
       <>
         {/* Title */}
         <Text size="h3">Publicaciones</Text>
@@ -21,12 +21,12 @@ class Posts extends React.Component<PostsProps, PostsState> {
 
         {/* Posts */}
         <Row>
-          {posts.map((p, index) => (
+          {posts.map((post, index) => (
             <Column key={index} xs="12" lg="4" md="6" cssMargin={4}>
               <Post
-                title={p.title!}
-                content={p.content!}
-                publicationDate={p.dateTime!} />
+                title={post.title!}
+                content={post.content!}
+                publicationDate={post.dateTime!} />
             </Column>
           ))}
         </Row>
