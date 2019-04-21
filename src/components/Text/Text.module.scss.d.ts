@@ -6,6 +6,9 @@ declare const styles: {
   readonly "FontSizeXxLarge": string;
   readonly "FontSizeXxxLarge": string;
   readonly "FontSizeXxxxLarge": string;
+  readonly "Lightweight": string;
+  readonly "Heavy": string;
+  readonly "Bold": string;
 };
 export = styles;
 

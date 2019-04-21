@@ -1,6 +1,8 @@
 @import "../../styles/text-sizes.scss";
+@import "../../styles/text-weight.scss";
 @import "~rfs/scss";
 
+// Font sizes
 .FontSizeSmall {
   @include rfs($font-size-small);
 }
@@ -23,3 +25,15 @@
   @include rfs($font-size-xxxx-large);
 }
 
+// Weights
+.Lightweight {
+  font-weight: $lightweight;
+}
+
+.Heavy {
+  font-weight: $heavy;
+}
+
+.Bold {
+  font-weight: $bold;
+}

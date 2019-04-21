@@ -29,13 +29,37 @@ const computeFontSizeClass = (size?: FontSizes): string => {
 }
 
 // TODO:
-const computeFontWeight = (weght: FontWeight): string => "";
+const computeFontWeight = (weight?: FontWeight): string => {
+  switch (weight) {
+    case "bold":
+      return styles.Bold;
+    case "lightweight":
+      return styles.Lightweight;
+    case "heavy":
+      return styles.Heavy;
+    default:
+      return "";
+  }
+}
 
-const Text = ({children, size}: ITextProps) => {
-  const fontStyle = computeFontSizeClass(size);
+const computeModel = (props: ITextProps) => {
+  // Font size.
+  const fontClass = computeFontSizeClass(props.size);
   
+  // Font weight.
+  const weightClass = computeFontWeight(props.weight);
+
+  // Classes cluster.
+  const classes = [fontClass, weightClass].join(' ');
+
+  return { classes, children: props.children }
+}
+
+const Text = (props: ITextProps) => {
+  const { classes, children } = computeModel(props);
+
   return (
-    <span className={fontStyle}>
+    <span className={classes}>
       {children}
     </span>
   );
