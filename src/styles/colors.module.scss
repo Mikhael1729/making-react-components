@@ -6,6 +6,27 @@ $primary: #38d75b;
 $secondary: #01A2CB;
 $warning: #d78538; 
 $red-color: red;
+
+.FontColorPrimary {
+  color: $primary
+}
+
+.FontColorSecondary {
+  color: $secondary;
+}
+
+.FontColorWarning {
+  color: $warning;
+}
+
+.FontColorDefault {
+  color: $text-color;
+}
+
+.FontColorHidden {
+  color: $hidden;
+}
+
 :export {
   backgroundColor: $background-color;
   hidden: $hidden;

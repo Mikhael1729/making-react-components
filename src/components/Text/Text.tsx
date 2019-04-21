@@ -2,10 +2,13 @@ import * as React from 'react';
 import * as styles from "./Text.module.scss";
 import { FontSizes } from 'types/FontSizes';
 import { FontWeight } from 'types/FontWeight';
+import { Colors } from 'types/Colors';
+import { ClassesSelector, IColorClasses } from 'helpers/ClassesSelector';
 
 interface ITextProps {
   size?: FontSizes;
   weight?: FontWeight;
+  color?: Colors;
   children: string | string[];
 }
 
@@ -42,15 +45,28 @@ const computeFontWeight = (weight?: FontWeight): string => {
   }
 }
 
+const generateClasses = (): IColorClasses => {
+  return {
+    default: styles.FontColorDefault,
+    primary: styles.FontColorPrimary,
+    secondary: styles.FontColorSecondary,
+    warning: styles.FontColorWarning
+  }
+}
+
 const computeModel = (props: ITextProps) => {
   // Font size.
   const fontClass = computeFontSizeClass(props.size);
   
   // Font weight.
   const weightClass = computeFontWeight(props.weight);
+  
+  // Color.
+  const colorClasses = ClassesSelector.computeColor(props.color, generateClasses());
 
   // Classes cluster.
-  const classes = [fontClass, weightClass].join(' ');
+  const classes = [fontClass, weightClass, colorClasses].join(' ');
+
 
   return { classes, children: props.children }
 }

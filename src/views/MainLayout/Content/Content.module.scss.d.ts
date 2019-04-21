@@ -6,6 +6,11 @@ declare const styles: {
   readonly "secondary": string;
   readonly "warning": string;
   readonly "redColor": string;
+  readonly "FontColorPrimary": string;
+  readonly "FontColorSecondary": string;
+  readonly "FontColorWarning": string;
+  readonly "FontColorDefault": string;
+  readonly "FontColorHidden": string;
   readonly "Content": string;
 };
 export = styles;
