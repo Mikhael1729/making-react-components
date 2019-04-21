@@ -46,7 +46,7 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
         {/* Navbar */}
         <Navbar>
           {navbarRoutes.map((r, index) => (
-            <Button>
+            <Button key={index}>
               <NavLink
                 to={r.path}
                 exact={r.exact}

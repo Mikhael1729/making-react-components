@@ -4,5 +4,5 @@
   margin: 0;
   padding: 1.5em;
   padding-top: calc(#{$navbar-height} + 1.8em);
-  margin-left: calc($sidebar-width);
+  margin-left: $sidebar-width;
 }
