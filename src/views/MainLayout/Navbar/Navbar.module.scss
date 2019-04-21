@@ -1,6 +1,6 @@
 
-@import "styles/layout-metrics.scss";
-@import "styles/colors.scss";
+@import "../../../styles/layout-metrics.scss";
+@import "../../../styles/colors.scss";
 
 .Navbar {
   width: calc(100% - #{$sidebar-width} - (#{$edge-padding} * 2));
