@@ -2,7 +2,7 @@
 
 .Content {
   margin: 0;
-  padding: 16px 18px;
-  padding-top: $navbar-height;
+  padding: 1.5em;
+  padding-top: calc(#{$navbar-height} + 1.8em);
   margin-left: calc($sidebar-width);
 }
