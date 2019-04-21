@@ -165,7 +165,7 @@ export default class TestArea extends React.Component<TestAreaProps, TestAreaSta
 
         <div style={{ marginBottom: "50px"}}>
           <h3>¡¡Texto!!</h3>
-          <Text fontSize="h1">Hello World</Text>
+          <Text size="h3">Hello World</Text>
         </div>
 
         <div style={{ marginBottom: "50px" }}>

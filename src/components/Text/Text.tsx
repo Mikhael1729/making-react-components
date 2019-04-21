@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as styles from "./Text.module.scss";
-
-type FontSizes =
-  "h1" | "h2" | "h3" | "h4" | "subtitle" | "body" | "small";
+import { FontSizes } from 'types/FontSizes';
+import { FontWeight } from 'types/FontWeight';
 
 interface ITextProps {
-  fontSize?: FontSizes;
+  size?: FontSizes;
+  weight?: FontWeight;
   children: string | string[];
 }
 
-const computeFontSizeClass = (fontSize?: FontSizes): string => {
-  switch (fontSize) {
+const computeFontSizeClass = (size?: FontSizes): string => {
+  switch (size) {
     case "h1":
       return styles.FontSizeXxxxLarge
     case "h2":
@@ -28,8 +28,11 @@ const computeFontSizeClass = (fontSize?: FontSizes): string => {
   }
 }
 
-const Text = ({children, fontSize}: ITextProps) => {
-  const fontStyle = computeFontSizeClass(fontSize);
+// TODO:
+const computeFontWeight = (weght: FontWeight): string => "";
+
+const Text = ({children, size}: ITextProps) => {
+  const fontStyle = computeFontSizeClass(size);
   
   return (
     <span className={fontStyle}>
