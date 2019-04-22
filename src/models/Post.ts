@@ -1,6 +1,7 @@
 import { init } from "helpers/init";
 
 export class Post {
+  id: number;
   title: string;
   content: string;
   dateTime: Date;
