@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as enzyme from "enzyme";
-import Post from "./Post";
-import styles from "./Post.module.scss";
+import Post from "../src/views/Posts/Post/Post";
+import styles from "../src/views/Posts/Post/Post.module.scss";
 
 it("<Post />", () => {
   // Mock.
