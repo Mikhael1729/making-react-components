@@ -8,7 +8,7 @@ export const testData: TestModel[] = [
   { name: "Pruebita 3", quantity: 3, things: ["one", "two", "three"] }
 ]
 
-export const posts: Post[] = [
+export const posts: Array<Partial<Post>> = [
   { 
     title: "Post 1", 
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, eius necessitatibus, quasi et, fuga sunt vel nulla dolor similique placeat nihil earum. Rerum error quam, voluptatem reprehenderit in eos nobis!",
