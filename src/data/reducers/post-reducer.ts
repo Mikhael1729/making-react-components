@@ -1,8 +1,8 @@
 import { IStoreState } from "models/IStoreState";
-import { PostType } from "data/actions/post-actions";
+import { PostActions } from "data/actions/post-actions";
 import { ADD_POST, DELETE_POST } from "data/constants/post-constants";
 
-export function postReducer(state: IStoreState, action: PostType): IStoreState {
+export function postReducer(state: IStoreState, action: PostActions): IStoreState {
   const posts = [...state.posts];
 
   switch (action.type) {

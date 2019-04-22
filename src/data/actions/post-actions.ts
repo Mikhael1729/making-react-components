@@ -11,7 +11,7 @@ export interface IDeletePost {
   postId: number;
 }
 
-export type PostType = IAddPost | IDeletePost;
+export type PostActions = IAddPost | IDeletePost;
 
 export function addPost(post: Post): IAddPost {
   return { type: ADD_POST, post }
