@@ -5,7 +5,6 @@ import { Post } from "models/Post";
 import { connect } from "react-redux";
 import Posts from "views/Posts/Posts";
 
-
 export function mapStateToProps({ posts }: IStoreState) {
   return { posts }
 }

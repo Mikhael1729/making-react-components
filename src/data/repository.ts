@@ -8,18 +8,21 @@ export const testData: TestModel[] = [
   { name: "Pruebita 3", quantity: 3, things: ["one", "two", "three"] }
 ]
 
-export const posts: Array<Partial<Post>> = [
+export const posts: Post[] = [
   { 
+    id: 1,
     title: "Post 1", 
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, eius necessitatibus, quasi et, fuga sunt vel nulla dolor similique placeat nihil earum. Rerum error quam, voluptatem reprehenderit in eos nobis!",
     dateTime: new Date(2017, 10, 3)
   },
   { 
+    id: 2,
     title: "Post 2", 
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, eius necessitatibus, quasi et, fuga sunt vel nulla dolor similique placeat nihil earum. Rerum error quam, voluptatem reprehenderit in eos nobis!",
     dateTime: new Date()
   },
   { 
+    id: 3,
     title: "Post 3", 
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, eius necessitatibus, quasi et, fuga sunt vel nulla dolor similique placeat nihil earum. Rerum error quam, voluptatem reprehenderit in eos nobis!",
     dateTime: new Date()
