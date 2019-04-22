@@ -1,11 +1,11 @@
 import { init } from "helpers/init";
 
 export class Post {
-  title?: string;
-  content?: string;
-  dateTime?: Date;
+  title: string;
+  content: string;
+  dateTime: Date;
 
-  constructor(data: Post) {
-    init<Post>(this, data);
+  constructor(data: Partial<Post>) {
+    init<Partial<Post>>(this, data);
   }
 }
