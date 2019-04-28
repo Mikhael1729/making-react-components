@@ -1,0 +1,32 @@
+@import "~rfs/scss";
+@import "../../styles/text-sizes.scss";
+@import "../../styles/colors.module.scss";
+
+.TextField {
+  @include rfs($font-size-regular);
+  color: inherit;
+  background: inherit;
+  outline: none;
+  font-family: inherit;
+  border: 1px solid white;
+  padding: 5px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.PrimaryColor {
+  color: $primary;
+  border-color: $primary;
+}
+
+.SecondaryColor {
+  color: $secondary;
+  border-color: $secondary;
+}
+
+.WarningColor {
+  color: $warning;
+  border-color: $warning;
+}
