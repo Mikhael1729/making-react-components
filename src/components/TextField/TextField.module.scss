@@ -1,6 +1,28 @@
 @import "~rfs/scss";
 @import "../../styles/text-sizes.scss";
 @import "../../styles/colors.module.scss";
+@import "../../styles/form-styles.scss";
+
+@mixin computeColor($color){
+  color: $color;
+  border-color: $color;
+
+  &.Disabled {
+    $disabled-color: darken($color, 35%);
+    color: $disabled-color;
+    border-color: $disabled-color;
+  }
+}
+
+.Container {
+  display: inline-flex;
+  flex-direction: column;
+  width: auto;
+
+  * {
+    margin-bottom: 0.2rem;
+  }
+}
 
 .TextField {
   @include rfs($font-size-regular);
@@ -10,23 +32,29 @@
   font-family: inherit;
   border: 1px solid white;
   padding: 5px;
+  border-radius: $border-radius;
 
   &:focus {
     outline: none;
   }
 }
 
+.DefaultColor {
+  @include computeColor($text-color);
+}
+
 .PrimaryColor {
-  color: $primary;
-  border-color: $primary;
+  @include computeColor($primary);
 }
 
 .SecondaryColor {
-  color: $secondary;
-  border-color: $secondary;
+  @include computeColor($secondary);
 }
 
 .WarningColor {
-  color: $warning;
-  border-color: $warning;
+  @include computeColor($warning);
+}
+
+.HiddenColor {
+  @include computeColor($hidden);
 }

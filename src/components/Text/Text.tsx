@@ -45,24 +45,23 @@ const computeFontWeight = (weight?: FontWeight): string => {
   }
 }
 
-const generateClasses = (): IColorClasses => {
-  return {
-    default: styles.FontColorDefault,
-    primary: styles.FontColorPrimary,
-    secondary: styles.FontColorSecondary,
-    warning: styles.FontColorWarning
-  }
+const colors = {
+  default: styles.FontColorDefault,
+  primary: styles.FontColorPrimary,
+  secondary: styles.FontColorSecondary,
+  warning: styles.FontColorWarning,
+  hidden: styles.FontColorHidden,
 }
 
 const computeModel = (props: ITextProps) => {
   // Font size.
   const fontClass = computeFontSizeClass(props.size);
-  
+
   // Font weight.
   const weightClass = computeFontWeight(props.weight);
-  
+
   // Color.
-  const colorClasses = ClassesSelector.computeColor(props.color, generateClasses());
+  const colorClasses = ClassesSelector.computeColor(props.color, colors);
 
   // Classes cluster.
   const classes = [fontClass, weightClass, colorClasses].join(' ');

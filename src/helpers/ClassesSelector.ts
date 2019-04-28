@@ -5,6 +5,7 @@ export interface IColorClasses {
   secondary?: string;
   warning?: string;
   default?: string;
+  hidden?: string;
 }
 
 export class ClassesSelector {
@@ -12,6 +13,8 @@ export class ClassesSelector {
     switch (color) {
       case "primary":
         return styles.primary || "";
+      case "hidden":
+        return styles.hidden || "";
       case "secondary":
         return styles.secondary || "";
       case "warning":
