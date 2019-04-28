@@ -16,7 +16,6 @@ export interface NestedRoutesProps extends RouteComponentProps { }
 const NestedRoutes: React.SFC<NestedRoutesProps> = (props) => {
   const { match } = props;
 
-  console.log(match)
   return <>
     <Text size="h3">Nested routes</Text>
 

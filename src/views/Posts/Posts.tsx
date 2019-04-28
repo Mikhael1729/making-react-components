@@ -18,7 +18,7 @@ export interface IPostsState { }
 class Posts extends Component<IPostsProps, IPostsState> {
   render() {
     const { posts } = this.props;
-
+  
     return (
       <>
         {/* Title */}
