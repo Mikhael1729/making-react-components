@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
 import Column from 'components/Column/Column';
 import Post from './Post/Post';
+import React, { Component } from 'react';
 import Row from 'components/Row/Row';
-import Text from 'components/Text/Text';
 import Space from 'components/Space/Space';
+import Text from 'components/Text/Text';
 import { Post as PostModel } from 'models/Post';
-import  ErrorBoundary from 'helpers/ErrorBoundary';
-import { IStoreState } from 'models/IStoreState';
-import { Dispatch } from 'redux';
-import { PostActions, addPost, deletePost } from 'data/actions/post-actions';
-import { connect } from 'react-redux';
 
 export interface IPostsProps {
   posts: PostModel[];
@@ -19,13 +14,6 @@ export interface IPostsProps {
 }
 
 export interface IPostsState { }
-
-const mapStateToProps = (state: IStoreState) => ({ posts: state.posts || [] })
-
-const mapDispatchToProps = (dispatch: Dispatch<PostActions>) => ({
-  addPost: (post: PostModel) => dispatch(addPost(post)),
-  deletePost: (postId: number) => dispatch(deletePost(postId))
-})
 
 class Posts extends Component<IPostsProps, IPostsState> {
   render() {
