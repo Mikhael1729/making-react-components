@@ -2,17 +2,36 @@ import React, { Component } from 'react';
 import Column from 'components/Column/Column';
 import Post from './Post/Post';
 import Row from 'components/Row/Row';
-import { posts } from 'data/repository';
 import Text from 'components/Text/Text';
 import Space from 'components/Space/Space';
+import { Post as PostModel } from 'models/Post';
+import  ErrorBoundary from 'helpers/ErrorBoundary';
+import { IStoreState } from 'models/IStoreState';
+import { Dispatch } from 'redux';
+import { PostActions, addPost, deletePost } from 'data/actions/post-actions';
+import { connect } from 'react-redux';
 
-export interface IPostsProps { }
+export interface IPostsProps {
+  posts: PostModel[];
+  addPost: (post: PostModel) => void;
+  deletePost: (postId: number) => void;
+  children?: React.ReactNode;
+}
 
 export interface IPostsState { }
 
+const mapStateToProps = (state: IStoreState) => ({ posts: state.posts || [] })
+
+const mapDispatchToProps = (dispatch: Dispatch<PostActions>) => ({
+  addPost: (post: PostModel) => dispatch(addPost(post)),
+  deletePost: (postId: number) => dispatch(deletePost(postId))
+})
+
 class Posts extends Component<IPostsProps, IPostsState> {
   render() {
-    return (  
+    const { posts } = this.props;
+
+    return (
       <>
         {/* Title */}
         <Text size="h3">Publicaciones</Text>
