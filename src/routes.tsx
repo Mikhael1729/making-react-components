@@ -15,7 +15,7 @@ export const sidebarRoutes: Route[] = [
   { path: "/test-area", label: "Área de pruebas", component: () => <TestArea data={testData} /> },
   { path: "/nested-routes", label: "Rutas anidadas", component: NestedRoutes },
   { path: "/mockup", label: "Aprende CSS", component: Mockup },
-  { path: "/posts", label: "Publicaciones", component:  Posts },
+  { path: "/posts", label: "Memorias", component:  Posts },
 ]
 
 export const navbarRoutes: Route[] = [

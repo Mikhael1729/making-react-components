@@ -22,7 +22,7 @@ class Posts extends Component<IPostsProps, IPostsState> {
     return (
       <>
         {/* Title */}
-        <Text size="h3">Publicaciones</Text>
+        <Text size="h3">Memorias</Text>
 
         <Space size={2} />
 
