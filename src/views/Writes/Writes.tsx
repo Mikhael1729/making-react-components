@@ -1,10 +1,9 @@
+import Button from 'components/Button/Button';
 import React, { Component } from 'react';
+import Space from 'components/Space/Space';
 import Text from 'components/Text/Text';
 import TextField from 'components/TextField/TextField';
-import Space from 'components/Space/Space';
-import Row from 'components/Row/Row';
-import Column from 'components/Column/Column';
-import Button from 'components/Button/Button';
+import Form from 'components/Form/Form';
 
 export interface WritesProps {
 }
@@ -20,30 +19,28 @@ class Writes extends Component<WritesProps, WritesState> {
 
         <Space size={2} />
 
-        {/* Post title */}
-        <TextField
-          label="Título"
-          color="default"
-          placeholder="Un día increíble..."
-          block={true}/>
+        <Form>
+          {/* Post title */}
+          <TextField
+            label="Título"
+            color="default"
+            placeholder="Un día increíble..."
+            block={true} />
 
-        <Space />
+          {/* Post body */}
+          <TextField
+            label="Cuerpo"
+            rows={16}
+            multiLine={true}
+            color="default"
+            placeholder="Puede suceder en cualquier momento."
+            block={true} />
 
-        {/* Post body */}
-        <TextField
-          label="Cuerpo"
-          rows={16}
-          multiLine={true}
-          color="default"
-          placeholder="Puede suceder en cualquier momento."
-          block={true}/>
-
-        <Space />
-
-        <Button color="primary" type="outline">
-          Guardar
-        </Button>
-
+          {/* Save button */}
+          <Button color="primary" type="outline">
+            Guardar
+          </Button>
+        </Form>
       </>
     );
   }
