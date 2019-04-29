@@ -1,5 +1,5 @@
 import { Memory } from "./Post";
 
 export interface IStoreState {
-  posts: Memory[]
+  memories: Memory[]
 }

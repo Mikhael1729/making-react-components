@@ -1,22 +1,22 @@
-import { ADD_POST, DELETE_POST } from "../constants/post-constants";
+import { ADD_MEMORY, DELETE_MEMORY } from "../constants/post-constants";
 import { Memory } from "models/Post";
 
-export interface IAddPost {
-  type: ADD_POST;
+export interface IAddMemory {
+  type: ADD_MEMORY;
   post: Memory;
 }
 
-export interface IDeletePost {
-  type: DELETE_POST;
-  postId: number;
+export interface IDeleteMemory {
+  type: DELETE_MEMORY;
+  memoryId: number;
 }
 
-export type PostActions = IAddPost | IDeletePost;
+export type MemoryActions = IAddMemory | IDeleteMemory;
 
-export function addPost(post: Memory): IAddPost {
-  return { type: ADD_POST, post }
+export function addMemory(post: Memory): IAddMemory {
+  return { type: ADD_MEMORY, post }
 }
 
-export function deletePost(postId: number): IDeletePost {
-  return { type: DELETE_POST, postId }
+export function deleteMemory(memoryId: number): IDeleteMemory {
+  return { type: DELETE_MEMORY, memoryId }
 }

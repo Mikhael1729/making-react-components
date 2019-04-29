@@ -28,18 +28,27 @@ const color: IColorClasses = {
 //#endregion
 
 //#region Functions
-const increaseRows = (
+const textAreaOnChange = (
   textarea: any,
   rowsMin: number = 0,
   rowsMax: number = 0,
+  callBack: undefined | ((e: React.ChangeEvent<HTMLTextAreaElement>) => void),
   setRows: (a: React.SetStateAction<number | undefined>) => void) =>
   (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // Callback.
+    if (callBack) callBack(e);
+
+    // Calculating roes to show.
     const rowCount = textarea.current.value.substr(0, textarea.selectionStart).split("\n").length
     const limit = rowsMax > 0 ? rowsMax : rowCount + 1;
 
     if (rowCount >= rowsMin && rowCount <= limit)
       setRows(rowCount);
   }
+
+const inputTextOnChange = (callBack: undefined | ((e: React.ChangeEvent<HTMLInputElement>) => void)) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (callBack) callBack(e);
+}
 //#endregion
 
 //#region Model
@@ -73,11 +82,11 @@ const computeModel = (props: ITextFieldProps) => {
     rows,
     setRows,
     textareaRef,
-    increaseRows: increaseRows(textareaRef, props.rows, props.rowsMax, setRows),
+    textAreaOnChange: textAreaOnChange(textareaRef, props.rows, props.rowsMax, props.onChange, setRows),
+    inputTextOnChange: inputTextOnChange(props.onChange),
     rowsMax: props.rowsMax,
     rowsMin: props.rows,
     sharedStyles: {
-      onChange: props.onChange,
       className: textFieldClasses,
       placeholder: props.placeholder,
       disabled: props.disabled
@@ -98,12 +107,12 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
 
       {/* Input */}
       {!$.multiLine
-        ? <input type="text" {...$.sharedStyles} />
+        ? <input type="text" {...$.sharedStyles} onChange={$.inputTextOnChange}/>
         : <textarea
           {...$.sharedStyles}
           rows={$.rows}
           ref={$.textareaRef}
-          onChange={$.increaseRows} />}
+          onChange={$.textAreaOnChange} />}
     </div>
   );
 };

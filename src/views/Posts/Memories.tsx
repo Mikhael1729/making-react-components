@@ -6,16 +6,16 @@ import Space from 'components/Space/Space';
 import Text from 'components/Text/Text';
 import { Memory as PostModel } from 'models/Post';
 
-export interface IPostsProps {
+export interface IMemoriesProps {
   posts: PostModel[];
   addPost: (post: PostModel) => void;
   deletePost: (postId: number) => void;
   children?: React.ReactNode;
 }
 
-export interface IPostsState { }
+export interface IMemoriesState { }
 
-class Posts extends Component<IPostsProps, IPostsState> {
+class Memories extends Component<IMemoriesProps, IMemoriesState> {
   render() {
     const { posts } = this.props;
   
@@ -42,4 +42,4 @@ class Posts extends Component<IPostsProps, IPostsState> {
   }
 }
 
-export default Posts;
+export default Memories;

@@ -1,12 +1,12 @@
 import { createStore } from 'redux';
 import { IStoreState } from 'models/IStoreState';
-import { postReducer } from './reducers/post-reducer';
+import { memoryReducer } from './reducers/memory-reducer';
 import { posts } from './repository';
 
 export const initialState: IStoreState = {
-  posts
+  memories: posts
 }
 
-const store = createStore<IStoreState, any, any, any>(postReducer, initialState);
+const store = createStore<IStoreState, any, any, any>(memoryReducer, initialState);
 
 export default store;

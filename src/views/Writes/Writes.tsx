@@ -4,15 +4,43 @@ import Space from 'components/Space/Space';
 import Text from 'components/Text/Text';
 import TextField from 'components/TextField/TextField';
 import Form from 'components/Form/Form';
+import { Memory } from 'models/Post';
 
-export interface WritesProps {
+export interface IWritesProps {
+  createMemory: (memory: Memory) => void;
+  children: never;
 }
 
-export interface WritesState {
+export interface IWritesState {
+  title: string;
+  body: string;
 }
 
-class Writes extends Component<WritesProps, WritesState> {
-  public render() {
+class Writes extends Component<IWritesProps, IWritesState> {
+  static state: IWritesState = {
+    title: "",
+    body: ""
+  };
+
+  private changeTitle = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => 
+    this.setState({ title: e.target.value });
+
+  private changeBody = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+    this.setState({ body: e.target.value });
+
+  private saveMemory = () => {
+    const memory = new Memory({
+      title: this.state.title,
+      content: this.state.body,
+      dateTime: new Date(),
+    });
+
+    this.props.createMemory(memory);
+  }
+
+  render() {
+    const { createMemory } = this.props;
+    
     return (
       <>
         <Text size="h3">Escribe</Text>
@@ -25,6 +53,7 @@ class Writes extends Component<WritesProps, WritesState> {
             label="Título"
             color="default"
             placeholder="Un día increíble..."
+            onChange={this.changeTitle}
             block={true} />
 
           {/* Post body */}
@@ -34,10 +63,11 @@ class Writes extends Component<WritesProps, WritesState> {
             multiLine={true}
             color="default"
             placeholder="Puede suceder en cualquier momento."
+            onChange={this.changeBody}
             block={true} />
 
           {/* Save button */}
-          <Button color="primary" type="outline">
+          <Button color="primary" type="outline" onClick={this.saveMemory}>
             Guardar
           </Button>
         </Form>
