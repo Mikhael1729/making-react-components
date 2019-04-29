@@ -13,7 +13,7 @@ const Part3 = ({ match }: { match: any }) => {
 
 export interface NestedRoutesProps extends RouteComponentProps { }
 
-const NestedRoutes: React.SFC<NestedRoutesProps> = (props) => {
+export const NestedRoutes: React.SFC<NestedRoutesProps> = (props) => {
   const { match } = props;
 
   return <>
@@ -41,5 +41,3 @@ const NestedRoutes: React.SFC<NestedRoutesProps> = (props) => {
     </div>
   </>
 }
-
-export default NestedRoutes;

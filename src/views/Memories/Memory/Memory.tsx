@@ -27,7 +27,7 @@ const computeModel = (props: IPostProps) => {
   return { title, day, month, year, shortContent }
 }
 
-const Post: React.FunctionComponent<IPostProps> = (props) => {
+export const Memory: React.FunctionComponent<IPostProps> = (props) => {
   const model = computeModel(props);
 
   return (
@@ -57,5 +57,3 @@ const Post: React.FunctionComponent<IPostProps> = (props) => {
     </div>
   )
 };
-
-export default Post;

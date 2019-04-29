@@ -3,7 +3,7 @@ import "./Mockup.css";
 import Text from "components/Text/Text";
 import Space from "components/Space/Space";
 
-const Mockup: React.SFC<any> = () => {
+export const Mockup: React.SFC<any> = () => {
   return <>
     <Text size="h3">¿Probando cajitas?</Text>
 
@@ -16,5 +16,3 @@ const Mockup: React.SFC<any> = () => {
     </label>
   </>
 }
-
-export default Mockup;

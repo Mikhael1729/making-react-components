@@ -15,7 +15,7 @@ export interface IMemoriesProps {
 
 export interface IMemoriesState { }
 
-class Memories extends Component<IMemoriesProps, IMemoriesState> {
+export class Memories extends Component<IMemoriesProps, IMemoriesState> {
   render() {
     const { posts } = this.props;
 
@@ -41,5 +41,3 @@ class Memories extends Component<IMemoriesProps, IMemoriesState> {
     )
   }
 }
-
-export default Memories;

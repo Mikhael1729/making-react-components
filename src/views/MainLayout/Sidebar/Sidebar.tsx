@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from "./Sidebar.module.scss";
+import styles from "./Sidebar.module.scss";
 
 interface SidebarProps {
 }
 
-const Sidebar: React.SFC<SidebarProps> = (props) => {
+export const Sidebar: React.SFC<SidebarProps> = (props) => {
   const { children } = props;
   return (
     <nav className={styles.Sidebar}>
@@ -18,5 +18,3 @@ const Sidebar: React.SFC<SidebarProps> = (props) => {
     </nav>
   );
 };
-
-export default Sidebar;

@@ -18,7 +18,7 @@ export interface ITestAreaState {
   position: { one: number, two: number, three: number, fourth: number }
 }
 
-export default class TestArea extends React.Component<ITestAreaProps, ITestAreaState> {
+export class TestArea extends React.Component<ITestAreaProps, ITestAreaState> {
   private drawableDivTitleRef: any = React.createRef();
   private drawableDivRef: any = React.createRef();
 

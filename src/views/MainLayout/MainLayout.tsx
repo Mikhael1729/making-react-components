@@ -1,10 +1,10 @@
-import * as navbarStyles from './Navbar/Navbar.module.scss';
+import navbarStyles from './Navbar/Navbar.module.scss';
 import * as React from 'react';
-import * as sidebarStyles from './Sidebar/Sidebar.module.scss';
-import * as styles from './MainLayout.module.scss';
-import Content from './Content/Content';
-import Navbar from './Navbar/Navbar';
-import Sidebar from './Sidebar/Sidebar';
+import sidebarStyles from './Sidebar/Sidebar.module.scss';
+import styles from './MainLayout.module.scss';
+import { Content } from './Content';
+import { Navbar } from './Navbar';
+import { Sidebar } from './Sidebar';
 import { navbarRoutes, sidebarRoutes } from "routes";
 import { NavLink } from 'react-router-dom';
 import Button from 'components/Button/Button';
@@ -18,7 +18,7 @@ export interface MainLayoutState {
   showSidebar: boolean;
 }
 
-class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
+export class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
   state: MainLayoutState = {
     showMenuButton: false,
     showSidebar: true
@@ -67,5 +67,3 @@ class MainLayout extends React.PureComponent<MainLayoutProps, MainLayoutState> {
     )
   }
 }
-
-export default MainLayout;

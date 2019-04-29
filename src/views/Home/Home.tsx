@@ -4,7 +4,7 @@ import Text from 'components/Text/Text';
 interface HomeProps {
 }
 
-const Home: React.SFC<HomeProps> = (props) => {
+export const Home: React.SFC<HomeProps> = (props) => {
   return <>
     <Text size="h3">Inicio</Text>
 
@@ -21,5 +21,3 @@ const Home: React.SFC<HomeProps> = (props) => {
     </p>
   </>;
 };
-
-export default Home;

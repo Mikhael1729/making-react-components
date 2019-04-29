@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { sidebarRoutes, navbarRoutes } from "routes";
-// import * as styles from "views/App/App.module.scss";
-import * as styles from "./Navbar.module.scss";
+import styles from "./Navbar.module.scss";
 
 interface NavbarProps extends RouteComponentProps { }
 
-class Navbar extends React.Component<NavbarProps, {}> {
+export class Navbar extends React.Component<NavbarProps, {}> {
   private extractTitle = (pathname: string): string => {
     const routes = sidebarRoutes.concat(navbarRoutes);
     const match = routes.find(r => r.path === pathname);
@@ -32,6 +31,3 @@ class Navbar extends React.Component<NavbarProps, {}> {
     );
   }
 }
-
-
-export default withRouter(Navbar);

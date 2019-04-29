@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ErrorBoundary from 'helpers/ErrorBoundary';
-import MainLayout from 'views/MainLayout/MainLayout';
+import { MainLayout } from 'views/MainLayout';
 import { navbarRoutes, sidebarRoutes } from '../../routes';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-const App: React.SFC<any> = ({ }) =>
+export const App: React.SFC<any> = ({ }) =>
   <BrowserRouter>
     <Switch>
       <MainLayout>
@@ -27,5 +27,3 @@ const App: React.SFC<any> = ({ }) =>
       </MainLayout>
     </Switch>
   </BrowserRouter>
-
-export default App;
