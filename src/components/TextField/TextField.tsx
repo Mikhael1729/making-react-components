@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import styles from "./TextField.module.scss";
 import { IColorClasses, ClassesSelector } from 'helpers/ClassesSelector';
 import { Colors } from 'types/Colors';
@@ -14,6 +14,7 @@ interface ITextFieldProps {
   multiLine?: boolean;
   rows?: number;
   rowsMax?: number;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 }
 
 const color: IColorClasses = {
@@ -23,6 +24,19 @@ const color: IColorClasses = {
   hidden: styles.HiddenColor,
   default: styles.DefaultColor
 };
+
+const increaseRows =
+  (textarea: any,
+    rowsMin: number = 0,
+    rowsMax: number = 0,
+    setRows: (a: React.SetStateAction<number | undefined>) => void) =>
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const rowCount = textarea.current.value.substr(0, textarea.selectionStart).split("\n").length
+      const limit = rowsMax > 0 ? rowsMax : rowCount + 1;
+
+      if (rowCount >= rowsMin && rowCount <= limit)
+        setRows(rowCount);
+    }
 
 const computeModel = (props: ITextFieldProps) => {
   // Color styles.
@@ -46,17 +60,27 @@ const computeModel = (props: ITextFieldProps) => {
     containerClasses,
     multiLine: props.multiLine,
     rows: props.rows,
+    onKeyPress: increaseRows,
     rowsMax: props.rowsMax,
-    sharedStyles: { 
-      className: textFieldClasses, 
-      placeholder: props.placeholder, 
+    sharedStyles: {
+      onChange: props.onChange,
+      className: textFieldClasses,
+      placeholder: props.placeholder,
       disabled: props.disabled
     },
   };
 }
 
+
 const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
+  // Model.
   const $ = computeModel(props);
+
+  // State.
+  const [rows, setRows] = useState($.rows);
+  
+  // Textaera.
+  const textarea: any = React.createRef();
 
   return (
     <div className={$.containerClasses}>
@@ -68,15 +92,18 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
       {/* Input */}
       {!$.multiLine
         ? <input type="text" {...$.sharedStyles} />
-        : <textarea 
-            rows={$.rows} 
-            {...$.sharedStyles} />}
+        : <textarea
+          {...$.sharedStyles}
+          rows={rows}
+          wrap="soft"
+          ref={textarea}
+          onChange={increaseRows(textarea, $.rows, $.rowsMax, setRows)} />}
     </div>
   );
 };
 
 TextField.defaultProps = {
-  rows: 6
+  rows: 1,
 }
 
 export default TextField;

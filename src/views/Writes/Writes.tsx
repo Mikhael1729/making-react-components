@@ -21,9 +21,10 @@ class Writes extends Component<WritesProps, WritesState> {
 
         <TextField
           label="Hola"
+          rows={3}
           multiLine={true}
           color="default"
-          placeholder="Hellodf" 
+          placeholder="Hellodf"
           block={true}/>
       </>
     );
