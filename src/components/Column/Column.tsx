@@ -17,7 +17,7 @@ export interface ColumnState {
   cssWidth: string;
 }
 
-export default class Column extends React.Component<ColumnProps, ColumnState> {
+export class Column extends React.Component<ColumnProps, ColumnState> {
   public static contextType = RowContext;
   private columnRef: any = React.createRef();
   public state: ColumnState = {
@@ -119,7 +119,7 @@ export default class Column extends React.Component<ColumnProps, ColumnState> {
     return percentage;
   }
 
-  public render() {
+  render() {
     return (
       <div ref={this.columnRef} style={{ margin: this.props.cssMargin, display: 'flex' }}>
         {this.props.children}

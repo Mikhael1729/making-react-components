@@ -8,8 +8,8 @@ export interface CheckboxProps<T> {
   data?: T;
 }
 
-export default class Checkbox<T> extends React.PureComponent<CheckboxProps<T>, any> {
-  public render() {
+export class Checkbox<T> extends React.PureComponent<CheckboxProps<T>, any> {
+  render() {
     const { checked, data, onChange, onClick, } = this.props;
 
     return <input

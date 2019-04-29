@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from './TestArea.module.scss';
-import Button from 'components/Button/Button';
-import Icon from 'components/Icon/Icon';
-import LabelCheckbox from 'components/LabelCheckbox/LabelCheckbox';
-import MultiSelect from 'components/MultiSelect/MultiSelect';
-import Text from 'components/Text/Text';
+import styles from './TestArea.module.scss';
+import { Button } from 'components/Button';
+import { Icon } from 'components/Icon';
+import { LabelCheckbox } from 'components/LabelCheckbox';
+import { MultiSelect } from 'components/MultiSelect';
+import { Text } from 'components/Text';
 import { assignedQualifications } from 'data/repository';
 import { TestModel } from 'models/TestModel';
 

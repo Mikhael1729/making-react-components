@@ -92,7 +92,7 @@ const computeModel = (props: IButtonProps) => {
   return { onClick, style, children, classes }
 }
 
-const Button: React.FunctionComponent<IButtonProps> = props => {
+export const Button: React.FunctionComponent<IButtonProps> = props => {
   const model = computeModel(props);
 
   return (
@@ -110,6 +110,4 @@ const Button: React.FunctionComponent<IButtonProps> = props => {
 
 Button.defaultProps = {
   type: "outline"
-}
-
-export default Button;
+};

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from "./TextField.module.scss";
 import { IColorClasses, ClassesSelector } from 'helpers/ClassesSelector';
 import { Colors } from 'types/Colors';
-import Text from "components/Text/Text";
+import { Text } from "components/Text";
 
 interface ITextFieldProps {
   label?: string;
@@ -95,7 +95,7 @@ const computeModel = (props: ITextFieldProps) => {
 }
 //#endregion
 
-const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
+export const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
   const $ = computeModel(props);
 
   return (
@@ -107,7 +107,7 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
 
       {/* Input */}
       {!$.multiLine
-        ? <input type="text" {...$.sharedStyles} onChange={$.inputTextOnChange}/>
+        ? <input type="text" {...$.sharedStyles} onChange={$.inputTextOnChange} />
         : <textarea
           {...$.sharedStyles}
           rows={$.rows}
@@ -119,6 +119,4 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
 
 TextField.defaultProps = {
   rows: 1,
-}
-
-export default TextField;
+};

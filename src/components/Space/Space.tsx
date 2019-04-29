@@ -5,7 +5,7 @@ interface ISpaceProps {
   children?: never;
 }
 
-const Space: React.FunctionComponent<ISpaceProps> = ({ size }) => {
+export const Space: React.FunctionComponent<ISpaceProps> = ({ size }) => {
   const spaces = Array.from(Array(size!).keys());
 
   return <> {spaces.map(n => (<br key={n} />))} </>
@@ -14,6 +14,4 @@ const Space: React.FunctionComponent<ISpaceProps> = ({ size }) => {
 // Default props.
 Space.defaultProps = {
   size: 1
-}
-
-export default Space;
+};

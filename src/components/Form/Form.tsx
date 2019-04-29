@@ -4,12 +4,10 @@ import styles from "./Form.module.scss";
 interface IFormProps {
 }
 
-const Form: React.FunctionComponent<IFormProps> = ({ children }) => {
+export const Form: React.FunctionComponent<IFormProps> = ({ children }) => {
   return (
     <div className={styles.Form}>
       {children}
     </div>
   );
 };
-
-export default Form;

@@ -10,14 +10,10 @@ export interface RowState {
 
 export const RowContext = React.createContext('');
 
-export default class Row extends React.Component<RowProps, RowState> {
-  constructor(props: RowProps) {
-    super(props);
-
-    this.state = {
-      cssWidth: ''
-    }
-  }
+export class Row extends React.Component<RowProps, RowState> {
+  static state: RowState = {
+    cssWidth: '',
+  };
 
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this) as any;
@@ -29,7 +25,7 @@ export default class Row extends React.Component<RowProps, RowState> {
     }
   }
 
-  public render() {
+  render() {
     return (
       <div style={{
         display: 'flex',

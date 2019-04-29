@@ -12,7 +12,7 @@ export interface ResponsiveSensorProps {
 export interface ResponsiveSensorState {
 }
 
-export default class ResponsiveSensor extends React.Component<ResponsiveSensorProps, ResponsiveSensorState> {
+export class ResponsiveSensor extends React.Component<ResponsiveSensorProps, ResponsiveSensorState> {
   componentDidMount() {
     this.compute();
     window.addEventListener("resize", this.compute);
@@ -48,7 +48,7 @@ export default class ResponsiveSensor extends React.Component<ResponsiveSensorPr
     }
   }
 
-  public render() {
+  render() {
     return <>
       {this.props.children}
     </>;

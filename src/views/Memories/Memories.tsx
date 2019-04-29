@@ -1,9 +1,9 @@
-import Column from 'components/Column/Column';
+import { Column } from 'components/Column';
 import { Memory } from './Memory';
 import React, { Component } from 'react';
-import Row from 'components/Row/Row';
-import Space from 'components/Space/Space';
-import Text from 'components/Text/Text';
+import { Row } from 'components/Row';
+import { Space } from 'components/Space';
+import { Text } from 'components/Text';
 import { Memory as PostModel } from 'models/Post';
 
 export interface IMemoriesProps {

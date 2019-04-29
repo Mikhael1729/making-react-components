@@ -7,9 +7,9 @@ import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
 import { navbarRoutes, sidebarRoutes } from "routes";
 import { NavLink } from 'react-router-dom';
-import Button from 'components/Button/Button';
-import Icon from 'components/Icon/Icon';
-import Text from 'components/Text/Text';
+import { Button } from 'components/Button';
+import { Icon } from 'components/Icon';
+import { Text } from 'components/Text';
 
 export interface MainLayoutProps { }
 

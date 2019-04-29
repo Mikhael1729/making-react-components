@@ -1,9 +1,9 @@
-import Button from 'components/Button/Button';
+import { Button } from 'components/Button';
 import React, { Component } from 'react';
-import Space from 'components/Space/Space';
-import Text from 'components/Text/Text';
-import TextField from 'components/TextField/TextField';
-import Form from 'components/Form/Form';
+import { Space } from 'components/Space';
+import { Text } from 'components/Text';
+import { TextField } from 'components/TextField';
+import { Form } from 'components/Form';
 import { Memory } from 'models/Post';
 
 export interface IWritesProps {
@@ -22,7 +22,7 @@ class Writes extends Component<IWritesProps, IWritesState> {
     body: ""
   };
 
-  private changeTitle = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => 
+  private changeTitle = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     this.setState({ title: e.target.value });
 
   private changeBody = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
@@ -40,7 +40,7 @@ class Writes extends Component<IWritesProps, IWritesState> {
 
   render() {
     const { createMemory } = this.props;
-    
+
     return (
       <>
         <Text size="h3">Escribe</Text>

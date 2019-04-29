@@ -70,7 +70,7 @@ const computeModel = (props: ITextProps) => {
   return { classes, children: props.children }
 }
 
-const Text = (props: ITextProps) => {
+export const Text = (props: ITextProps) => {
   const { classes, children } = computeModel(props);
 
   return (
@@ -79,5 +79,3 @@ const Text = (props: ITextProps) => {
     </span>
   );
 };
-
-export default Text;

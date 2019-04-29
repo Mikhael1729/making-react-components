@@ -1,14 +1,14 @@
 import * as React from "react";
 import { RouteComponentProps, Route } from "react-router";
 import { Link } from "react-router-dom";
-import Text from "components/Text/Text";
+import { Text } from "components/Text";
 
 const Part1 = () => <h3>Parte 1</h3>
 const Part2 = () => <h3>Parte 2</h3>
 const Part3 = ({ match }: { match: any }) => {
   console.log(match);
-  
- return <h3>Parte 3 {match.params.id}</h3>
+
+  return <h3>Parte 3 {match.params.id}</h3>
 }
 
 export interface NestedRoutesProps extends RouteComponentProps { }

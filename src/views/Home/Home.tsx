@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Text from 'components/Text/Text';
+import { Text } from 'components/Text';
 
 interface HomeProps {
 }

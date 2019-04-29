@@ -6,7 +6,7 @@ export interface IIconProps {
   cssMargin?: string;
 }
 
-const Icon = (props: IIconProps) => {
+export const Icon = (props: IIconProps) => {
   return (
     <i
       className={props.name}
@@ -16,5 +16,3 @@ const Icon = (props: IIconProps) => {
       }} />
   )
 }
-
-export default Icon;

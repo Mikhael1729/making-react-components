@@ -1,6 +1,6 @@
 import * as React from 'react';
-import LabelCheckbox, { LabelCheckboxProps } from '../LabelCheckbox/LabelCheckbox';
-import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles} from "components/MultiSelect/MultiSelect.module.css"
+import { LabelCheckbox, LabelCheckboxProps } from '../LabelCheckbox/LabelCheckbox';
+import { Checkboxes, CheckboxesSelect, InputSearch, LabelCheckbox as LabelCheckboxStyles } from "components/MultiSelect/MultiSelect.module.css"
 
 export interface MultiSelectProps<T> {
   onChange?: (checked?: boolean, data?: T, text?: string) => void;
@@ -21,7 +21,7 @@ export interface MultiSelectState {
   matches: string[]
 }
 
-export default class MultiSelect<T> extends React.Component<
+export class MultiSelect<T> extends React.Component<
   MultiSelectProps<T>,
   MultiSelectState
   > {
@@ -80,24 +80,24 @@ export default class MultiSelect<T> extends React.Component<
 
   componentWillUpdate(nextProps: MultiSelectProps<T>, nextState: MultiSelectState) {
     // Used to delete an option from text.
-    if(nextState.removingSelectedOption || nextProps.children !== this.props.children) {
+    if (nextState.removingSelectedOption || nextProps.children !== this.props.children) {
       const selectedOptions: string[] = [];
       const children = nextProps.children;
 
-      if(children) {
+      if (children) {
         React.Children.forEach(children, (child: any) => {
           const text = child.props.children;
           const isChecked = child.props.checked;
 
-          if(text)
-            if(isChecked) 
+          if (text)
+            if (isChecked)
               selectedOptions.push(text.toString());
         })
       }
 
-      this.setState({ 
-        text: selectedOptions.join(', '), 
-        removingSelectedOption: false, 
+      this.setState({
+        text: selectedOptions.join(', '),
+        removingSelectedOption: false,
         writtingSearchCriteria: false,
       })
     }
@@ -193,11 +193,11 @@ export default class MultiSelect<T> extends React.Component<
             className: child.props.className + ' ' + LabelCheckboxStyles
           } as Props);
 
-          if(this.state.matches.length > 0) {
+          if (this.state.matches.length > 0) {
             const option = labelCheckbox.props.children;
-            if(option) {
+            if (option) {
               const match = this.state.matches.find(m => m.toLowerCase() === option.toString().toLowerCase())
-              if(match) {
+              if (match) {
                 labels.push(labelCheckbox);
               }
             }
@@ -237,9 +237,9 @@ export default class MultiSelect<T> extends React.Component<
       if (!this.state.writtingSearchCriteria) {
         const toDelete = this.selectedOptions[this.selectedOptions.length - 1];
 
-        if(this.props.onChange) {
+        if (this.props.onChange) {
           const option = this.getOption(toDelete);
-          if(option)  {
+          if (option) {
             this.setState({ removingSelectedOption: true })
             this.props.onChange(false, option.data, toDelete);
           }
@@ -290,9 +290,9 @@ export default class MultiSelect<T> extends React.Component<
   private getOption = (text: string): LabelCheckboxProps<T> | undefined => {
     const options = this.extractOptions();
     const option = options.find(o => {
-      if(o.children) 
+      if (o.children)
         return o.children.toString() === text;
-      else 
+      else
         return false
     })
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from "components/LabelCheckbox/LabelCheckbox.module.css";
-import Label from '../Label/Label';
-import Checkbox from '../Checkbox/Checkbox';
+import { Label } from '../Label';
+import { Checkbox } from '../Checkbox';
 
 export interface LabelCheckboxProps<T> {
   checked?: boolean;
@@ -13,7 +13,7 @@ export interface LabelCheckboxProps<T> {
   className?: string;
 }
 
-export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxProps<T>, any> {
+export class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxProps<T>, any> {
 
   onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const method = this.props.onChange;
@@ -35,7 +35,7 @@ export default class LabelCheckbox<T> extends React.PureComponent<LabelCheckboxP
           checked={checked}
           onChange={this.onChange}
           onClick={onClick} />
-        
+
         <span className={styles.Checkmark}></span>
         <span>{children}</span>
       </Label>
