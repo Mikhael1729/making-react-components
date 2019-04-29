@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Row from 'components/Row/Row';
 import Space from 'components/Space/Space';
 import Text from 'components/Text/Text';
-import { Post as PostModel } from 'models/Post';
+import { Memory as PostModel } from 'models/Post';
 
 export interface IPostsProps {
   posts: PostModel[];

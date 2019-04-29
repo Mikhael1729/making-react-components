@@ -1,5 +1,5 @@
 import { TestModel } from "models/TestModel";
-import { Post } from "models/Post";
+import { Memory } from "models/Post";
 import { AssignedQualification } from "models/AssignedQualification";
 
 export const testData: TestModel[] = [
@@ -8,7 +8,7 @@ export const testData: TestModel[] = [
   { name: "Pruebita 3", quantity: 3, things: ["one", "two", "three"] }
 ]
 
-export const posts: Post[] = [
+export const posts: Memory[] = [
   { 
     id: 1,
     title: "Post 1", 

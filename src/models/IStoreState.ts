@@ -1,5 +1,5 @@
-import { Post } from "./Post";
+import { Memory } from "./Post";
 
 export interface IStoreState {
-  posts: Post[]
+  posts: Memory[]
 }

@@ -1,9 +1,9 @@
 import { ADD_POST, DELETE_POST } from "../constants/post-constants";
-import { Post } from "models/Post";
+import { Memory } from "models/Post";
 
 export interface IAddPost {
   type: ADD_POST;
-  post: Post;
+  post: Memory;
 }
 
 export interface IDeletePost {
@@ -13,7 +13,7 @@ export interface IDeletePost {
 
 export type PostActions = IAddPost | IDeletePost;
 
-export function addPost(post: Post): IAddPost {
+export function addPost(post: Memory): IAddPost {
   return { type: ADD_POST, post }
 }
 
