@@ -39,8 +39,6 @@ class Writes extends Component<IWritesProps, IWritesState> {
   }
 
   render() {
-    const { createMemory } = this.props;
-
     return (
       <>
         <Text size="h3">Escribe</Text>
