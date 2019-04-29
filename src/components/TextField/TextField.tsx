@@ -70,7 +70,6 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
         ? <input type="text" {...$.sharedStyles} />
         : <textarea 
             rows={$.rows} 
-            maxLength={$.rowsMax}
             {...$.sharedStyles} />}
     </div>
   );
