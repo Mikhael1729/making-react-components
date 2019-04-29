@@ -12,6 +12,7 @@ declare const styles: {
   readonly "FontColorDefault": string;
   readonly "FontColorHidden": string;
   readonly "Container": string;
+  readonly "Block": string;
   readonly "TextField": string;
   readonly "DefaultColor": string;
   readonly "Disabled": string;

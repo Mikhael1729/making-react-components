@@ -10,6 +10,10 @@ interface ITextFieldProps {
   disabled?: boolean;
   children?: never;
   placeholder?: string;
+  block?: boolean;
+  multiLine?: boolean;
+  rows?: number;
+  rowsMax?: number;
 }
 
 const color: IColorClasses = {
@@ -27,37 +31,53 @@ const computeModel = (props: ITextFieldProps) => {
   // Disabled.
   const disabledClass = props.disabled ? styles.Disabled : "";
 
-  // Classes.
+  // Block.
+  const blockClass = props.block ? styles.Block : "";
+
+  // Text field Classes.
   const textFieldClasses = [styles.TextField, colorClass, disabledClass].join(' ');
+
+  // Container classes.
+  const containerClasses = [styles.Container, blockClass].join(' ');
 
   return {
     label: props.label,
     textColor: props.color,
-    textFieldClasses,
-    containerClasses: styles.Container,
-    disabled: props.disabled,
-    placeholder: props.placeholder
+    containerClasses,
+    multiLine: props.multiLine,
+    rows: props.rows,
+    rowsMax: props.rowsMax,
+    sharedStyles: { 
+      className: textFieldClasses, 
+      placeholder: props.placeholder, 
+      disabled: props.disabled
+    },
   };
 }
 
 const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
-  const model = computeModel(props);
+  const $ = computeModel(props);
 
   return (
-    <div className={model.containerClasses}>
+    <div className={$.containerClasses}>
       {/* Label */}
-      {model.label
-        ? <Text color={model.textColor}>{model.label}</Text>
+      {$.label
+        ? <Text color={$.textColor}>{$.label}</Text>
         : null}
 
       {/* Input */}
-      <input 
-        type="text" 
-        className={model.textFieldClasses} 
-        placeholder={model.placeholder}
-        disabled={model.disabled} />
+      {!$.multiLine
+        ? <input type="text" {...$.sharedStyles} />
+        : <textarea 
+            rows={$.rows} 
+            maxLength={$.rowsMax}
+            {...$.sharedStyles} />}
     </div>
   );
 };
+
+TextField.defaultProps = {
+  rows: 6
+}
 
 export default TextField;

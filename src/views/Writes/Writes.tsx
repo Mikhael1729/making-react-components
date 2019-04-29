@@ -1,7 +1,9 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import Text from 'components/Text/Text';
 import TextField from 'components/TextField/TextField';
 import Space from 'components/Space/Space';
+import Row from 'components/Row/Row';
+import Column from 'components/Column/Column';
 
 export interface WritesProps {
 }
@@ -9,7 +11,7 @@ export interface WritesProps {
 export interface WritesState {
 }
 
-class Writes extends React.Component<WritesProps, WritesState> {
+class Writes extends Component<WritesProps, WritesState> {
   public render() {
     return (
       <>
@@ -17,7 +19,12 @@ class Writes extends React.Component<WritesProps, WritesState> {
 
         <Space size={2} />
 
-        <TextField label="Hola" color="default" placeholder="Hellodf" />
+        <TextField
+          label="Hola"
+          multiLine={true}
+          color="default"
+          placeholder="Hellodf" 
+          block={true}/>
       </>
     );
   }
