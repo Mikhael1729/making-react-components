@@ -9,6 +9,10 @@
 # production
 /build
 
+# untracked files
+**/*.scss.d.ts
+**/*.css.d.ts
+
 # misc
 .DS_Store
 .env.local
