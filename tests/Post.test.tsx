@@ -1,12 +1,12 @@
 import * as React from "react";
 import * as enzyme from "enzyme";
-import Post from "../src/views/Posts/Post/Post";
-import styles from "../src/views/Posts/Post/Post.module.scss";
+import { Memory } from "../src/views/Memories/Memory";
+import styles from "../src/views/Memories/Memory/Post.module.scss";
 
 it("<Post />", () => {
   // Mock.
   const PostMock = (
-    <Post
+    <Memory
       publicationDate={new Date()}
       title="I'm incredible"
       content="The content" />

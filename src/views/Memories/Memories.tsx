@@ -1,5 +1,5 @@
 import Column from 'components/Column/Column';
-import Post from './Post/Post';
+import { Memory } from './Memory';
 import React, { Component } from 'react';
 import Row from 'components/Row/Row';
 import Space from 'components/Space/Space';
@@ -18,7 +18,7 @@ export interface IMemoriesState { }
 class Memories extends Component<IMemoriesProps, IMemoriesState> {
   render() {
     const { posts } = this.props;
-  
+
     return (
       <>
         {/* Title */}
@@ -30,7 +30,7 @@ class Memories extends Component<IMemoriesProps, IMemoriesState> {
         <Row>
           {posts.map((post, index) => (
             <Column key={index} xs="12" lg="4" md="6" cssMargin={4}>
-              <Post
+              <Memory
                 title={post.title!}
                 content={post.content!}
                 publicationDate={post.dateTime!} />

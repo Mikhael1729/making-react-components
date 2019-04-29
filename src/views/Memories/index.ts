@@ -2,7 +2,7 @@ import { IStoreState } from "models/IStoreState";
 import { MemoryActions, addMemory, deleteMemory } from "data/actions/post-actions";
 import { Memory } from "models/Post";
 import { connect } from "react-redux";
-import Memories from "views/Posts/Memories";
+import MemoriesComponent  from "./Memories";
 import { Dispatch } from "redux";
 
 const mapStateToProps = (state: IStoreState) => ({ posts: state.memories || [] });
@@ -12,4 +12,6 @@ const mapDispatchToProps = (dispatch: Dispatch<MemoryActions>) => ({
   deletePost: (postId: number) => dispatch(deleteMemory(postId))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Memories);
+export const Memories = 
+  connect(mapStateToProps, mapDispatchToProps)(MemoriesComponent);
+

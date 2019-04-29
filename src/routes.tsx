@@ -7,7 +7,7 @@ import GenericThings from "views/GenericThings/GenericThings";
 import Home from "views/Home/Home";
 import Route from "models/Route";
 import Writes from "views/Writes";
-import Memories from "containers/Posts";
+import { Memories } from "views/Memories";
 
 export const sidebarRoutes: Route[] = [
   { path: "/", label: "Inicio", component: Home, exact: true },
