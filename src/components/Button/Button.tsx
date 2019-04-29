@@ -99,6 +99,7 @@ const Button: React.FunctionComponent<IButtonProps> = props => {
     <button
       className={model.classes}
       onClick={model.onClick}
+      type="submit"
       style={model.style}>
       <div className={styles.ChildrenContainer}>
         {model.children}

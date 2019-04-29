@@ -33,6 +33,16 @@ $current-background: transparent !global;
       color: darken($current-background, 15%);
       border-color: darken($current-background, 15%);
     }
+
+    &:focus {
+      $focus-color: lighten($color: $current-background, $amount: 15%);
+      color: $focus-color;
+      border: 2px solid $focus-color;
+    }
+
+    &:active {
+      font-weight: bold;
+    }
   }
 
   &.Filled {
@@ -51,6 +61,16 @@ $current-background: transparent !global;
       background: darken($current-background, 10%);
       color: darken($color, 10%);
       border-color: darken($color, 10%);
+    }
+
+    &:focus {
+      $focus-color: lighten($color: $color, $amount: 15%);
+      color: $focus-color;
+      border: 2px solid $focus-color;
+    }
+
+    &:active {
+      font-weight: bold;
     }
   }
 }
