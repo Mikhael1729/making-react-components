@@ -14,6 +14,7 @@ declare const styles: {
   readonly "Container": string;
   readonly "Block": string;
   readonly "TextField": string;
+  readonly "MultiLine": string;
   readonly "DefaultColor": string;
   readonly "Disabled": string;
   readonly "PrimaryColor": string;

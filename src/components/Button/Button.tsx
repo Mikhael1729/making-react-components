@@ -13,6 +13,7 @@ interface IButtonProps {
   size?: Size;
   type?: ButtonType;
   children?: React.ReactNode;
+  block?: boolean;
 }
 
 // Compute color
@@ -82,13 +83,16 @@ const computeModel = (props: IButtonProps) => {
   // Stuff.
   const fillClasses = computeFill(fill);
 
+  // Block.
+  const blockClass = props.block ? styles.Block : "";
+
   // Classes.
-  const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses, fillClasses].join(' ');
+  const classes = [styles.Button, shapeClasses, colorClasses, sizeClasses, fillClasses, blockClass].join(' ');
 
   return { onClick, style, children, classes }
 }
 
-const Button = (props: IButtonProps) => {
+const Button: React.FunctionComponent<IButtonProps> = props => {
   const model = computeModel(props);
 
   return (
@@ -102,5 +106,9 @@ const Button = (props: IButtonProps) => {
     </button>
   );
 };
+
+Button.defaultProps = {
+  type: "outline"
+}
 
 export default Button;

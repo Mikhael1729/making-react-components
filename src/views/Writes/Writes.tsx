@@ -4,6 +4,7 @@ import TextField from 'components/TextField/TextField';
 import Space from 'components/Space/Space';
 import Row from 'components/Row/Row';
 import Column from 'components/Column/Column';
+import Button from 'components/Button/Button';
 
 export interface WritesProps {
 }
@@ -19,13 +20,30 @@ class Writes extends Component<WritesProps, WritesState> {
 
         <Space size={2} />
 
+        {/* Post title */}
         <TextField
-          label="Hola"
-          rows={3}
+          label="Título"
+          color="default"
+          placeholder="Un día increíble..."
+          block={true}/>
+
+        <Space />
+
+        {/* Post body */}
+        <TextField
+          label="Cuerpo"
+          rows={16}
           multiLine={true}
           color="default"
-          placeholder="Hellodf"
+          placeholder="Puede suceder en cualquier momento."
           block={true}/>
+
+        <Space />
+
+        <Button color="primary" type="outline">
+          Guardar
+        </Button>
+
       </>
     );
   }

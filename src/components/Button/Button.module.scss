@@ -76,6 +76,10 @@ $current-background: transparent !global;
   }
 }
 
+.Block {
+  width: 100%;
+}
+
 /* Children container */
 .ChildrenContainer {
   display: flex;

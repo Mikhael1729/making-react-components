@@ -17,6 +17,7 @@ interface ITextFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 }
 
+//#region Variables
 const color: IColorClasses = {
   primary: styles.PrimaryColor,
   secondary: styles.SecondaryColor,
@@ -24,21 +25,31 @@ const color: IColorClasses = {
   hidden: styles.HiddenColor,
   default: styles.DefaultColor
 };
+//#endregion
 
-const increaseRows =
-  (textarea: any,
-    rowsMin: number = 0,
-    rowsMax: number = 0,
-    setRows: (a: React.SetStateAction<number | undefined>) => void) =>
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const rowCount = textarea.current.value.substr(0, textarea.selectionStart).split("\n").length
-      const limit = rowsMax > 0 ? rowsMax : rowCount + 1;
+//#region Functions
+const increaseRows = (
+  textarea: any,
+  rowsMin: number = 0,
+  rowsMax: number = 0,
+  setRows: (a: React.SetStateAction<number | undefined>) => void) =>
+  (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const rowCount = textarea.current.value.substr(0, textarea.selectionStart).split("\n").length
+    const limit = rowsMax > 0 ? rowsMax : rowCount + 1;
 
-      if (rowCount >= rowsMin && rowCount <= limit)
-        setRows(rowCount);
-    }
+    if (rowCount >= rowsMin && rowCount <= limit)
+      setRows(rowCount);
+  }
+//#endregion
 
+//#region Model
 const computeModel = (props: ITextFieldProps) => {
+  // State.
+  const [rows, setRows] = useState(props.rows);
+
+  // Textaera.
+  const textareaRef: any = React.createRef();
+
   // Color styles.
   const colorClass = ClassesSelector.computeColor(props.color, color);
 
@@ -59,9 +70,12 @@ const computeModel = (props: ITextFieldProps) => {
     textColor: props.color,
     containerClasses,
     multiLine: props.multiLine,
-    rows: props.rows,
-    onKeyPress: increaseRows,
+    rows,
+    setRows,
+    textareaRef,
+    increaseRows: increaseRows(textareaRef, props.rows, props.rowsMax, setRows),
     rowsMax: props.rowsMax,
+    rowsMin: props.rows,
     sharedStyles: {
       onChange: props.onChange,
       className: textFieldClasses,
@@ -70,17 +84,10 @@ const computeModel = (props: ITextFieldProps) => {
     },
   };
 }
-
+//#endregion
 
 const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
-  // Model.
   const $ = computeModel(props);
-
-  // State.
-  const [rows, setRows] = useState($.rows);
-  
-  // Textaera.
-  const textarea: any = React.createRef();
 
   return (
     <div className={$.containerClasses}>
@@ -94,10 +101,9 @@ const TextField: React.FunctionComponent<ITextFieldProps> = (props) => {
         ? <input type="text" {...$.sharedStyles} />
         : <textarea
           {...$.sharedStyles}
-          rows={rows}
-          wrap="soft"
-          ref={textarea}
-          onChange={increaseRows(textarea, $.rows, $.rowsMax, setRows)} />}
+          rows={$.rows}
+          ref={$.textareaRef}
+          onChange={$.increaseRows} />}
     </div>
   );
 };
