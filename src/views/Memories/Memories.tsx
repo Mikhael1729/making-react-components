@@ -15,6 +15,7 @@ export interface IMemoriesState { }
 
 export class Memories extends Component<IMemoriesProps, IMemoriesState> {
   componentWillMount() {
+    // Loading memories from API.
     this.props.loadMemories()
   }
 
