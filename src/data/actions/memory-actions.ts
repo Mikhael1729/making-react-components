@@ -18,7 +18,7 @@ export interface IGetAllMemories {
 export type MemoryActions = IAddMemory | IDeleteMemory | IGetAllMemories;
 
 export async function addMemory(memory: Memory): Promise<IAddMemory> {
-  await fetch("https://localhost:5001/api/memory", {
+  await fetch("https://localhost:5001/api/memories", {
     method: "POST",
     body: JSON.stringify(memory),
     headers: {'Content-Type': 'application/json'}
@@ -28,7 +28,7 @@ export async function addMemory(memory: Memory): Promise<IAddMemory> {
 }
 
 export async function deleteMemory(id: number): Promise<IDeleteMemory> {
-  await fetch(`https://localhost:5001/api/memory/${id}`, {
+  await fetch(`https://localhost:5001/api/memories/${id}`, {
     method: "DELETE",
     headers: {'Content-Type': 'application/json'}
   });
@@ -37,7 +37,7 @@ export async function deleteMemory(id: number): Promise<IDeleteMemory> {
 }
 
 export async function getAllMemories(): Promise<IGetAllMemories> {
-  const response = await fetch("https://localhost:5001/api/memory");
+  const response = await fetch("https://localhost:5001/api/memories");
   const memories = await response.json() as Memory[];
 
   memories.forEach(memory => {
