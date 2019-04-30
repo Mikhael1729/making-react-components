@@ -7,7 +7,8 @@ import { Form } from 'components/Form';
 import { Memory } from 'models/Post';
 
 export interface IWritesProps {
-  createMemory: (memory: Memory) => void;
+  deleteMemoryAsync: (id: number) => void;
+  createMemoryAsync: (memory: Memory) => void;
   children: never;
 }
 
@@ -17,10 +18,18 @@ export interface IWritesState {
 }
 
 class Writes extends Component<IWritesProps, IWritesState> {
-  static state: IWritesState = {
-    title: "",
-    body: ""
-  };
+  constructor(props: IWritesProps) {
+    super(props);
+
+    this.state = {
+      body: "",
+      title: ""
+    };
+  }
+
+  componentWillMount() {
+    this.props.deleteMemoryAsync(1);
+  }
 
   private changeTitle = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     this.setState({ title: e.target.value });
@@ -28,14 +37,22 @@ class Writes extends Component<IWritesProps, IWritesState> {
   private changeBody = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     this.setState({ body: e.target.value });
 
-  private saveMemory = () => {
-    const memory = new Memory({
-      title: this.state.title,
-      content: this.state.body,
-      dateTime: new Date(),
-    });
+  private titleIsValid = () => this.state.title.length > 0;
 
-    this.props.createMemory(memory);
+  private contentIsValid = () => this.state.body.length > 0;
+
+  private saveMemory = () => {
+    const formIsValid = this.titleIsValid() && this.contentIsValid();
+
+    if (formIsValid) {
+      const memory = new Memory({
+        title: this.state.title,
+        content: this.state.body,
+        dateTime: new Date(),
+      });
+
+      this.props.createMemoryAsync(memory);
+    }
   }
 
   render() {

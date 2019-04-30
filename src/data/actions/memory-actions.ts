@@ -3,7 +3,6 @@ import { Memory } from "models/Post";
 
 export interface IAddMemory {
   type: ADD_MEMORY;
-  post: Memory;
 }
 
 export interface IDeleteMemory {
@@ -18,12 +17,23 @@ export interface IGetAllMemories {
 
 export type MemoryActions = IAddMemory | IDeleteMemory | IGetAllMemories;
 
-export function addMemory(post: Memory): IAddMemory {
-  return { type: ADD_MEMORY, post }
+export async function addMemory(memory: Memory): Promise<IAddMemory> {
+  await fetch("https://localhost:5001/api/memory", {
+    method: "POST",
+    body: JSON.stringify(memory),
+    headers: {'Content-Type': 'application/json'}
+  });
+
+  return { type: ADD_MEMORY  }
 }
 
-export function deleteMemory(memoryId: number): IDeleteMemory {
-  return { type: DELETE_MEMORY, memoryId }
+export async function deleteMemory(id: number): Promise<IDeleteMemory> {
+  await fetch(`https://localhost:5001/api/memory/${id}`, {
+    method: "DELETE",
+    headers: {'Content-Type': 'application/json'}
+  });
+
+  return { type: DELETE_MEMORY, memoryId: id }
 }
 
 export async function getAllMemories(): Promise<IGetAllMemories> {

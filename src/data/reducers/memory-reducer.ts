@@ -8,8 +8,7 @@ export function memoryReducer(state: IStoreState, action: MemoryActions): IStore
 
   switch (action.type) {
     case ADD_MEMORY: {
-      memories.push(action.post);
-      return { ...state, memories }
+      return { ...state }
     }
     case DELETE_MEMORY: {
       const index = memories.findIndex(m => m.id === action.memoryId);
