@@ -11,9 +11,13 @@ export interface RowState {
 export const RowContext = React.createContext('');
 
 export class Row extends React.Component<RowProps, RowState> {
-  static state: RowState = {
-    cssWidth: '',
-  };
+  constructor(props: RowProps) {
+    super(props);
+
+    this.state = {
+      cssWidth: ''
+    }
+  }
 
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this) as any;
