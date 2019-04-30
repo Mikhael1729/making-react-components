@@ -1,32 +1,23 @@
-import { Column } from 'components/Column';
-import { Memory } from './Memory';
 import React, { Component } from 'react';
-import { Row } from 'components/Row';
+import styles from './Memories.module.scss';
+import { Memory } from './Memory';
+import { Memory as MemoryModel } from 'models/Post';
 import { Space } from 'components/Space';
 import { Text } from 'components/Text';
-import { Memory as MemoryModel } from 'models/Post';
 
 export interface IMemoriesProps {
   posts: MemoryModel[];
-  addPost: (post: MemoryModel) => void;
-  deletePost: (postId: number) => void;
-  children?: React.ReactNode;
+  loadMemories: () => void;
+  children: never;
 }
 
 export interface IMemoriesState { }
 
 export class Memories extends Component<IMemoriesProps, IMemoriesState> {
   componentWillMount() {
-    this.loadPosts();
+    this.props.loadMemories()
   }
 
-  private loadPosts = async () => {
-    const response = await fetch("https://localhost:5001/api/memory");
-    const memories = await response.json() as MemoryModel[];
-
-    console.log('memories -->', memories);
-  }
-  
   render() {
     const { posts } = this.props;
 
@@ -38,16 +29,15 @@ export class Memories extends Component<IMemoriesProps, IMemoriesState> {
         <Space size={2} />
 
         {/* Posts */}
-        <Row>
-          {posts.map((post, index) => (
-            <Column key={index} xs="12" lg="4" md="6" cssMargin={4}>
-              <Memory
-                title={post.title!}
-                content={post.content!}
-                publicationDate={post.dateTime!} />
-            </Column>
+        <div className={styles.Memories}>
+          {posts.map((post, i) => (
+            <Memory
+              key={i}
+              title={post.title!}
+              content={post.content!}
+              publicationDate={post.dateTime!} />
           ))}
-        </Row>
+        </div>
       </>
     )
   }

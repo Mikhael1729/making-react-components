@@ -1,17 +1,17 @@
-import { IStoreState } from "models/IStoreState";
-import { MemoryActions, addMemory, deleteMemory } from "data/actions/memory-actions";
-import { Memory } from "models/Post";
-import { connect } from "react-redux";
-import { Memories as MemoriesComponent }  from "./Memories";
-import { Dispatch } from "redux";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { getAllMemories, MemoryActions } from 'data/actions/memory-actions';
+import { IStoreState } from 'models/IStoreState';
+import { Memories as MemoriesComponent } from './Memories';
 
-const mapStateToProps = (state: IStoreState) => ({ posts: state.memories || [] });
+const mapStateToProps = (state: IStoreState) => ({
+  posts: state.memories || []
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<MemoryActions>) => ({
-  addPost: (post: Memory) => dispatch(addMemory(post)),
-  deletePost: (postId: number) => dispatch(deleteMemory(postId))
-})
+  loadMemories: async () => { dispatch(await getAllMemories()) },
+});
 
-export const Memories = 
+export const Memories =
   connect(mapStateToProps, mapDispatchToProps)(MemoriesComponent);
 
