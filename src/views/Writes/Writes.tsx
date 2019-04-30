@@ -7,8 +7,8 @@ import { Form } from 'components/Form';
 import { Memory } from 'models/Post';
 
 export interface IWritesProps {
-  deleteMemoryAsync: (id: number) => void;
-  createMemoryAsync: (memory: Memory) => void;
+  deleteMemoryAsync: (id: number) => Promise<void>;
+  createMemoryAsync: (memory: Memory) => Promise<void>;
   children: never;
 }
 
@@ -25,10 +25,6 @@ class Writes extends Component<IWritesProps, IWritesState> {
       body: "",
       title: ""
     };
-  }
-
-  componentWillMount() {
-    this.props.deleteMemoryAsync(1);
   }
 
   private changeTitle = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
