@@ -1,4 +1,4 @@
-import { ADD_MEMORY, DELETE_MEMORY } from "../constants/memory-constants";
+import { ADD_MEMORY, DELETE_MEMORY, GET_ALL_MEMORIES } from "../constants/memory-constants";
 import { Memory } from "models/Post";
 
 export interface IAddMemory {
@@ -11,7 +11,12 @@ export interface IDeleteMemory {
   memoryId: number;
 }
 
-export type MemoryActions = IAddMemory | IDeleteMemory;
+export interface IGetAllMemories {
+  type: GET_ALL_MEMORIES;
+  memories: Memory[];
+}
+
+export type MemoryActions = IAddMemory | IDeleteMemory | IGetAllMemories;
 
 export function addMemory(post: Memory): IAddMemory {
   return { type: ADD_MEMORY, post }
@@ -19,4 +24,18 @@ export function addMemory(post: Memory): IAddMemory {
 
 export function deleteMemory(memoryId: number): IDeleteMemory {
   return { type: DELETE_MEMORY, memoryId }
+}
+
+export async function getAllMemories(): Promise<IGetAllMemories> {
+  const response = await fetch("https://localhost:5001/api/memory");
+  const memories = await response.json() as Memory[];
+
+  memories.forEach(memory => {
+    memory.dateTime = new Date(Date.parse(memory.dateTime.toString()))
+  });
+
+  return {
+    type: GET_ALL_MEMORIES,
+    memories
+  };
 }
