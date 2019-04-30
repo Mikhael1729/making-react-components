@@ -1,4 +1,4 @@
-import { ADD_MEMORY, DELETE_MEMORY } from "../constants/post-constants";
+import { ADD_MEMORY, DELETE_MEMORY } from "../constants/memory-constants";
 import { Memory } from "models/Post";
 
 export interface IAddMemory {

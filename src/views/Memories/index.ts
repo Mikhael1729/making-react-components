@@ -1,5 +1,5 @@
 import { IStoreState } from "models/IStoreState";
-import { MemoryActions, addMemory, deleteMemory } from "data/actions/post-actions";
+import { MemoryActions, addMemory, deleteMemory } from "data/actions/memory-actions";
 import { Memory } from "models/Post";
 import { connect } from "react-redux";
 import { Memories as MemoriesComponent }  from "./Memories";

@@ -1,6 +1,6 @@
 import { IStoreState } from "models/IStoreState";
-import { MemoryActions } from "data/actions/post-actions";
-import { ADD_MEMORY, DELETE_MEMORY } from "data/constants/post-constants";
+import { MemoryActions } from "data/actions/memory-actions";
+import { ADD_MEMORY, DELETE_MEMORY } from "data/constants/memory-constants";
 import { initialState } from "data/store";
 
 export function memoryReducer(state: IStoreState, action: MemoryActions): IStoreState {

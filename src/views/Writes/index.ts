@@ -1,5 +1,5 @@
 import Writes from './Writes';
-import { addMemory, MemoryActions } from 'data/actions/post-actions';
+import { addMemory, MemoryActions } from 'data/actions/memory-actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Memory } from 'models/Post';
