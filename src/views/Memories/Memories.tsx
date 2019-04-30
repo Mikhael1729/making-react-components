@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import { Row } from 'components/Row';
 import { Space } from 'components/Space';
 import { Text } from 'components/Text';
-import { Memory as PostModel } from 'models/Post';
+import { Memory as MemoryModel } from 'models/Post';
 
 export interface IMemoriesProps {
-  posts: PostModel[];
-  addPost: (post: PostModel) => void;
+  posts: MemoryModel[];
+  addPost: (post: MemoryModel) => void;
   deletePost: (postId: number) => void;
   children?: React.ReactNode;
 }
@@ -16,6 +16,17 @@ export interface IMemoriesProps {
 export interface IMemoriesState { }
 
 export class Memories extends Component<IMemoriesProps, IMemoriesState> {
+  componentWillMount() {
+    this.loadPosts();
+  }
+
+  private loadPosts = async () => {
+    const response = await fetch("https://localhost:5001/api/memory");
+    const memories = await response.json() as MemoryModel[];
+
+    console.log('memories -->', memories);
+  }
+  
   render() {
     const { posts } = this.props;
 
